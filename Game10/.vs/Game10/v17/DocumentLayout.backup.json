@@ -1,0 +1,155 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|c:\\users\\user\\desktop\\gameproj\\game10\\game10\\game10 full.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|solutionrelative:game10\\game10 full.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|c:\\users\\user\\desktop\\gameproj\\game10\\game10\\cutscenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|solutionrelative:game10\\cutscenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|c:\\users\\user\\desktop\\gameproj\\game10\\game10\\igamecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|solutionrelative:game10\\igamecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|c:\\users\\user\\desktop\\gameproj\\game10\\game10\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|solutionrelative:game10\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|c:\\users\\user\\desktop\\gameproj\\game10\\game10\\keyqueue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|solutionrelative:game10\\keyqueue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|c:\\users\\user\\desktop\\gameproj\\game10\\game10\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|solutionrelative:game10\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|c:\\users\\user\\desktop\\gameproj\\game10\\game10\\game10.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{5F7BD17E-AEAF-455C-95C5-0BACE7242EF7}|Game10\\Game10.csproj|solutionrelative:game10\\game10.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IGameContext.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\IGameContext.cs",
+              "RelativeDocumentMoniker": "Game10\\IGameContext.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\IGameContext.cs",
+              "RelativeToolTip": "Game10\\IGameContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T16:52:23.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CutsceneManager.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\CutsceneManager.cs",
+              "RelativeDocumentMoniker": "Game10\\CutsceneManager.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\CutsceneManager.cs",
+              "RelativeToolTip": "Game10\\CutsceneManager.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowC0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T16:43:05.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Game10 Full.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Game10 Full.cs",
+              "RelativeDocumentMoniker": "Game10\\Game10 Full.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Game10 Full.cs",
+              "RelativeToolTip": "Game10\\Game10 Full.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAAwAgBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-19T05:27:30.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Player.cs",
+              "RelativeDocumentMoniker": "Game10\\Player.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Player.cs",
+              "RelativeToolTip": "Game10\\Player.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T07:27:25.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "KeyQueue.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\KeyQueue.cs",
+              "RelativeDocumentMoniker": "Game10\\KeyQueue.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\KeyQueue.cs",
+              "RelativeToolTip": "Game10\\KeyQueue.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T08:47:48.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Program.cs",
+              "RelativeDocumentMoniker": "Game10\\Program.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Program.cs",
+              "RelativeToolTip": "Game10\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T07:23:24.195Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Game10",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Game10.csproj",
+              "RelativeDocumentMoniker": "Game10\\Game10.csproj",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\GameProj\\Game10\\Game10\\Game10.csproj",
+              "RelativeToolTip": "Game10\\Game10.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-18T07:23:28.663Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
