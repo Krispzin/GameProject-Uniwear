@@ -64,22 +64,23 @@ namespace Game10
         {
             BackgroundColor = Color.Black;
 
-            visual = new Actor { Position = new Vector2(200, 200) };
-            All.Add(visual);
+            visual = new Actor { Position = new Vector2(0, 0) };
+            //All.Add(visual);
 
             var builder = new TileMapBuilder();
             // 1. level_1_background
-            var colision_map1 = builder.CreateSimple("/resource/colision.png", new Vector2(32, 32), 6, 1, "/tilemap/level_1_colision.csv");
-            var floor_map1 = builder.CreateSimple("/resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level_1_floor.csv");
-            var wall_map1 = builder.CreateSimple("resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level_1_wall.csv");
-            var traversal_deco_map1 = builder.CreateSimple("resource/Interiors_32x32.png",new Vector2(32, 32),16,1064,"tilemap/level_1_traversal_deco.csv");
-            var office_deco_map1 = builder.CreateSimple("resource/Modern_Office_Black_Shadow_32x32.png",new Vector2(32, 32),16,53,"tilemap/level_1_office_deco.csv");
+            // var colision_map1 = builder.CreateSimple("/resource/colision.png", new Vector2(32, 32), 6, 1, "/tilemap/level_1_colision.csv");
+            var floor_map1 = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level-1_floor.csv");
+            var wall_map1 = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level-1_wall.csv");
+            var traversal_deco_map1 = builder.CreateSimple("Content/resource/tileset/Interiors_32x32.png",new Vector2(32, 32),16,1064,"Content/resource/tilemap/level-1_traversal_deco.csv");
+            var office_deco_map1 = builder.CreateSimple("Content/resource/tileset/Modern_Office_Black_Shadow_32x32.png",new Vector2(32, 32),16,53,"Content/resource/tilemap/level-1_office_deco.csv");
 
-            visual.Add(colision_map1);
+            
             visual.Add(floor_map1);
             visual.Add(wall_map1);
             visual.Add(traversal_deco_map1);
             visual.Add(office_deco_map1);
+            //visual.Add(colision_map1);
 
             // PrepareTileSet();
 
@@ -87,8 +88,14 @@ namespace Game10
             // LoadRoom("mainRoom");
 
             // Create player last to ensure it's on top
-            player = new Player { Position = tileSize / 2 };
-            visual.Add(player);
+            var player = new Player { Position = tileSize / 2 };
+
+            var sorter = new TileMapSorter();
+            sorter.Add(player);
+
+            visual.Add(sorter);
+
+            All.Add(visual);
         }
 
         protected override void Update(float deltaTime)
