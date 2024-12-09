@@ -25,15 +25,29 @@ namespace Project2
 
             var panel = new Panel(new Vector2(580, 150), Color.White, Color.Black, 2);
             panel.Position = new Vector2(30, 240);
+            
+            //panel.Add(text);
 
-            var btn = new Button();
+            var atkBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ATTACK", new Vector2(175, 60));
+            atkBtn.Position = new Vector2(30, 400);
+            placeholder.Add(atkBtn);
+
+            var actBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ACT", new Vector2(175, 60));
+            actBtn.Position = new Vector2(ScreenSize.X / 2, 400);
+            actBtn.Origin = new Vector2(actBtn.RawSize.X / 2, 0);
+            placeholder.Add(actBtn);
+
+            var runBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "RUN", new Vector2(175, 60));
+            runBtn.Position = new Vector2(610, 400);
+            runBtn.Origin = new Vector2(runBtn.RawSize.X, 0);
+            placeholder.Add(runBtn);
 
             placeholder.Add(panel);
-            panel.Add(text);
+            
 
             All.Add(placeholder);
             
-            //All.Add(new MovingBar(All, new Vector2(30, 420)));
+            All.Add(new MovingBar(All, new Vector2(30, 420)));
         }
 
         protected override void Update(float deltaTime)
@@ -53,6 +67,7 @@ namespace Project2
                         text.AddAction(new TextAnimation(text, str[i+1], textSpeed: 45));
                 }
             }
+            
         }
     }
 }

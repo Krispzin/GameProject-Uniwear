@@ -24,10 +24,17 @@ namespace Project2
             //collisionObj.DebugDraw = true;
         }
 
-        public void OnCollide(CollisionObj objB, CollisionObj data)
+        //public void OnCollide(CollisionObj objB, CollisionObj data)
+        //{
+        //    var hitBar = objB.Actor as hitBar;
+        //    hitBar?.Detach();
+        //}
+
+        public override void Act(float deltaTime)
         {
-            //var hitBar = objB.Actor as hitBar;
-            //hitBar?.Detach();
+            base.Act(deltaTime);
+            if (Position.X < 600)
+                this.Detach();
         }
     }
 }
