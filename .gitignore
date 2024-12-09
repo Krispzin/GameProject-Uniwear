@@ -406,5 +406,5 @@ ASALocalRun/
 **/bin/*
 **/obj/*
 **/.vs/*
-Game10/Game10/obj/*
-Game10/Game10/bin/*
+Game10/Game10/obj/
+Game10/Game10/bin/
