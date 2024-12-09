@@ -84,9 +84,9 @@ namespace ThanaNita.MonoGameTnt
 
 
         // Generate events virtually from the polling
-        public List<Event> GenerateEvents()
+        public List<MouseEvent> GenerateEvents()
         {
-            var events = new List<Event>();
+            var events = new List<MouseEvent>();
 
             GenerateMouseEvents(events, MouseButtons.Left);
             GenerateMouseEvents(events, MouseButtons.Right);
@@ -96,7 +96,7 @@ namespace ThanaNita.MonoGameTnt
             return events;
         }
 
-        private void GenerateMouseEvents(List<Event> events, MouseButtons button)
+        private void GenerateMouseEvents(List<MouseEvent> events, MouseButtons button)
         {
             if (IsButtonPressed(button))
                 events.Add(CreateMouseEvent(MouseEvent.EventType.MousePressed, button));
@@ -104,7 +104,7 @@ namespace ThanaNita.MonoGameTnt
                 events.Add(CreateMouseEvent(MouseEvent.EventType.MouseReleased, button));
         }
 
-        private void GenerateOtherEvents(List<Event> events)
+        private void GenerateOtherEvents(List<MouseEvent> events)
         {
             if (IsPositionChanged())
                 events.Add(CreateMouseEvent(MouseEvent.EventType.MouseMoved, MouseButtons.None));

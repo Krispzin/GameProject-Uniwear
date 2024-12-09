@@ -9,13 +9,15 @@ namespace ThanaNita.MonoGameTnt
 {
     public class Label : Actor
     {
-        TextDrawable text;
+        Text text;
 
-        public string Text { get => text.Text; set => text.Text = value; }
+        public string Text { get => text.Str; set => text.Str = value; }
+        public float FontSize {get => text.FontSize; set => text.FontSize = value; }
+        public override Vector2 RawSize => text.RawSize;
 
         public Label(string fontName, float fontSize, Color color, string text)
         {
-            this.text = new TextDrawable(fontName, fontSize, Color.White, text);
+            this.text = new Text(fontName, fontSize, Color.White, text);
             this.Color = color;
         }
         public override void Draw(DrawTarget target, DrawState state)

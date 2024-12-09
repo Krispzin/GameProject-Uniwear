@@ -38,5 +38,18 @@ namespace ThanaNita.MonoGameTnt
         {
             return new Vector2i((int)a.X, (int)a.Y);
         }
+
+        public Vector2i PlusX(int dx = 1)
+        {
+            return new Vector2i(X + dx, Y);
+        }
+        public Vector2i PlusY(int dy = 1)
+        {
+            return new Vector2i(X, Y + dy);
+        }
+        public Vector2i PlusXY(int dx = 1, int dy = 1)
+        {
+            return new Vector2i(X + dx, Y + dy);
+        }
     }
 }

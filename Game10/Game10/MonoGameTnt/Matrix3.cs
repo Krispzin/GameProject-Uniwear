@@ -239,5 +239,58 @@ namespace ThanaNita.MonoGameTnt
             Vector2 maxPoint = Transform(rect.MaxPoint);
             return new RectF(minPoint, maxPoint-minPoint);
         }
+
+        /**Invert matrix
+         *   https://www.youtube.com/watch?app=desktop&v=lauh7KjEfXk
+         *   1. หา det A
+         *   2. หา cofactor matrix
+         *   3. Adjoint A = Transpose of cofactor matrix
+         *   4. A inverse = (1/Det A) * (Adjoint A)
+         */
+
+        public float Determinant()
+        {
+            var a = +m11 * Determinant2(m22, m23, m32, m33);
+            var b = -m12 * Determinant2(m21, m23, m31, m33);
+            var c = + m13 * Determinant2(m21, m22, m31, m32);
+            return a + b + c;
+        }
+
+        // https://www.youtube.com/watch?app=desktop&v=lauh7KjEfXk
+        public Matrix3 GetInverse()
+        {
+            // 1. find det
+            float det = Determinant();
+            if (det == 0)
+                return Matrix3.Identity;
+
+            // 2. find cofactor matrix
+            float c11 = Determinant2(m22, m23, m32, m33);
+            float c12 = -Determinant2(m21, m23, m31, m33);
+            float c13 = Determinant2(m21, m22, m31, m32);
+
+            float c21 = -Determinant2(m12, m13, m32, m33);
+            float c22 = Determinant2(m11, m13, m31, m33);
+            float c23 = -Determinant2(m11, m12, m31, m32);
+
+            float c31 = Determinant2(m12, m13, m22, m23);
+            float c32 = -Determinant2(m11, m13, m21, m23);
+            float c33 = Determinant2(m11, m12, m21, m22);
+
+            // 3-4. inverse = transpose(cofactor matrix) * (1/det)
+            float inv = 1 / det;
+            return new Matrix3(
+                inv * c11, inv * c21, inv * c31,
+                inv * c12, inv * c22, inv * c32,
+                inv * c13, inv * c23, inv * c33
+                );
+        }
+
+        // a b
+        // c d
+        private static float Determinant2(float a, float b, float c, float d)
+        {
+            return a * d - b * c;
+        }
     }
 }

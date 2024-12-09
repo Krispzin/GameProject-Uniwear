@@ -14,60 +14,77 @@ namespace Game10
         private Actor visual;
         private readonly Vector2 tileSize = new Vector2(128, 128);
 
-        private string currentRoom = "mainRoom";
+        // private string currentRoom = "mainRoom";
 
-
-        private readonly Dictionary<string, (int[,] layout, string[] transitions)> rooms = new Dictionary<string, (int[,] layout, string[] transitions)>()
-        {
-            {
-                "mainRoom",
-                (
-                    new int[4, 4] {
-                        {1, 2, 3, 1},
-                        {1, 1, 1, 1},
-                        {1, 1, 1, 1},
-                        {1, 1, 1, 4}  // Door to room1
-                    },
-                    new string[] { "room1" }  // Transitions available from this room
-                )
-            },
-            {
-                "room1",
-                (
-                    new int[4, 4] {
-                        {1, 4, 1, 1},
-                        {1, 1, 1, 1},  // 4 goes back to main room, 5 goes to room2
-                        {1, 1, 1, 1},
-                        {1, 1, 1, 5}
-                    },
-                    new string[] { "mainRoom", "room2" }  // Transitions available from this room
-                )
-            },
-            {
-                "room2",
-                (
-                    new int[4, 4] {
-                        {1,4, 1, 1},
-                        {1, 1, 1, 1},  // 4 goes back to room1
-                        {1, 1, 1, 1},
-                        {1, 1, 1, 1}
-                    },
-                    new string[] { "room1" }  // Transitions available from this room
-                )
-            }
-        };
+        // private readonly Dictionary<string, (int[,] layout, string[] transitions)> rooms =
+        //     new Dictionary<string, (int[,] layout, string[] transitions)>()
+        //     {
+        //         {
+        //             "mainRoom",
+        //             (
+        //                 new int[4, 4]
+        //                 {
+        //                     { 1, 2, 3, 1 },
+        //                     { 1, 1, 1, 1 },
+        //                     { 1, 1, 1, 1 },
+        //                     { 1, 1, 1, 4 } // Door to room1
+        //                 },
+        //                 new string[] { "room1" } // Transitions available from this room
+        //             )
+        //         },
+        //         {
+        //             "room1",
+        //             (
+        //                 new int[4, 4]
+        //                 {
+        //                     { 1, 4, 1, 1 },
+        //                     { 1, 1, 1, 1 }, // 4 goes back to main room, 5 goes to room2
+        //                     { 1, 1, 1, 1 },
+        //                     { 1, 1, 1, 5 }
+        //                 },
+        //                 new string[] { "mainRoom", "room2" } // Transitions available from this room
+        //             )
+        //         },
+        //         {
+        //             "room2",
+        //             (
+        //                 new int[4, 4]
+        //                 {
+        //                     { 1, 4, 1, 1 },
+        //                     { 1, 1, 1, 1 }, // 4 goes back to room1
+        //                     { 1, 1, 1, 1 },
+        //                     { 1, 1, 1, 1 }
+        //                 },
+        //                 new string[] { "room1" } // Transitions available from this room
+        //             )
+        //         }
+        //     };
 
         protected override void LoadContent()
         {
-            BackgroundColor = Color.White;
+            BackgroundColor = Color.Black;
 
             visual = new Actor { Position = new Vector2(200, 200) };
             All.Add(visual);
 
-            PrepareTileSet();
+            var builder = new TileMapBuilder();
+            // 1. level_1_background
+            var colision_map1 = builder.CreateSimple("/resource/colision.png", new Vector2(32, 32), 6, 1, "/tilemap/level-1_colision.csv");
+            var floor_map1 = builder.CreateSimple("/resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level-1_floor.csv");
+            var wall_map1 = builder.CreateSimple("resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level-1_wall.csv");
+            var traversal_deco_map1 = builder.CreateSimple("resource/Interiors_32x32",new Vector2(32, 32),16,1064,"tilemap/level-1_traversal_deco.csv");
+            var office_deco_map1 = builder.CreateSimple("resource/Modern_Office_Black_Shadow_32x32",new Vector2(32, 32),16,53,"tilemap/level_1_office_deco.csv");
+
+            visual.Add(colision_map1);
+            visual.Add(floor_map1);
+            visual.Add(wall_map1);
+            visual.Add(traversal_deco_map1);
+            visual.Add(office_deco_map1);
+
+            // PrepareTileSet();
 
             // Load initial room (mainRoom)
-            LoadRoom("mainRoom");
+            // LoadRoom("mainRoom");
 
             // Create player last to ensure it's on top
             player = new Player { Position = tileSize / 2 };
@@ -81,92 +98,94 @@ namespace Game10
             motion.Act(deltaTime);
 
             // Check for room transitions when motion is finished
-            if (motion.IsFinished())
-            {
-                CheckRoomTransition();
-            }
+            // if (motion.IsFinished())
+            // {
+            //     CheckRoomTransition();
+            // }
         }
 
-        private void CheckRoomTransition()
-        {
-            int currentTile = tileMap.GetTileCode(tileMap.CalcIndex(player.Position));
+        // private void CheckRoomTransition()
+        // {
+        //     int currentTile = tileMap.GetTileCode(tileMap.CalcIndex(player.Position));
 
-            // Get available transitions for current room
-            var availableTransitions = rooms[currentRoom].transitions;
+        //     // Get available transitions for current room
+        //     var availableTransitions = rooms[currentRoom].transitions;
 
-            switch (currentRoom)
-            {
-                case "mainRoom":
-                    if (currentTile == 4)  // Door to room1
-                    {
-                        ChangeRoom("room1");
-                    }
-                    break;
+        //     switch (currentRoom)
+        //     {
+        //         case "mainRoom":
+        //             if (currentTile == 4) // Door to room1
+        //             {
+        //                 ChangeRoom("room1");
+        //             }
+        //             break;
 
-                case "room1":
-                    if (currentTile == 4)  // Door back to main room
-                    {
-                        ChangeRoom("mainRoom");
-                    }
-                    else if (currentTile == 5)  // Door to room2
-                    {
-                        ChangeRoom("room2");
-                    }
-                    break;
+        //         case "room1":
+        //             if (currentTile == 4) // Door back to main room
+        //             {
+        //                 ChangeRoom("mainRoom");
+        //             }
+        //             else if (currentTile == 5) // Door to room2
+        //             {
+        //                 ChangeRoom("room2");
+        //             }
+        //             break;
 
-                case "room2":
-                    if (currentTile == 4)  // Door back to room1
-                    {
-                        ChangeRoom("room1");
-                    }
-                    break;
-            }
-        }
+        //         case "room2":
+        //             if (currentTile == 4) // Door back to room1
+        //             {
+        //                 ChangeRoom("room1");
+        //             }
+        //             break;
+        //     }
+        // }
 
-        private void ChangeRoom(string newRoom)
-        {
-            if (!rooms.ContainsKey(newRoom))
-                return;
+        // private void ChangeRoom(string newRoom)
+        // {
+        //     if (!rooms.ContainsKey(newRoom))
+        //         return;
 
-            currentRoom = newRoom;
+        //     currentRoom = newRoom;
 
-            // Remove existing actors
-            visual.Remove(player);
-            visual.Remove(tileMap);
+        //     // Remove existing actors
+        //     visual.Remove(player);
+        //     visual.Remove(tileMap);
 
-            // Load new room
-            LoadRoom(newRoom);
+        //     // Load new room
+        //     LoadRoom(newRoom);
 
-            // Reset player position and add back on top
-            player.Position = tileSize / 2;
-            visual.Add(player);
+        //     // Reset player position and add back on top
+        //     player.Position = tileSize / 2;
+        //     visual.Add(player);
 
-            // Reset movement
-            motion = LinearMotion.Empty();
-            keyQueue = new KeyQueue();
-        }
+        //     // Reset movement
+        //     motion = LinearMotion.Empty();
+        //     keyQueue = new KeyQueue();
+        // }
 
-        private void LoadRoom(string roomName)
-        {
-            if (!rooms.ContainsKey(roomName))
-                return;
+        // private void LoadRoom(string roomName)
+        // {
+        //     if (!rooms.ContainsKey(roomName))
+        //         return;
 
-            var roomLayout = rooms[roomName].layout;
-            tileMap = new TileMap(tileSize, roomLayout, CreateTile);
-            visual.Add(tileMap);
-        }
+        //     var roomLayout = rooms[roomName].layout;
+        //     tileMap = new TileMap(tileSize, roomLayout, CreateTile);
+        //     visual.Add(tileMap);
+        // }
 
-        private bool IsPlayerOnTileCode(int tileCode)
-        {
-            Vector2i playerTileIndex = tileMap.CalcIndex(player.Position);
-            return tileMap.GetTileCode(playerTileIndex) == tileCode;
-        }
+        // private bool IsPlayerOnTileCode(int tileCode)
+        // {
+        //     Vector2i playerTileIndex = tileMap.CalcIndex(player.Position);
+        //     return tileMap.GetTileCode(playerTileIndex) == tileCode;
+        // }
 
-        private void PrepareTileSet()
-        {
-            var texture = TextureCache.Get("TileSet.png");
-            tiles = RegionSelector.SelectAll(RegionCutter.Cut(texture, new Vector2(32, 32), 14, 25));
-        }
+        // private void PrepareTileSet()
+        // {
+        //     var texture = TextureCache.Get("TileSet.png");
+        //     tiles = RegionSelector.SelectAll(
+        //         RegionCutter.Cut(texture, new Vector2(32, 32), 14, 25)
+        //     );
+        // }
 
         private Actor CreateTile(int tileCode)
         {
@@ -181,11 +200,6 @@ namespace Game10
         KeyQueue keyQueue = new KeyQueue();
         LinearMotion motion = LinearMotion.Empty();
 
-
-
-
-
-
         private void LoadNewMap(int[,] layout)
         {
             if (tileMap != null && visual != null)
@@ -195,11 +209,9 @@ namespace Game10
             tileMap = new TileMap(tileSize, layout, CreateTile);
         }
 
-
-
         private void SmoothMovement()
         {
-            if (!motion.IsFinished()) // ถ้าไม่มีบรรทัดนี้ จะกดคีย์ใหม่ก่อนเคลื่อนที่เสร็จได้ 
+            if (!motion.IsFinished()) // ถ้าไม่มีบรรทัดนี้ จะกดคีย์ใหม่ก่อนเคลื่อนที่เสร็จได้
             {
                 var command1 = keyQueue.PeekCommand();
                 if (command1.IsOpposite(motion.Direction))
@@ -239,13 +251,12 @@ namespace Game10
         {
             CreateMotion(motion.TargetPosition, direction);
         }
+
         private void CreateMotion(Vector2 oldPosition, Vector2 direction)
         {
             var targetPosition = tileMap.TileCenter(oldPosition, direction);
             motion = new LinearMotion(player, speed: 300, targetPosition, direction);
         }
-
-
 
         private bool IsAllowMove(Vector2 direction)
         {
@@ -258,8 +269,5 @@ namespace Game10
             int tileCode = tileMap.GetTileCode(index);
             return tileCode != 2 && tileCode != 3;
         }
-
-
-
     }
 }

@@ -9,17 +9,16 @@ namespace ThanaNita.MonoGameTnt
     // Todo: ต้อง crop การเช็ค mouse event ของ Children ด้วย
     public class CropActor : Actor
     {
-        Vector2 Size { get; }
         RenderTarget2D offScreen = null;
         GraphicsDevice device;
-        SpriteDrawable sprite;
+        SpriteActor sprite;
         EffectAdapter adapter;
 
-        public CropActor(Vector2 size, EffectAdapter adapter, GraphicsDevice device = null)
+        public CropActor(Vector2 size, EffectAdapter adapter = null, GraphicsDevice device = null)
         {
-            Size = size;
+            RawSize = size;
             this.device = device ?? GlobalGraphicsDevice.Value;
-            this.adapter = adapter;
+            this.adapter = adapter ?? GlobalEffectAdapter.Value;
         }
 
         public override void Draw(DrawTarget target, DrawState state)
@@ -70,9 +69,9 @@ namespace ThanaNita.MonoGameTnt
 
             // combine.
 
-            offScreen = new RenderTarget2D(device, (int)MathF.Ceiling(Size.X), (int)MathF.Ceiling(Size.Y),
+            offScreen = new RenderTarget2D(device, (int)MathF.Ceiling(RawSize.X), (int)MathF.Ceiling(RawSize.Y),
                                             false, SurfaceFormat.Color, DepthFormat.None);
-            sprite = new SpriteDrawable(offScreen);
+            sprite = new SpriteActor(offScreen);
         }
     }
 }

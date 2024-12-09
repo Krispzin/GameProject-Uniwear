@@ -31,7 +31,7 @@ namespace ThanaNita.MonoGameTnt
             set { _backgroundColor = value; CreateBackgroundRect(); }
         }
         private Color? _backgroundColor = Color.CornflowerBlue;
-        private RectangleDrawable background;
+        private RectangleActor background;
 
         // Initialized by the constructor
         protected ViewportAdapterTypes ViewportAdapterType { get; }
@@ -74,7 +74,7 @@ namespace ThanaNita.MonoGameTnt
 
         protected override void Initialize()
         {
-            SetFullScreen(StartAsFullScreen);
+            SetFullScreen(StartAsFullScreen, true);
             SetDefaultGraphicsStates();
             InitStatic();
             CameraSetup();
@@ -122,6 +122,7 @@ namespace ThanaNita.MonoGameTnt
             GlobalMouseInfo.Value = MouseInfo;
             GlobalKeyboardInfo.Value = KeyboardInfo;
             GlobalGraphicsDeviceConfig.Value = Config;
+            GlobalEffectAdapter.Value = Adapter;
         }
 
         private void InitStatic()
@@ -166,7 +167,7 @@ namespace ThanaNita.MonoGameTnt
         private void CreateBackgroundRect()
         {
             if (BackgroundColor != null)
-                background = new RectangleDrawable(BackgroundColor.Value,
+                background = new RectangleActor(BackgroundColor.Value,
                                                 new RectF(0, 0, ScreenSize.X, ScreenSize.Y));
             else
                 background = null;
@@ -266,28 +267,34 @@ namespace ThanaNita.MonoGameTnt
 
         //******************** Toggle Full Screen **********************************************
 
-        //https://community.monogame.net/t/get-the-actual-screen-width-and-height-on-windows-10-c-monogame/10006/2
+        // https://community.monogame.net/t/get-the-actual-screen-width-and-height-on-windows-10-c-monogame/10006/2
         protected void ToggleFullScreen()
         {
-            SetFullScreen(!GraphicsManager.IsFullScreen);
+            SetFullScreen(!GraphicsManager.IsFullScreen, false);
         }
-        protected void SetFullScreen(bool bFullScreen)
+
+        // https://community.monogame.net/t/how-to-implement-borderless-fullscreen-on-desktopgl-project/8359
+        protected void SetFullScreen(bool bFullScreen, bool forcePreferredSize)
         {
+            Vector2 display = new Vector2(
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+
             if (bFullScreen)
             {
-                int w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                int h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
                 GraphicsManager.IsFullScreen = true;
-                GraphicsManager.HardwareModeSwitch = false; // https://community.monogame.net/t/how-to-implement-borderless-fullscreen-on-desktopgl-project/8359
-                GraphicsManager.PreferredBackBufferWidth = w;
-                GraphicsManager.PreferredBackBufferHeight = h;
+                GraphicsManager.HardwareModeSwitch = false;
+                GraphicsManager.PreferredBackBufferWidth = (int)display.X;
+                GraphicsManager.PreferredBackBufferHeight = (int)display.Y;
                 GraphicsManager.ApplyChanges();
             }
             else
             {
+                Vector2 size = (forcePreferredSize || (display.X > PreferredWindowSize.X && display.Y > PreferredWindowSize.Y)
+                        ) ? PreferredWindowSize : display * 0.75f;
                 GraphicsManager.IsFullScreen = false;
-                GraphicsManager.PreferredBackBufferWidth = (int)PreferredWindowSize.X;
-                GraphicsManager.PreferredBackBufferHeight = (int)PreferredWindowSize.Y;
+                GraphicsManager.PreferredBackBufferWidth = (int)size.X;
+                GraphicsManager.PreferredBackBufferHeight = (int)size.Y;
                 GraphicsManager.ApplyChanges();
             }
             Window.AllowUserResizing = true;

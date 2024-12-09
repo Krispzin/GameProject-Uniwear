@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace ThanaNita.MonoGameTnt
 {
     // Wrap the FontStashShape
-    public class TextDrawable : Transformable, Drawable
+    public class Text : Actor
     {
         private GraphicsDevice device;
         private FontSystem fontSystem;
@@ -18,9 +18,9 @@ namespace ThanaNita.MonoGameTnt
 
         private SpriteFontBase font;
         private float fontSize;
-        private Color color = Color.Black; // set this will reset colorArray to null
+                                // set this.Color will clear colorArray to null
         private Color[] colorArray = null; // if null, will use the (single) color
-        private string text;
+        private string str;
         private FontSystemEffect effect = FontSystemEffect.None;
         private int effectAmount = 1;
         private float characterSpacing = 0;
@@ -32,10 +32,15 @@ namespace ThanaNita.MonoGameTnt
             get => fontSize;
             set { fontSize = value; NeedUpdate(); }
         }
-        public Color Color
+        public override Color Color
         {
-            get => color;
-            set { color = value; colorArray = null; NeedUpdate(); }
+            get => base.Color;
+            set
+            {
+                base.Color = value;
+                colorArray = null;
+                NeedUpdate();
+            }
         }
         public Color[] ColorArray
         {
@@ -45,10 +50,10 @@ namespace ThanaNita.MonoGameTnt
                 colorArray = (Color[])value.Clone();
             }
         }
-        public string Text
+        public string Str
         {
-            get => text;
-            set { text = value; NeedUpdate(); }
+            get => str;
+            set { str = value; NeedUpdate(); }
         }
         public FontSystemEffect Effect 
         { 
@@ -74,33 +79,39 @@ namespace ThanaNita.MonoGameTnt
         { 
             get { Update(); return baseLineHeight; } 
         }
-        public float BaseLineHeightBelow { get { return LineHeight - BaseLineHeight; } }
         public float Width
         {
             get { Update(); return sizeInPixel.X; }
         }
+
+// ไม่ค่อยจำเป็น        public float BaseLineHeightBelow { get { return LineHeight - BaseLineHeight; } }
+/* ใช้ line height เป็นหลักดีกว่า เพราะตัวนี้ ค่า Y ด้านบนวัดจากขอบบนสุดซึ่งที่ว่างเยอะ แต่ด้านล่างวัดถึงสระอู ซึ่งดูไม่สมดุลระหว่างที่ว่างบนล่าง
         public Vector2 MeasuredSize
         {
             get { Update(); return sizeInPixel; }
+        }*/
+        public override Vector2 RawSize
+        {
+            get { Update(); return new Vector2(Width, LineHeight); }
         }
 
-        public TextDrawable(string fontName, float fontSize, Color color, string text)
+        public Text(string fontName, float fontSize, Color color, string str)
             : this(GlobalGraphicsDevice.Value, 
                   FontCache.Get(fontName),
-                  fontSize, color, text)
+                  fontSize, color, str)
         {
         }
 
-        public TextDrawable(GraphicsDevice device, FontSystem fontSystem, 
-            float fontSize, Color color, string text)
+        public Text(GraphicsDevice device, FontSystem fontSystem, 
+            float fontSize, Color color, string str)
         {
             this.device = device;
             this.fontSystem = fontSystem;
             this.renderer = new FontStashRenderer(device);
 
             this.fontSize = fontSize;
-            this.color = color;
-            this.text = text;
+            base.Color = color;
+            this.str = str;
             NeedUpdate();
         }
         private void NeedUpdate() { needUpdate = true; }
@@ -121,10 +132,10 @@ namespace ThanaNita.MonoGameTnt
         private void DrawText()
         {
             if(colorArray == null)
-                font.DrawText(renderer, text, new Vector2(), color, effect: Effect, effectAmount: EffectAmount
+                font.DrawText(renderer, str, new Vector2(), Color, effect: Effect, effectAmount: EffectAmount
                     , characterSpacing: characterSpacing);
             else
-                font.DrawText(renderer, text, new Vector2(), colorArray, effect: Effect, effectAmount: EffectAmount
+                font.DrawText(renderer, str, new Vector2(), colorArray, effect: Effect, effectAmount: EffectAmount
                     , characterSpacing: characterSpacing);
         }
         private void CalculateBaseLineAndTotalSize()
@@ -138,20 +149,19 @@ namespace ThanaNita.MonoGameTnt
             // เดาว่า glyphes จะเว้น \n ไว้
             // ส่วน character ที่ไม่มีเช่น ภาษาไทย เดาว่าใช้ default glyph
 
-            sizeInPixel = MeasureString(text);
+            sizeInPixel = MeasureString(str);
         }
-        private Vector2 MeasureString(string str)
+        public Vector2 MeasureString(string s)
         {
-            return font.MeasureString(str, effect: Effect, effectAmount: EffectAmount
+            return font.MeasureString(s, effect: Effect, effectAmount: EffectAmount
                 , characterSpacing: characterSpacing);
         }
-        public void Draw(DrawTarget target, DrawState state)
+        protected override void DrawSelf(DrawTarget target, DrawState state)
         {
             if (needUpdate)
                 Update();
 
-            var combine = state.Combine(this.GetMatrix(), (ColorF) color);
-            renderer.Draw(target, combine);
+            renderer.Draw(target, CombineState(state));
         }
 
         private class FontStashRenderer : IFontStashRenderer2
@@ -172,7 +182,7 @@ namespace ThanaNita.MonoGameTnt
             }
             public GraphicsDevice GraphicsDevice => device;
 
-            // วาดขึ้นจอจริงๆ
+            // วาดขึ้นจอจริงๆ : จังหวะนี้จึงค่อย apply state.transform ที่ส่งมาจาก caller (Text)
             public void Draw(DrawTarget target, DrawState state)
             {
                 var combine = state.Combine(GetSwapMatrix());
