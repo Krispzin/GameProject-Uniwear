@@ -34,6 +34,13 @@ namespace Project2
                 atkScreen = new AtkScreen(ExitNotifier);
                 All.Add(atkScreen);
             }
+
+            if (actor == atkScreen)
+            {
+                atkScreen.Detach();
+                atkScreen = null;
+                combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
+            }
         }
 
         protected override void Update(float deltaTime)

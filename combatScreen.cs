@@ -11,7 +11,9 @@ namespace Project2
         ExitNotifier exitNotifier;
         Text text;
         Placeholder placeholder = new Placeholder();
+        Button atkBtn, actBtn, runBtn;
         string[] str;
+        bool dialogDone = false;
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
@@ -24,17 +26,17 @@ namespace Project2
 
             panel.Add(text);
 
-            var atkBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ATTACK", new Vector2(175, 60));
+            atkBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ATTACK", new Vector2(175, 60));
             atkBtn.Position = new Vector2(30, 400);
             placeholder.Add(atkBtn);
 
 
-            var actBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ACT", new Vector2(175, 60));
+            actBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ACT", new Vector2(175, 60));
             actBtn.Position = new Vector2(ScreenSize.X / 2, 400);
             actBtn.Origin = new Vector2(actBtn.RawSize.X / 2, 0);
             placeholder.Add(actBtn);
 
-            var runBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "RUN", new Vector2(175, 60));
+            runBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "RUN", new Vector2(175, 60));
             runBtn.Position = new Vector2(610, 400);
             runBtn.Origin = new Vector2(runBtn.RawSize.X, 0);
             placeholder.Add(runBtn);
@@ -45,19 +47,47 @@ namespace Project2
 
         }
 
+
+
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
 
             var keyInfo = GlobalKeyboardInfo.Value;
-            for (int i = 0; i < str.Length - 1; i++)
+            if (!dialogDone)
             {
-                if (text.Str == str[i])
+                for (int i = 0; i < str.Length - 1; i++)
                 {
-                    if (keyInfo.IsKeyPressed(Keys.Space))
-                        this.AddAction(new TextAnimation(text, str[i + 1], textSpeed: 45));
+                    if (text.Str == str[i])
+                    {
+                        if (keyInfo.IsKeyPressed(Keys.Space))
+                        {
+                            if (i == str.Length)
+                            {
+                                dialogDone = true;
+                            }
+                            else
+                            {
+                                this.AddAction(new TextAnimation(text, str[i + 1], textSpeed: 45));
+                                break;
+                            }
+                        }
+                    }
                 }
             }
+
+            atkBtn.ButtonClicked += atkEvent;
+
+            if (dialogDone == true)
+            {
+                exitNotifier(this, 0);
+            }
+
+        }
+
+        private void atkEvent(GenericButton button)
+        {
+            dialogDone = true;
         }
     }
 }
