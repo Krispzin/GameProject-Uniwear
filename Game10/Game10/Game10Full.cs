@@ -69,11 +69,11 @@ namespace Game10
 
             var builder = new TileMapBuilder();
             // 1. level_1_background
-            var colision_map1 = builder.CreateSimple("/resource/colision.png", new Vector2(32, 32), 6, 1, "/tilemap/level-1_colision.csv");
-            var floor_map1 = builder.CreateSimple("/resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level-1_floor.csv");
-            var wall_map1 = builder.CreateSimple("resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level-1_wall.csv");
-            var traversal_deco_map1 = builder.CreateSimple("resource/Interiors_32x32",new Vector2(32, 32),16,1064,"tilemap/level-1_traversal_deco.csv");
-            var office_deco_map1 = builder.CreateSimple("resource/Modern_Office_Black_Shadow_32x32",new Vector2(32, 32),16,53,"tilemap/level_1_office_deco.csv");
+            var colision_map1 = builder.CreateSimple("/resource/colision.png", new Vector2(32, 32), 6, 1, "/tilemap/level_1_colision.csv");
+            var floor_map1 = builder.CreateSimple("/resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level_1_floor.csv");
+            var wall_map1 = builder.CreateSimple("resource/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"tilemap/level_1_wall.csv");
+            var traversal_deco_map1 = builder.CreateSimple("resource/Interiors_32x32.png",new Vector2(32, 32),16,1064,"tilemap/level_1_traversal_deco.csv");
+            var office_deco_map1 = builder.CreateSimple("resource/Modern_Office_Black_Shadow_32x32.png",new Vector2(32, 32),16,53,"tilemap/level_1_office_deco.csv");
 
             visual.Add(colision_map1);
             visual.Add(floor_map1);

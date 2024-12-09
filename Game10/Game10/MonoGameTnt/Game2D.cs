@@ -198,7 +198,7 @@ namespace ThanaNita.MonoGameTnt
             KeyboardInfo.Update();
 
             float deltaTime = CalcDeltaTime(gameTime);
-            Update(deltaTime);
+            //Update(deltaTime);
             //Act(deltaTime);
             All?.Act(deltaTime);
             AfterAct();
