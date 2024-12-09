@@ -68,19 +68,34 @@ namespace Game10
             //All.Add(visual);
 
             var builder = new TileMapBuilder();
-            // 1. level_1_background
+            // 1. load map1
             // var colision_map1 = builder.CreateSimple("/resource/colision.png", new Vector2(32, 32), 6, 1, "/tilemap/level_1_colision.csv");
-            var floor_map1 = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level-1_floor.csv");
-            var wall_map1 = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level-1_wall.csv");
-            var traversal_deco_map1 = builder.CreateSimple("Content/resource/tileset/Interiors_32x32.png",new Vector2(32, 32),16,1064,"Content/resource/tilemap/level-1_traversal_deco.csv");
-            var office_deco_map1 = builder.CreateSimple("Content/resource/tileset/Modern_Office_Black_Shadow_32x32.png",new Vector2(32, 32),16,53,"Content/resource/tilemap/level-1_office_deco.csv");
+            var floor_map1 = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level_1_floor.csv");
+            // floor_map1.ShowGrid = true; //show grid
+            var wall_map1 = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level_1_wall.csv");
+            var clothing_map1 = builder.CreateSimple("Content/resource/tileset/21_Clothing_Store_32x32.png",new Vector2(32, 32),16,67,"Content/resource/tilemap/level_1_clothing.csv");
+            var gym_map1 = builder.CreateSimple("Content/resource/tileset/8_Gym_32x32.png",new Vector2(32, 32),16,33,"Content/resource/tilemap/level_1_gym.csv");
+            var kitchen_map1 = builder.CreateSimple("Content/resource/tileset/12_Kitchen_32x32.png",new Vector2(32, 32),16,49,"Content/resource/tilemap/level_1_kitchen.csv");
+            var museum_map1 = builder.CreateSimple("Content/resource/tileset/22_Museum_32x32.png",new Vector2(32, 32),16,122,"Content/resource/tilemap/level_1_museum.csv");
+            var Hospital_map1 = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png",new Vector2(32, 32),16,110,"Content/resource/tilemap/level_1_Hospital.csv");
+            var generic_map1 = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png",new Vector2(32, 32),16,78,"Content/resource/tilemap/level_1_generic.csv");
+            var television_map1 = builder.CreateSimple("Content/resource/tileset/23_Television_and_Film_Studio_32x32.png",new Vector2(32, 32),16,14,"Content/resource/tilemap/level_1_television.csv");
+            var office_map1 = builder.CreateSimple("Content/resource/tileset/Modern_Office_Black_Shadow_32x32.png",new Vector2(32, 32),16,53,"Content/resource/tilemap/level_1_office.csv");
 
             
             visual.Add(floor_map1);
             visual.Add(wall_map1);
-            visual.Add(traversal_deco_map1);
-            visual.Add(office_deco_map1);
-            //visual.Add(colision_map1);
+            visual.Add(clothing_map1);
+            visual.Add(gym_map1);
+            visual.Add(kitchen_map1);
+            visual.Add(museum_map1);
+            visual.Add(Hospital_map1);
+            visual.Add(generic_map1);
+            visual.Add(television_map1);
+            visual.Add(office_map1);
+            // visual.Add(colision_map1);
+
+
 
             // PrepareTileSet();
 
