@@ -15,9 +15,44 @@ namespace Project2
             IsFixedTimeStep = false;
         }
 
+        Text text;
+        Placeholder placeholder = new Placeholder();
+        string[] str;
         protected override void LoadContent()
         {
-            All.Add(new MovingBar(All, new Vector2(30, 420)));
+            text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, " ") { Position = new(5, 5) };
+            str = ["ทดสอบระบบ สระแม่งติดมั้ยวะ? คุ", "2 asdasdasdasdasd", "3 asdasdasdasdasd"];
+
+            var panel = new Panel(new Vector2(580, 150), Color.White, Color.Black, 2);
+            panel.Position = new Vector2(30, 240);
+
+            var btn = new Button();
+
+            placeholder.Add(panel);
+            panel.Add(text);
+
+            All.Add(placeholder);
+            
+            //All.Add(new MovingBar(All, new Vector2(30, 420)));
+        }
+
+        protected override void Update(float deltaTime)
+        {
+
+            var keyInfo = GlobalKeyboardInfo.Value;
+            if (text.Str == " ")
+            {
+                text.AddAction(new TextAnimation(text, str[0], textSpeed: 45));
+            }
+
+            for (int i = 0; i < str.Length - 1; i++)
+            {
+                if (text.Str == str[i])
+                {
+                    if (keyInfo.IsKeyPressed(Keys.Space))
+                        text.AddAction(new TextAnimation(text, str[i+1], textSpeed: 45));
+                }
+            }
         }
     }
 }

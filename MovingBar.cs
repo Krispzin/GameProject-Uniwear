@@ -18,16 +18,16 @@ namespace Project2
 
             AddAction(new Mover(this, new Vector2(300, 0)));
 
-            var collisionObj = CollisionObj.CreateWithRect(this, 1);
-            collisionObj.Position = OnCollide;
-            Add(collisionObj);
-            collisionObj.DebugDraw = true;
+            //var collisionObj = CollisionObj.CreateWithRect(this, 1);
+            //collisionObj.Position = OnCollide;
+            //Add(collisionObj);
+            //collisionObj.DebugDraw = true;
         }
 
         public void OnCollide(CollisionObj objB, CollisionObj data)
         {
-            var hitBar = objB.Actor as hitBar;
-            hitBar?.Detach();
+            //var hitBar = objB.Actor as hitBar;
+            //hitBar?.Detach();
         }
     }
 }
