@@ -31,7 +31,7 @@ namespace Project2
             {
                 combatScreen.Detach();
                 combatScreen = null;
-                atkScreen = new AtkScreen(ExitNotifier);
+                atkScreen = new AtkScreen(ScreenSize, ExitNotifier);
                 All.Add(atkScreen);
             }
 

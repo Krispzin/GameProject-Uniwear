@@ -13,7 +13,6 @@ namespace Project2
         Placeholder placeholder = new Placeholder();
         Button atkBtn, actBtn, runBtn;
         string[] str;
-        bool dialogDone = false;
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
@@ -53,8 +52,10 @@ namespace Project2
         {
             base.Act(deltaTime);
 
+            var dialogDone = false;
+
             var keyInfo = GlobalKeyboardInfo.Value;
-            if (!dialogDone)
+            if (dialogDone == false)
             {
                 for (int i = 0; i < str.Length - 1; i++)
                 {
@@ -62,32 +63,25 @@ namespace Project2
                     {
                         if (keyInfo.IsKeyPressed(Keys.Space))
                         {
-                            if (i == str.Length)
-                            {
-                                dialogDone = true;
-                            }
-                            else
                             {
                                 this.AddAction(new TextAnimation(text, str[i + 1], textSpeed: 45));
                                 break;
                             }
                         }
                     }
+                    dialogDone = true;
                 }
             }
 
-            atkBtn.ButtonClicked += atkEvent;
-
             if (dialogDone == true)
             {
-                exitNotifier(this, 0);
+                atkBtn.ButtonClicked += atkEvent;
             }
-
         }
 
         private void atkEvent(GenericButton button)
         {
-            dialogDone = true;
+            exitNotifier(this, 0);
         }
     }
 }

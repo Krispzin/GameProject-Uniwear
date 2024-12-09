@@ -16,7 +16,7 @@ namespace Project2
             Origin = RawSize / 2;
             Position = ScreenSize;
 
-            AddAction(new Mover(this, new Vector2(300, 0)));
+            AddAction(new Mover(this, new Vector2(50, 0)));
 
             //var collisionObj = CollisionObj.CreateWithRect(this, 1);
             //collisionObj.Position = OnCollide;
@@ -33,7 +33,7 @@ namespace Project2
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
-            if (Position.X < 600)
+            if (Position.X > 800)
                 this.Detach();
         }
     }
