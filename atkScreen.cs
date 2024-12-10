@@ -41,6 +41,9 @@ namespace Project2
             runBtn.Origin = new Vector2(runBtn.RawSize.X, 0);
             placeholder.Add(runBtn);
             Add(placeholder);
+
+
+
         }
     }
 }

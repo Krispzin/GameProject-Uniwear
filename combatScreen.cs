@@ -72,6 +72,12 @@ namespace Project2
             }
 
             atkBtn.ButtonClicked += atkEvent;
+            actBtn.ButtonClicked += ActBtn_ButtonClicked;
+        }
+
+        private void ActBtn_ButtonClicked(GenericButton button)
+        {
+            exitNotifier(this, 0);
         }
 
         private void atkEvent(GenericButton button)

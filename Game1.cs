@@ -7,13 +7,14 @@ namespace Project2
 {
     public class Game1 : Game2D
     {
-        Actor combatScreen, atkScreen;
+        Actor combatScreen, atkScreen, actScreen;
         public Game1()
             : base(virtualScreenSize: new Vector2(640, 480),
                   preferredWindowSize: new Vector2(640, 480))
         {
             BackgroundColor = Color.White;
             IsFixedTimeStep = false;
+            
         }
 
         protected override void LoadContent()
@@ -21,7 +22,8 @@ namespace Project2
             CollisionDetectionUnit.AddDetector(1, 2);
 
             combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
-            All.Add(combatScreen);
+            actScreen = new ActScreen(ScreenSize, ExitNotifier);
+            All.Add(actScreen);
         }
 
         private void ExitNotifier(Actor actor, int code)
@@ -33,14 +35,18 @@ namespace Project2
             {
                 combatScreen.Detach();
                 combatScreen = null;
-                atkScreen = new AtkScreen(ScreenSize, ExitNotifier);
+                //atkScreen = new AtkScreen(ScreenSize, ExitNotifier);
+                actScreen = new ActScreen(ScreenSize, ExitNotifier);
                 All.Add(atkScreen);
-            }
-
-            if (actor == atkScreen)
+            }else   if (actor == atkScreen)
             {
                 atkScreen.Detach();
                 atkScreen = null;
+                combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
+            }else if(actor == actScreen)
+            {
+                actScreen.Detach();
+                actScreen = null;
                 combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
             }
         }
