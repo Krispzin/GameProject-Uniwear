@@ -10,15 +10,16 @@ using ThanaNita.MonoGameTnt;
 namespace Project2
 {
     public class HitBar : RectangleActor
-    {
+    { 
         public CollisionObj collisionObj;
+
         public HitBar(Vector2 ScreenSize)
             : base(Color.LightGray, new Vector2(3, 125))
         {
             Origin = RawSize / 2;
             Position = ScreenSize;
 
-            collisionObj = CollisionObj.CreateWithRect(this, RawRect.CreateAdjusted(4f, 1f),1);
+            collisionObj = CollisionObj.CreateWithRect(this, RawRect.CreateAdjusted(5f, 1f),1);
             collisionObj.OnCollide = OnCollide;
             collisionObj.DebugDraw = true;
             //Add(collisionObj);

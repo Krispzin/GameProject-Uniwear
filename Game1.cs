@@ -7,7 +7,7 @@ namespace Project2
 {
     public class Game1 : Game2D
     {
-        Actor combatScreen, atkScreen;
+        Actor combatScreen/*, kScreen*/;
         public Game1()
             : base(virtualScreenSize: new Vector2(640, 480),
                   preferredWindowSize: new Vector2(640, 480))
@@ -29,20 +29,20 @@ namespace Project2
             if (actor == null)
                 return;
 
-            if (actor == combatScreen)
-            {
-                combatScreen.Detach();
-                combatScreen = null;
-                atkScreen = new AtkScreen(ScreenSize, ExitNotifier);
-                All.Add(atkScreen);
-            }
+            //if (actor == combatScreen)
+            //{
+            //    combatScreen.Detach();
+            //    combatScreen = null;
+            //    atkScreen = new AtkScreen(ScreenSize, ExitNotifier);
+            //    All.Add(atkScreen);
+            //}
 
-            if (actor == atkScreen)
-            {
-                atkScreen.Detach();
-                atkScreen = null;
-                combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
-            }
+            //if (actor == atkScreen)
+            //{
+            //    atkScreen.Detach();
+            //    atkScreen = null;
+            //    combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
+            //}
         }
 
         protected override void Update(float deltaTime)
