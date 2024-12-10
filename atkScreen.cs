@@ -15,7 +15,8 @@ namespace Project2
 
             var panel = new Panel(new Vector2(580, 150), Color.White, Color.Black, 2);
             panel.Position = new Vector2(30, 240);
-            panel.Add(new MovingBar(this, ScreenSize));
+            panel.Add(new HitBar(panel.RawSize / 2));
+            panel.Add(new MovingBar(new Vector2(10, panel.RawSize.Y / 2)));
 
             Add(panel);
 

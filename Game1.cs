@@ -18,6 +18,8 @@ namespace Project2
 
         protected override void LoadContent()
         {
+            CollisionDetectionUnit.AddDetector(1, 2);
+
             combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
             All.Add(combatScreen);
         }
