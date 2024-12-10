@@ -148,6 +148,5 @@ namespace Project2
             ltBtn.Detach();
             htBtn.Detach();
         }
-
     }
 }

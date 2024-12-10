@@ -23,7 +23,6 @@ namespace Project2
 
             var collisionObj = CollisionObj.CreateWithRect(this, 2);
             Add(collisionObj);
-
         }
 
         public override void Act(float deltaTime)
