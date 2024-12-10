@@ -15,7 +15,7 @@ namespace Project2
         {
             Origin = RawSize / 2;
             Position = position;
-            AddAction(new Mover(this, new Vector2(300,0)));
+            AddAction(new Mover(this, new Vector2(500,0)));
 
             var collisionObj = CollisionObj.CreateWithRect(this, 2);
             Add(collisionObj);

@@ -21,12 +21,11 @@ namespace ThanaNita.MonoGameTnt
         {
             if (direction == AlignDirection.Down)
                 set.Position = new Vector2(refActor.Position.X, refActor.Position.Y + refActor.RawRect.YMax + delta);
-// Todo:
-//            else if (direction == AlignDirection.Right)
-//                set.Position = new Vector2(refActor.Position.X + refActor.RawRect.XMax + delta, refActor.Position.Y);
+            else if (direction == AlignDirection.Right)
+                set.Position = new Vector2(refActor.Position.X + refActor.RawRect.XMax + delta, refActor.Position.Y);
         }
     }
 
     public enum Align { Left = -1, Center = 0, Right = 1 };
-    public enum AlignDirection { Down }; // todo: , Right };
+    public enum AlignDirection { Down , Right }; // todo: , Right };
 }
