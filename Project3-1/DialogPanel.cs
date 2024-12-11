@@ -11,7 +11,7 @@ namespace Project3_1
 {
     public class DialogPanel : Actor
     {
-        public Placeholder placeholder = new Placeholder();
+        Placeholder placeholder = new Placeholder();
         Panel panel;
         Text text;
         string[] str;

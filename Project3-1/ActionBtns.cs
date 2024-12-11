@@ -12,9 +12,12 @@ namespace Project3_1
     {
         Placeholder placeholder = new Placeholder();
         Button atkButton, actButton, runButton;
-        public ActionBtns(Vector2 position, Vector2 screensize)
+        Actor panel;
+        public ActionBtns(Vector2 position, Vector2 screensize, Actor actor)
         {
             Position = position;
+
+            panel = actor;
 
             atkButton = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ATTACK", new Vector2(175, 40)) { Position = new(30, 420) };
 
@@ -30,6 +33,18 @@ namespace Project3_1
             placeholder.Add(runButton);
             
             Add(placeholder);
+        }
+
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            atkButton.ButtonClicked += atkChoice;
+        }
+
+        private void atkChoice(GenericButton button)
+        {
+            panel.Detach();
+            placeholder.Add(new AttackPanel(new Vector2(30, 240)));
         }
     }
 }

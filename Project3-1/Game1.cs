@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using ThanaNita.MonoGameTnt;
 
 namespace Project3_1
@@ -14,7 +15,7 @@ namespace Project3_1
                    preferredWindowSize: new Vector2(640, 480))
         {
             BackgroundColor = Color.DarkGray;
-            IsFixedTimeStep = false;
+            IsFixedTimeStep = true;
         }
 
         protected override void LoadContent()

@@ -28,7 +28,7 @@ namespace Project3_1
 
             //var playerHpBar = new PlayerHpBar(new Vector2(30, 390));
             //placeholder.Add(playerHpBar);
-            var actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize);
+            var actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
             placeholder.Add(actionbtns);
 
 
