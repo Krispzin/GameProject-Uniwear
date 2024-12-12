@@ -38,6 +38,11 @@ namespace Game12
 
         private void next(GenericButton button)
         {
+            exitNotifier(this, 0);
+        }
+
+        private void credit(GenericButton button)
+        {
             exitNotifier(this, 1);
         }
 
@@ -45,6 +50,7 @@ namespace Game12
         {
             base.Act(deltaTime);
             btnstar.ButtonClicked += next;
+            btncd.ButtonClicked += credit;
         }
 
     }

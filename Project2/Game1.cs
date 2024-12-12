@@ -7,11 +7,12 @@ namespace Project2
 {
     public class Game1 : Game2D
     {
+        Actor credit;
         Actor menuScreen;
         Actor inputScreen;
-            public Game1()
-                : base(virtualScreenSize: new Vector2(640, 480),
-                       preferredWindowSize: new Vector2(640, 480))
+        public Game1()
+            : base(virtualScreenSize: new Vector2(640, 480),
+                   preferredWindowSize: new Vector2(640, 480))
         {
             BackgroundColor = Color.DarkGray;
             IsFixedTimeStep = false;
@@ -31,19 +32,21 @@ namespace Project2
 
             if (actor == menuScreen)
             {
-                menuScreen.Detach();
-                menuScreen = null;
-                inputScreen = new InputScreen(ScreenSize, ExitNotifier);
-                All.Add(inputScreen);
+                if (code == 0)
+                {
+                    menuScreen.Detach();
+                    menuScreen = null;
+                    inputScreen = new InputScreen(ScreenSize, ExitNotifier);
+                    All.Add(inputScreen);
+                }
+                else if (code == 1)
+                {
+                    menuScreen.Detach();
+                    menuScreen = null;
+                    credit = new Credit(ScreenSize, ExitNotifier);
+                    All.Add(credit);
+                }
             }
-
-            //if (actor == InputScreen)
-            //{
-            //    InputScreen.Detach();
-            //    InputScreen = null;
-            //    InputScreen = new MenuScreen(ScreenSize, ExitNotifier);
-            //    All.Add(MenuScreen);
-            //}
 
             else if (actor == inputScreen)
             {
@@ -54,9 +57,21 @@ namespace Project2
                     menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
                     All.Add(menuScreen);
                 }
-                
+
+            }
+            else if (actor == credit)
+            {
+                if (code == 1)
+                {
+                    credit.Detach();
+                    credit = null;
+                    menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
+                    All.Add(menuScreen);
+                }
+
             }
 
+            }
         }
     }
-}
+

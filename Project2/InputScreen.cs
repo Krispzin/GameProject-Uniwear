@@ -11,7 +11,7 @@ namespace Project2
 {
     public class InputScreen : Actor
     {
-        Button button1;
+        private Button btnb;
         Text text;
         ExitNotifier exitNotifier;
         public InputScreen(Vector2 screenSize, ExitNotifier exitNotifier)
@@ -21,21 +21,21 @@ namespace Project2
                             "User Interface: test");
            Add(text);
 
-            button1 = new Button("Poppins-Medium.ttf", 50, Color.Black, "Back", new Vector2(100, 80));
+            btnb = new Button("Poppins-Medium.ttf", 50, Color.Black, "Back", new Vector2(100, 80));
 
-            button1.Position = new Vector2(140, 220);
+            btnb.Position = new Vector2(140, 220);
 
-            Add(button1);
+            Add(btnb);
         }
         private void back (GenericButton button) 
         {
-            exitNotifier(this, 1);
+            exitNotifier(this,1);
         }
 
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
-            button1.ButtonClicked += back;
+            btnb.ButtonClicked += back;
         }
     }
 }
