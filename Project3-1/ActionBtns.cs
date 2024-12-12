@@ -14,14 +14,14 @@ namespace Project3_1
         Placeholder placeholder = new Placeholder();
         Button atkButton, ltBtn, hvBtn, actButton, runButton;
         Actor panel, newPanel, myParent;
-        public bool isChoosed = false;
+        AttackPanel attackPanel;
+        CombatScreen combatScreen;
+        public bool isChoosed;
         public string atkType = "";
 
-        public ActionBtns(Vector2 position, Vector2 screensize, Actor actor, Actor parent)
+        public ActionBtns(Vector2 position, Vector2 screensize, Actor actor)
         {
             Position = position;
-
-            myParent = parent;
 
             panel = actor;
 
@@ -67,11 +67,17 @@ namespace Project3_1
 
         }
 
+        public bool isDone()
+        {
+            return true;
+        }
+
         private void btnActions()
         {
             atkButton.ButtonClicked += atkChoice;
             ltBtn.ButtonClicked += ltbtn;
             hvBtn.ButtonClicked += hvbtn;
+            isChoosed = false;
         }
 
         private void atkChoice(GenericButton button)
@@ -86,14 +92,16 @@ namespace Project3_1
 
         private void ltbtn(GenericButton button)
         {
-            atkType = "lightATK";
-            isChoosed = true;
+            newPanel.Detach();
+            atkType = "lightAtk";
+            isDone();
         }
 
         private void hvbtn(GenericButton button)
         {
-            atkType = "heavyATK";
-            isChoosed = true;
+            newPanel.Detach();
+            atkType = "heavyAtk";
+            isDone();
         }
     }
 }

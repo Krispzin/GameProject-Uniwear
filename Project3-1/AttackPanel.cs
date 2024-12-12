@@ -18,14 +18,14 @@ namespace Project3_1
         private bool isDone = false;
         private float lifeTime = 0;
         private float lifeTimeLimit;
-        private enum Choices { non, lightATK, heavyATK }
-        private Choices choice = Choices.non;
+        private string choice;
         Button ltBtn, hvBtn;
         Actor actor;
 
-        public AttackPanel(Vector2 vector2, string choice)
+        public AttackPanel(Vector2 vector2, string selectChoice)
         {
             //this.actor = actor;
+            choice = selectChoice;
             position = vector2;
             Position = position;
 
@@ -65,7 +65,7 @@ namespace Project3_1
         {
             base.Act(deltaTime);
 
-            if (choice == Choices.lightATK)
+            if (choice == "lightAtk")
             {
                 lifeTimeLimit = 2.5f;
 
@@ -73,12 +73,12 @@ namespace Project3_1
                 if (lifeTime >= lifeTimeLimit)
                 {
                     lifeTime = 0;
-                    choice = Choices.non;
+                    choice = null;
                     this.Parent.Add(this.actor);
                     this.Detach();
                 }
             }
-            else if (choice == Choices.heavyATK)
+            else if (choice == "heavyAtk")
             {
                 lifeTimeLimit = 3.1f;
 
@@ -86,7 +86,7 @@ namespace Project3_1
                 if (lifeTime >= lifeTimeLimit)
                 {
                     lifeTime = 0;
-                    choice = Choices.non;
+                    choice = null;
                     this.Parent.Add(this.actor);
                     this.Detach();
                 }
@@ -96,13 +96,11 @@ namespace Project3_1
         private void ltbtn(GenericButton button)
         {
             lightAtk();
-            ChooseChoice(Choices.lightATK);
         }
 
         private void hvbtn(GenericButton button)
         {
             heavyAtk();
-            ChooseChoice(Choices.heavyATK);
         }
 
         private void lightAtk()

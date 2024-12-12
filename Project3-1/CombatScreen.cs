@@ -13,8 +13,8 @@ namespace Project3_1
         ExitNotifier exitNotifier;
         Game1 game1;
         ActionBtns actionBtns;
-        private enum State { Init, PPreTurn, PlayerAction, EnemyReaction, StatusUpdate, EPreTurn, EnemyAction, PlayerReaction, TurnEnd }
-        private State state = State.Init;
+        public enum State { Init, PPreTurn, PlayerAction, EnemyReaction, StatusUpdate, EPreTurn, EnemyAction, PlayerReaction, TurnEnd }
+        public State state = State.Init;
         public Actor dialogPanel, actionbtns, attackPanel;
         Panel panel;
         Text text;
@@ -30,7 +30,7 @@ namespace Project3_1
 
             //var playerHpBar = new PlayerHpBar(new Vector2(30, 390));
             //placeholder.Add(playerHpBar);
-            actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel, this);
+            actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
             //placeholder.Add(actionbtns);
 
 
@@ -59,6 +59,7 @@ namespace Project3_1
             else if (state == State.PPreTurn)
             {
                 actionBtns.Act(deltaTime);
+                Debug.WriteLine("");
                 if (actionBtns.isChoosed == true)
                     state = State.PlayerAction;
             }
