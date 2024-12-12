@@ -14,7 +14,7 @@ namespace Project2
         public CollisionObj collisionObj;
 
         public HitBar(Vector2 ScreenSize)
-            : base(Color.LightGray, new Vector2(3, 125))
+            : base(Color.LightGray, new Vector2(30f, 125))
         {
             Origin = RawSize / 2;
             Position = ScreenSize;

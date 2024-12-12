@@ -17,6 +17,8 @@ namespace Project2
         Placeholder placeholder = new Placeholder();
         Button atkBtn, actBtn, runBtn, ltBtn, htBtn;
         string[] str;
+        Player player;
+
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
@@ -29,8 +31,8 @@ namespace Project2
 
             panel.Add(text);
 
-            var playerState = new Player(new Vector2(30, 390));
-            Add(playerState);
+            player = new Player(new Vector2(30, 390)); // Player instance
+            Add(player);
 
             atkBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ATTACK", new Vector2(175, 40));
             atkBtn.Position = new Vector2(30, 420);
@@ -40,8 +42,6 @@ namespace Project2
             {
                 Position = new(10, 10),
                 NormalColor = Color.Transparent,
-                NormalColorLine = Color.Transparent,
-                HighlightColor = Color.Transparent,
                 HighlightColorLine = Color.DarkGray,
                 PressedColor = Color.DarkGray,
                 PressedColorLine = Color.Gray
@@ -51,13 +51,10 @@ namespace Project2
             {
                 Position = new(10, 50),
                 NormalColor = Color.Transparent,
-                NormalColorLine = Color.Transparent,
-                HighlightColor = Color.Transparent,
                 HighlightColorLine = Color.DarkGray,
                 PressedColor = Color.DarkGray,
                 PressedColorLine = Color.Gray
             };
-
 
             actBtn = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ACT", new Vector2(175, 40));
             actBtn.Position = new Vector2(ScreenSize.X / 2, 420);
@@ -70,7 +67,7 @@ namespace Project2
             placeholder.Add(runBtn);
 
             placeholder.Add(panel);
-            Add(placeholder);   
+            Add(placeholder);
             text.AddAction(new TextAnimation(text, str[0], textSpeed: 45));
 
             ChangeState(State.Init);
@@ -81,8 +78,6 @@ namespace Project2
             state = newState;
         }
 
-
-
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
@@ -90,7 +85,7 @@ namespace Project2
             var keyInfo = GlobalKeyboardInfo.Value;
             if (state == State.Init)
             {
-                if (dialogDone == false)
+                if (!dialogDone)
                 {
                     for (int i = 0; i < str.Length - 1; i++)
                     {
@@ -98,33 +93,24 @@ namespace Project2
                         {
                             if (keyInfo.IsKeyPressed(Keys.Space))
                             {
-                                {
-                                    this.AddAction(new TextAnimation(text, str[i + 1], textSpeed: 45));
-                                }
+                                this.AddAction(new TextAnimation(text, str[i + 1], textSpeed: 45));
                             }
                         }
                     }
-                    if (text.Str == str[str.Length - 1])
+                    if (text.Str == str[^1])
                         dialogDone = true;
                 }
-                if (dialogDone ==  true) 
+                if (dialogDone)
                     ChangeState(State.PPreTurn);
             }
             else if (state == State.PPreTurn)
             {
-                if (isClicked == false)
+                if (!isClicked)
                 {
                     atkBtn.ButtonClicked += atkEvent;
                     isClicked = true;
                 }
-                else
-                {
-                    ltBtn.ButtonClicked += ltBtnEvent;
-                    htBtn.ButtonClicked += htBtnEvent;
-                }
-                isClicked = false;
             }
-
         }
 
         private void atkEvent(GenericButton button)
@@ -132,7 +118,9 @@ namespace Project2
             text.Detach();
             panel.Add(ltBtn);
             panel.Add(htBtn);
-            isClicked = true;
+
+            ltBtn.ButtonClicked += ltBtnEvent;
+            htBtn.ButtonClicked += htBtnEvent;
         }
 
         private void ltBtnEvent(GenericButton button)
@@ -140,13 +128,16 @@ namespace Project2
             ltBtn.Detach();
             htBtn.Detach();
             panel.Add(new HitBar(panel.RawSize / 2));
-            panel.Add(new LtMovingBar(new Vector2(10, panel.RawSize.Y / 2)));
+            panel.Add(new LtMovingBar(new Vector2(10, panel.RawSize.Y / 2), player, damage: 5));
         }
 
         private void htBtnEvent(GenericButton button)
         {
             ltBtn.Detach();
             htBtn.Detach();
+            panel.Add(new HitBar(panel.RawSize / 2));
+            panel.Add(new LtMovingBar(new Vector2(10, panel.RawSize.Y / 2), player, damage: 10)); // Higher damage
         }
     }
+
 }
