@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Project3_1
         Placeholder placeholder = new Placeholder();
         Panel panel;
         private Vector2 position;
+        private bool isDone = false;
         Button ltBtn, hvBtn;
         public AttackPanel(Vector2 vector2)
         {
@@ -59,6 +61,7 @@ namespace Project3_1
         private void ltbtn(GenericButton button)
         {
             lightAtk();
+
         }
 
         private void hvbtn(GenericButton button)
@@ -68,27 +71,38 @@ namespace Project3_1
 
         private void lightAtk()
         {
-            ltBtn.Detach();
-            hvBtn.Detach();
-            placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
+            if (!isDone)
+            {
+                ltBtn.Detach();
+                hvBtn.Detach();
+                placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
+                //placeholder.Add(new DetBar(new Vector2(540, 5)));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
+                //placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
+                //placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
+                isDone = true;
+            }
+
         }
 
         private void heavyAtk()
         {
-            ltBtn.Detach();
-            hvBtn.Detach();
-            placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.8f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 1.2f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 1.6f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 1.8f));
-            placeholder.Add(new MovingBar(new Vector2(10, 10), 2f));
+            if (!isDone)
+            {
+                ltBtn.Detach();
+                hvBtn.Detach();
+                placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.8f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 1.2f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 1.6f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 1.8f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 2f));
+                isDone = true;
+            }
+
         }
     }
 }

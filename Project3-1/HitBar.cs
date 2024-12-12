@@ -11,17 +11,19 @@ namespace Project3_1
 {
     public class HitBar : RectangleActor
     { 
-        public CollisionObj collisionObj;
-        public float hitTimes;
+        public CollisionObj hitCollisionObj;
+        public int hitTimes;
 
         public HitBar(Vector2 ScreenSize)
             : base(Color.LightGray, new Vector2(3, 125))
         {
             Position = ScreenSize;
 
-            collisionObj = CollisionObj.CreateWithRect(this, RawRect.CreateAdjusted(6.33f, 1f),1);
-            collisionObj.OnCollide = OnCollide;
-            collisionObj.DebugDraw = true;
+            hitTimes = 0;
+
+            hitCollisionObj = CollisionObj.CreateWithRect(this, RawRect.CreateAdjusted(6.33f, 1f),1);
+            hitCollisionObj.OnCollide = OnCollide;
+            hitCollisionObj.DebugDraw = true;
             //Add(collisionObj);
         }
 
@@ -33,11 +35,11 @@ namespace Project3_1
 
             if (keyInfo.IsRightButtonPressed())
             {
-                Add(collisionObj);
+                Add(hitCollisionObj);
             }
             else
             {
-                Remove(collisionObj);
+                Remove(hitCollisionObj);
             }
         }
 
