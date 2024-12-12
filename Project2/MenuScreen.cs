@@ -5,48 +5,50 @@ using ThanaNita.MonoGameTnt;
 
 namespace Game12
 {
-  
+   
 
-        public class MenuScreen : Actor
-        {
-            ExitNotifier exitNotifier;
+    public class MenuScreen : Actor
+    {
+        private Button btnstar, btncd, btnexit;
+        ExitNotifier exitNotifier;
         public MenuScreen(Vector2 screenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
 
-            var button1 = new Button("Poppins-Medium.ttf", 50, Color.Black, "Click Me", new Vector2(300, 100));
+            btnstar = new Button("Poppins-Medium.ttf", 50, Color.Black, "Start", new Vector2(100, 80));
 
-            button1.Position = new Vector2(screenSize.X / 2 - button1.RawSize.X / 2, screenSize.Y / 2 - button1.RawSize.Y / 2);
+            btnstar.Position = new Vector2(140, 220);
 
-            Add(button1);
-            /*
+            Add(btnstar);
 
-                var button2 = new Button("Poppins-Medium.ttf", 50, Color.Black, "kuy", new Vector2(300, 100));
 
-                button2.Position = new Vector2(screenSize.X / 2 - button2.RawSize.X / 2, screenSize.Y / 2 - button2.RawSize.Y / 2);
+            btncd = new Button("Poppins-Medium.ttf", 50, Color.Black, "Credit", new Vector2(100, 80));
 
-                Add(button2);
-            }
-            */
+            btncd.Position = new Vector2(260, 220);
+
+            Add(btncd);
+
+            btnexit = new Button("Poppins-Medium.ttf", 50, Color.Black, "Exit", new Vector2(100, 80));
+
+            btnexit.Position = new Vector2(380, 220);
+
+            Add(btnexit);
+
         }
-            private Actor selection = null;
-            private Vector2 click;
-            public override void Act(float deltaTime)
-            {
-                base.Act(deltaTime);
 
-                var mouseInfo = GlobalMouseInfo.Value;
-                var keyInfo = GlobalKeyboardInfo.Value;
-
-                if (mouseInfo.IsLeftButtonPressed())
-                    AddAction(new SequenceAction(
-                                    Actions.FadeOut(0.2f, this),
-                                    new RunAction(() => exitNotifier(this, 0))
-                        ));
-
-            }
+        private void next(GenericButton button)
+        {
+            exitNotifier(this, 1);
         }
+
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+            btnstar.ButtonClicked += next;
+        }
+
     }
+}
 
         
         

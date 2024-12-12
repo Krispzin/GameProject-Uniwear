@@ -7,8 +7,8 @@ namespace Project2
 {
     public class Game1 : Game2D
     {
-        Actor MenuScreen;
-        Actor inputN;
+        Actor menuScreen;
+        Actor inputScreen;
             public Game1()
                 : base(virtualScreenSize: new Vector2(640, 480),
                        preferredWindowSize: new Vector2(640, 480))
@@ -18,8 +18,10 @@ namespace Project2
         }
         protected override void LoadContent()
         {
-            MenuScreen = new MenuScreen(ScreenSize, ExitNotifier);
-            All.Add(MenuScreen);
+            menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
+            All.Add(menuScreen);
+
+
         }
 
         private void ExitNotifier(Actor actor, int code)
@@ -27,19 +29,32 @@ namespace Project2
             if (actor == null)
                 return;
 
-            if (actor == MenuScreen)
+            if (actor == menuScreen)
             {
-                MenuScreen.Detach();
-                MenuScreen = null;
-                inputN = new inputN(ExitNotifier);
-                All.Add(inputN);
+                menuScreen.Detach();
+                menuScreen = null;
+                inputScreen = new InputScreen(ScreenSize, ExitNotifier);
+                All.Add(inputScreen);
             }
-            else if (actor == inputN)
+
+            //if (actor == InputScreen)
+            //{
+            //    InputScreen.Detach();
+            //    InputScreen = null;
+            //    InputScreen = new MenuScreen(ScreenSize, ExitNotifier);
+            //    All.Add(MenuScreen);
+            //}
+
+            else if (actor == inputScreen)
             {
-                inputN.Detach();
-                inputN = null;
-                inputN = new MenuScreen(ScreenSize, ExitNotifier);
-                All.Add(MenuScreen);
+                if (code == 1)
+                {
+                    inputScreen.Detach();
+                    inputScreen = null;
+                    menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
+                    All.Add(menuScreen);
+                }
+                
             }
 
         }
