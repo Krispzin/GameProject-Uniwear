@@ -32,6 +32,7 @@ namespace Project2
 
             if (actor == menuScreen)
             {
+                //Start button
                 if (code == 0)
                 {
                     menuScreen.Detach();
@@ -39,12 +40,18 @@ namespace Project2
                     inputScreen = new InputScreen(ScreenSize, ExitNotifier);
                     All.Add(inputScreen);
                 }
+                //Credit button
                 else if (code == 1)
                 {
                     menuScreen.Detach();
                     menuScreen = null;
                     credit = new Credit(ScreenSize, ExitNotifier);
                     All.Add(credit);
+                }
+                //Exit button
+                else if (code == 2)
+                {
+                    this.Exit();
                 }
             }
 
@@ -70,6 +77,7 @@ namespace Project2
                 }
 
             }
+
 
             }
         }

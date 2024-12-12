@@ -35,6 +35,7 @@ namespace Game12
             Add(btnexit);
 
         }
+        
 
         private void next(GenericButton button)
         {
@@ -46,11 +47,16 @@ namespace Game12
             exitNotifier(this, 1);
         }
 
+        private void exit(GenericButton button)
+        {
+            exitNotifier(this, 2);
+        }
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
             btnstar.ButtonClicked += next;
             btncd.ButtonClicked += credit;
+            btnexit.ButtonClicked += exit;
         }
 
     }
