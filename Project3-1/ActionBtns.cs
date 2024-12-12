@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +12,44 @@ namespace Project3_1
     public class ActionBtns : Actor
     {
         Placeholder placeholder = new Placeholder();
-        Button atkButton, actButton, runButton;
-        Actor panel;
-        public ActionBtns(Vector2 position, Vector2 screensize, Actor actor)
+        Button atkButton, ltBtn, hvBtn, actButton, runButton;
+        Actor panel, newPanel, myParent;
+        public bool isChoosed = false;
+        public string atkType = "";
+
+        public ActionBtns(Vector2 position, Vector2 screensize, Actor actor, Actor parent)
         {
             Position = position;
 
+            myParent = parent;
+
             panel = actor;
 
+            newPanel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
+            newPanel.Position = new Vector2(30, 240);
+
             atkButton = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ATTACK", new Vector2(175, 40)) { Position = new(30, 420) };
+            ltBtn = new Button("ChakraPetch-Bold.ttf", 20, Color.Orange, "Light Attack", new Vector2(120, 30))
+            {
+                Position = new(10, 10),
+                NormalColor = Color.Transparent,
+                NormalColorLine = Color.Transparent,
+                HighlightColor = Color.Transparent,
+                HighlightColorLine = Color.DarkGray,
+                PressedColor = Color.DarkGray,
+                PressedColorLine = Color.Gray
+            };
+
+            hvBtn = new Button("ChakraPetch-Bold.ttf", 20, Color.Red, "Heavy Attack", new Vector2(120, 30))
+            {
+                Position = new(10, 50),
+                NormalColor = Color.Transparent,
+                NormalColorLine = Color.Transparent,
+                HighlightColor = Color.Transparent,
+                HighlightColorLine = Color.DarkGray,
+                PressedColor = Color.DarkGray,
+                PressedColorLine = Color.Gray
+            };
 
             actButton = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ACT", new Vector2(175, 40));
             actButton.Position = new Vector2(screensize.X / 2, 420);
@@ -31,20 +61,39 @@ namespace Project3_1
             placeholder.Add(atkButton);
             placeholder.Add(actButton);
             placeholder.Add(runButton);
-            
+
             Add(placeholder);
+            btnActions();
+
         }
 
-        public override void Act(float deltaTime)
+        private void btnActions()
         {
-            base.Act(deltaTime);
             atkButton.ButtonClicked += atkChoice;
+            ltBtn.ButtonClicked += ltbtn;
+            hvBtn.ButtonClicked += hvbtn;
         }
 
         private void atkChoice(GenericButton button)
         {
+            Debug.WriteLine(panel);
             panel.Detach();
-            placeholder.Add(new AttackPanel(new Vector2(30, 240)));
+            placeholder.Add(newPanel);
+            newPanel.Add(ltBtn);
+            newPanel.Add(hvBtn);
+            //placeholder.Add(new AttackPanel(new Vector2(30, 240), new DialogPanel(new Vector2(30, 240))));
+        }
+
+        private void ltbtn(GenericButton button)
+        {
+            atkType = "lightATK";
+            isChoosed = true;
+        }
+
+        private void hvbtn(GenericButton button)
+        {
+            atkType = "heavyATK";
+            isChoosed = true;
         }
     }
 }

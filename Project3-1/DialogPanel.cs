@@ -19,7 +19,7 @@ namespace Project3_1
         {
             Position = position;
 
-            text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "ควย") { Position = new(5, 5) };
+            text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
             str = ["ทดสอบระบบ สระแม่งติดมั้ยวะ? คุ", "2 asdasdasdasdasd", "3 asdasdasdasdasd"];
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);

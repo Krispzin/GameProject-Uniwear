@@ -16,14 +16,22 @@ namespace Project3_1
         Panel panel;
         private Vector2 position;
         private bool isDone = false;
+        private float lifeTime = 0;
+        private float lifeTimeLimit;
+        private enum Choices { non, lightATK, heavyATK }
+        private Choices choice = Choices.non;
         Button ltBtn, hvBtn;
-        public AttackPanel(Vector2 vector2)
+        Actor actor;
+
+        public AttackPanel(Vector2 vector2, string choice)
         {
+            //this.actor = actor;
             position = vector2;
             Position = position;
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
 
+            /*
             ltBtn = new Button("ChakraPetch-Bold.ttf", 20, Color.Orange, "Light Attack", new Vector2(120, 30))
             {
                 Position = new(10, 10),
@@ -45,50 +53,70 @@ namespace Project3_1
                 PressedColor = Color.DarkGray,
                 PressedColorLine = Color.Gray
             };
+            */
+
             placeholder.Add(panel);
-            placeholder.Add(ltBtn);
-            placeholder.Add(hvBtn);
+            //placeholder.Add(ltBtn);
+            //placeholder.Add(hvBtn);
             Add(placeholder);
         }
 
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
-            ltBtn.ButtonClicked += ltbtn;
-            hvBtn.ButtonClicked += hvbtn;
+
+            if (choice == Choices.lightATK)
+            {
+                lifeTimeLimit = 2.5f;
+
+                lifeTime += deltaTime;
+                if (lifeTime >= lifeTimeLimit)
+                {
+                    lifeTime = 0;
+                    choice = Choices.non;
+                    this.Parent.Add(this.actor);
+                    this.Detach();
+                }
+            }
+            else if (choice == Choices.heavyATK)
+            {
+                lifeTimeLimit = 3.1f;
+
+                lifeTime += deltaTime;
+                if (lifeTime >= lifeTimeLimit)
+                {
+                    lifeTime = 0;
+                    choice = Choices.non;
+                    this.Parent.Add(this.actor);
+                    this.Detach();
+                }
+            }
         }
 
         private void ltbtn(GenericButton button)
         {
             lightAtk();
-
+            ChooseChoice(Choices.lightATK);
         }
 
         private void hvbtn(GenericButton button)
         {
             heavyAtk();
+            ChooseChoice(Choices.heavyATK);
         }
 
         private void lightAtk()
         {
-            if (!isDone)
-            {
                 ltBtn.Detach();
                 hvBtn.Detach();
                 placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
-                //placeholder.Add(new DetBar(new Vector2(540, 5)));
                 placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
-                //placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
-                //placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
-                isDone = true;
-            }
-
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
+                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
         }
 
         private void heavyAtk()
         {
-            if (!isDone)
-            {
                 ltBtn.Detach();
                 hvBtn.Detach();
                 placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
@@ -100,9 +128,6 @@ namespace Project3_1
                 placeholder.Add(new MovingBar(new Vector2(10, 10), 1.6f));
                 placeholder.Add(new MovingBar(new Vector2(10, 10), 1.8f));
                 placeholder.Add(new MovingBar(new Vector2(10, 10), 2f));
-                isDone = true;
-            }
-
         }
     }
 }
