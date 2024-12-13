@@ -12,7 +12,8 @@ namespace Project3_1
     public class ActionBtns : Actor
     {
         Placeholder placeholder = new Placeholder();
-        Button atkButton, ltBtn, hvBtn, actButton, runButton;
+        Button atkButton, actButton, runButton;
+        Button ltBtn, hvBtn;
         Actor panel, newPanel, myParent;
         AttackPanel attackPanel;
         CombatScreen combatScreen;
@@ -74,7 +75,7 @@ namespace Project3_1
 
         private void atkChoice(GenericButton button)
         {
-            Debug.WriteLine(panel);
+            //Debug.WriteLine(panel);
             panel.Detach();
             placeholder.Add(newPanel);
             newPanel.Add(ltBtn);

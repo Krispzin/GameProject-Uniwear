@@ -13,6 +13,7 @@ namespace Project3_1
         ExitNotifier exitNotifier;
         Game1 game1;
         ActionBtns actionBtns;
+        DialogPanel dialogpanel = new DialogPanel(new Vector2(30, 240));
         public enum State { Init, PPreTurn, PlayerAction, EnemyReaction, StatusUpdate, EPreTurn, EnemyAction, PlayerReaction, TurnEnd }
         public State state = State.Init;
         public Actor dialogPanel, actionbtns, attackPanel;
@@ -25,15 +26,13 @@ namespace Project3_1
         {
             this.exitNotifier = exitNotifier;
 
-            dialogPanel = new DialogPanel(new Vector2(30, 240));
+            dialogPanel = dialogpanel;
             //placeholder.Add(dialogPanel);
 
             //var playerHpBar = new PlayerHpBar(new Vector2(30, 390));
             //placeholder.Add(playerHpBar);
             actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
             //placeholder.Add(actionbtns);
-
-
 
 
             Add(placeholder);
@@ -54,13 +53,20 @@ namespace Project3_1
             {
                 placeholder.Add(dialogPanel);
                 placeholder.Add(actionbtns);
-                Debug.WriteLine(placeholder.GetChild(1));
+                Debug.WriteLine(state);
+                Debug.WriteLine(dialogpanel.finished);
+                if (dialogpanel.finished)
+                    state = State.PPreTurn;
+                
+                //Debug.WriteLine(actionbtns.GetChild(0).GetChild(0));
+                //if (actionbtns.GetChild(0).GetChild(0).)
             }
             else if (state == State.PPreTurn)
             {
-                actionBtns.Act(deltaTime);
-                Debug.WriteLine("");
-                    state = State.PlayerAction;
+                //Debug.WriteLine(state);
+                //actionBtns.Act(deltaTime);
+                //Debug.WriteLine(actionbtns.GetChild(1));
+                //if (actionbtns.)
             }
             else if (state == State.PlayerAction)
             {
