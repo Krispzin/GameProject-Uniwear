@@ -16,8 +16,6 @@ namespace Project3_1
         Actor panel, newPanel, myParent;
         AttackPanel attackPanel;
         CombatScreen combatScreen;
-        public bool isChoosed;
-        public string atkType = "";
 
         public ActionBtns(Vector2 position, Vector2 screensize, Actor actor)
         {
@@ -67,17 +65,11 @@ namespace Project3_1
 
         }
 
-        public bool isDone()
-        {
-            return true;
-        }
-
         private void btnActions()
         {
             atkButton.ButtonClicked += atkChoice;
             ltBtn.ButtonClicked += ltbtn;
             hvBtn.ButtonClicked += hvbtn;
-            isChoosed = false;
         }
 
         private void atkChoice(GenericButton button)
@@ -93,15 +85,11 @@ namespace Project3_1
         private void ltbtn(GenericButton button)
         {
             newPanel.Detach();
-            atkType = "lightAtk";
-            isDone();
         }
 
         private void hvbtn(GenericButton button)
         {
             newPanel.Detach();
-            atkType = "heavyAtk";
-            isDone();
         }
     }
 }

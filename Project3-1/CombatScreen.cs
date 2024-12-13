@@ -60,12 +60,11 @@ namespace Project3_1
             {
                 actionBtns.Act(deltaTime);
                 Debug.WriteLine("");
-                if (actionBtns.isChoosed == true)
                     state = State.PlayerAction;
             }
             else if (state == State.PlayerAction)
             {
-                attackPanel = new AttackPanel(new Vector2(0, 0), actionBtns.atkType);
+                attackPanel = new AttackPanel(new Vector2(0, 0));
                 placeholder.Add(attackPanel);
             }
         }

@@ -22,10 +22,9 @@ namespace Project3_1
         Button ltBtn, hvBtn;
         Actor actor;
 
-        public AttackPanel(Vector2 vector2, string selectChoice)
+        public AttackPanel(Vector2 vector2)
         {
             //this.actor = actor;
-            choice = selectChoice;
             position = vector2;
             Position = position;
 
