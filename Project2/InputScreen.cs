@@ -17,11 +17,11 @@ namespace Project2
         public InputScreen(Vector2 screenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
-            text = new Text("Poppins-Medium.ttf", 100, Color.White,
+            text = new Text("ChakraPetch-Regular.ttf", 100, Color.White,
                             "User Interface: test");
            Add(text);
 
-            btnb = new Button("Poppins-Medium.ttf", 50, Color.Black, "Back", new Vector2(100, 80));
+            btnb = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Back", new Vector2(100, 80));
 
             btnb.Position = new Vector2(140, 220);
 

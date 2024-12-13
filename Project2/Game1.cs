@@ -1,9 +1,11 @@
 ﻿using System;
 using Game12;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ThanaNita.MonoGameTnt;
+using System.Diagnostics;
 
 namespace Project2
 {
@@ -25,19 +27,18 @@ namespace Project2
             menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
             All.Add(menuScreen);
 
+            //เปลี่ยนเพลงตรงนี้
             song = Song.FromUri(name: "Song01",
-                new Uri("Pikuniku Dancing - Extended Version [TubeRipper.cc].ogg", UriKind.Relative));
-            MediaPlayer.Play(song);
-            //  Uncomment the following line will also loop the song
+                new Uri("mytime.ogg", UriKind.Relative));
+            
+            //ปรับ Loop
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
-        }
-        void MediaPlayer_MediaStateChanged(object sender, System.EventArgs e)
-        {
-            // 0.0f is silent, 1.0f is full volume
-            MediaPlayer.Volume -= 0.0f;
+            //ปรับเสียง
+            MediaPlayer.Volume = 0.5f;
             MediaPlayer.Play(song);
+            Debug.WriteLine("menu");
         }
+
         private void ExitNotifier(Actor actor, int code)
         {
             if (actor == null)
@@ -45,6 +46,7 @@ namespace Project2
 
             if (actor == menuScreen)
             {
+                playBgm();
                 //Start button
                 if (code == 0)
                 {
@@ -91,8 +93,11 @@ namespace Project2
 
             }
 
+        }
 
-            }
+        private void playBgm()
+        {
+
         }
     }
-
+}
