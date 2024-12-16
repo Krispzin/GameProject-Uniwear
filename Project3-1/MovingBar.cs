@@ -38,12 +38,15 @@ namespace Project3_1
             if (Position.X > 570)
                 this.Detach();
 
-            delay += deltaTime;
-            if (delay >= delayFix)
+            if (!isMoved)
             {
-                AddAction(new Mover(this, new Vector2(375, 0)));
-                delay -= deltaTime;
-                isMoved = true;
+                delay += deltaTime;
+                if (delay >= delayFix)
+                {
+                    AddAction(new Mover(this, new Vector2(375, 0)));
+                    delay -= deltaTime;
+                    isMoved = true;
+                }
             }
 
             if (isMoved && (mover == null || mover.IsFinished()))

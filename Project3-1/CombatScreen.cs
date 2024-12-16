@@ -14,10 +14,10 @@ namespace Project3_1
         Game1 game1;
         ActionBtns actionbtns;
         DialogPanel dialogpanel;
-        LightAtkPanel lightatkpanel;
+        AttackPanel attackpanel;
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd }
         public State state = State.Init;
-        public Actor dialogPanel, actionBtns, lightAtkPanel;
+        public Actor dialogPanel, actionBtns, attackPanel;
         Panel panel;
         Text text;
         public Placeholder placeholder = new Placeholder();
@@ -36,8 +36,8 @@ namespace Project3_1
             actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
             actionBtns = actionbtns;
 
-            lightatkpanel = new LightAtkPanel(new Vector2(30, 240));
-            lightAtkPanel = lightatkpanel;
+            attackpanel = new AttackPanel(new Vector2(0, 0));
+            attackPanel = attackpanel;
 
             //placeholder.Add(actionbtns);
 
@@ -49,10 +49,8 @@ namespace Project3_1
         private void ChangeState(State newState)
         {
             state = newState;
-            //if (state == State.Init)
-            //{
-                
-            //}
+            if (state == State.StatusUpdate)
+                attackPanel.Detach();
         }
 
         public override void Act(float deltaTime)
@@ -66,14 +64,29 @@ namespace Project3_1
                 Debug.WriteLine(state);
                 Debug.WriteLine(dialogpanel.finished);
             }
-            else if (state == State.PPreTurn && dialogpanel.finished )
+            else if (state == State.PPreTurn)
             {
                 actionbtns.btnActions();
             }
             else if (state == State.PlayerAction)
             {
-                
+                placeholder.Add(attackPanel);
+                if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
+                {
+                    attackpanel.lightAtk();
+                    actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                }
+                else if (actionbtns.AtkType == ActionBtns.AtkTypes.heavyAtk)
+                {
+                    attackpanel.heavyAtk();
+                    actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                }
             }
+            else if (state == State.StatusUpdate)
+            {
+
+            }
+
 
             if (dialogpanel.finished == true)
                 ChangeState(State.PPreTurn);
@@ -81,18 +94,9 @@ namespace Project3_1
             if (actionbtns.finished == true)
                 ChangeState(State.PlayerAction);
 
-            if (lightatkpanel.finished == true)
-                ChangeState(State.StatusUpdate);
+            if (attackpanel.finished == true)
+                ChangeState (State.StatusUpdate);
 
-
-            //Debug.WriteLine(actionbtns.GetChild(0).GetChild(0));
-            //if (actionbtns.GetChild(0).GetChild(0).)
         }
-
-        private void AtkType()
-        {
-            //if ()
-        }
-
     }
 }
