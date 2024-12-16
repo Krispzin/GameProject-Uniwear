@@ -12,11 +12,12 @@ namespace Project3_1
     {
         ExitNotifier exitNotifier;
         Game1 game1;
-        ActionBtns actionBtns;
-        DialogPanel dialogpanel = new DialogPanel(new Vector2(30, 240));
-        public enum State { Init, PPreTurn, PlayerAction, EnemyReaction, StatusUpdate, EPreTurn, EnemyAction, PlayerReaction, TurnEnd }
+        ActionBtns actionbtns;
+        DialogPanel dialogpanel;
+        LightAtkPanel lightatkpanel;
+        public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd }
         public State state = State.Init;
-        public Actor dialogPanel, actionbtns, attackPanel;
+        public Actor dialogPanel, actionBtns, lightAtkPanel;
         Panel panel;
         Text text;
         public Placeholder placeholder = new Placeholder();
@@ -26,12 +27,18 @@ namespace Project3_1
         {
             this.exitNotifier = exitNotifier;
 
+            dialogpanel = new DialogPanel(new Vector2(30, 240));
             dialogPanel = dialogpanel;
             //placeholder.Add(dialogPanel);
 
             //var playerHpBar = new PlayerHpBar(new Vector2(30, 390));
             //placeholder.Add(playerHpBar);
             actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
+            actionBtns = actionbtns;
+
+            lightatkpanel = new LightAtkPanel(new Vector2(30, 240));
+            lightAtkPanel = lightatkpanel;
+
             //placeholder.Add(actionbtns);
 
 
@@ -42,7 +49,10 @@ namespace Project3_1
         private void ChangeState(State newState)
         {
             state = newState;
-            //if (state == State.Init) {
+            //if (state == State.Init)
+            //{
+                
+            //}
         }
 
         public override void Act(float deltaTime)
@@ -55,24 +65,33 @@ namespace Project3_1
                 placeholder.Add(actionbtns);
                 Debug.WriteLine(state);
                 Debug.WriteLine(dialogpanel.finished);
-                if (dialogpanel.finished)
-                    state = State.PPreTurn;
-                
-                //Debug.WriteLine(actionbtns.GetChild(0).GetChild(0));
-                //if (actionbtns.GetChild(0).GetChild(0).)
             }
-            else if (state == State.PPreTurn)
+            else if (state == State.PPreTurn && dialogpanel.finished )
             {
-                //Debug.WriteLine(state);
-                //actionBtns.Act(deltaTime);
-                //Debug.WriteLine(actionbtns.GetChild(1));
-                //if (actionbtns.)
+                actionbtns.btnActions();
             }
             else if (state == State.PlayerAction)
             {
-                attackPanel = new AttackPanel(new Vector2(0, 0));
-                placeholder.Add(attackPanel);
+                
             }
+
+            if (dialogpanel.finished == true)
+                ChangeState(State.PPreTurn);
+
+            if (actionbtns.finished == true)
+                ChangeState(State.PlayerAction);
+
+            if (lightatkpanel.finished == true)
+                ChangeState(State.StatusUpdate);
+
+
+            //Debug.WriteLine(actionbtns.GetChild(0).GetChild(0));
+            //if (actionbtns.GetChild(0).GetChild(0).)
+        }
+
+        private void AtkType()
+        {
+            //if ()
         }
 
     }

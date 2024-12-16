@@ -15,10 +15,7 @@ namespace Project3_1
         Placeholder placeholder = new Placeholder();
         Panel panel;
         private Vector2 position;
-        private bool isDone = false;
-        private float lifeTime = 0;
-        private float lifeTimeLimit;
-        private string choice;
+        public bool finished = false;
         Button ltBtn, hvBtn;
         Actor actor;
 
@@ -63,33 +60,6 @@ namespace Project3_1
         public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
-
-            if (choice == "lightAtk")
-            {
-                lifeTimeLimit = 2.5f;
-
-                lifeTime += deltaTime;
-                if (lifeTime >= lifeTimeLimit)
-                {
-                    lifeTime = 0;
-                    choice = null;
-                    this.Parent.Add(this.actor);
-                    this.Detach();
-                }
-            }
-            else if (choice == "heavyAtk")
-            {
-                lifeTimeLimit = 3.1f;
-
-                lifeTime += deltaTime;
-                if (lifeTime >= lifeTimeLimit)
-                {
-                    lifeTime = 0;
-                    choice = null;
-                    this.Parent.Add(this.actor);
-                    this.Detach();
-                }
-            }
         }
 
         private void ltbtn(GenericButton button)
@@ -102,29 +72,35 @@ namespace Project3_1
             heavyAtk();
         }
 
-        private void lightAtk()
+        public void lightAtk()
         {
-                ltBtn.Detach();
-                hvBtn.Detach();
-                placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
+            var lastBar = new MovingBar(new Vector2(10, 10), 0.6f);
+
+            //ltBtn.Detach();
+            //hvBtn.Detach();
+            placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
+            placeholder.Add(lastBar);
+
+            if (lastBar.finished)
+                this.finished = true;
         }
 
-        private void heavyAtk()
+        public void heavyAtk()
         {
-                ltBtn.Detach();
-                hvBtn.Detach();
-                placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 0.8f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 1.2f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 1.6f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 1.8f));
-                placeholder.Add(new MovingBar(new Vector2(10, 10), 2f));
+            //ltBtn.Detach();
+            //hvBtn.Detach();
+            placeholder.Add(new HitBar(new Vector2(panel.RawSize.X / 2, 5)));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 0f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.4f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.6f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 0.8f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 1.2f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 1.6f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 1.8f));
+            placeholder.Add(new MovingBar(new Vector2(10, 10), 2f));
+
         }
     }
 }

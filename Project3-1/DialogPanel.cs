@@ -61,7 +61,7 @@ namespace Project3_1
             {
                 finished = true;
                 Debug.WriteLine(this.finished);
-;            }
+;           }
         }
 
         private void RunDialog()

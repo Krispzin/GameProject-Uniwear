@@ -10,9 +10,12 @@ namespace Project3_1
 {
     public class MovingBar : RectangleActor
     {
+        Mover mover;
         private float delay;
         private float delayFix;
         private bool isMoved = false;
+        public bool finished = false;
+
         public MovingBar(Vector2 position, float delayTime)
             : base(Color.Black, new Vector2(5, 120))
         {
@@ -35,15 +38,17 @@ namespace Project3_1
             if (Position.X > 570)
                 this.Detach();
 
-            if (!isMoved)
+            delay += deltaTime;
+            if (delay >= delayFix)
             {
-                delay += deltaTime;
-                if (delay >= delayFix)
-                {
-                    AddAction(new Mover(this, new Vector2(375, 0)));
-                    delay = 0;
-                    isMoved = true;
-                }
+                AddAction(new Mover(this, new Vector2(375, 0)));
+                delay -= deltaTime;
+                isMoved = true;
+            }
+
+            if (isMoved && (mover == null || mover.IsFinished()))
+            {
+                finished = true;
             }
         }
     }

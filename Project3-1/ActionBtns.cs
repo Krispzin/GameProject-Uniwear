@@ -17,6 +17,9 @@ namespace Project3_1
         Actor panel, newPanel, myParent;
         AttackPanel attackPanel;
         CombatScreen combatScreen;
+        public enum AtkTypes { Non, lightAtk, heavyAtk }
+        public AtkTypes AtkType = AtkTypes.Non;
+        public bool finished = false;
 
         public ActionBtns(Vector2 position, Vector2 screensize, Actor actor)
         {
@@ -62,11 +65,11 @@ namespace Project3_1
             placeholder.Add(runButton);
 
             Add(placeholder);
-            btnActions();
+            //btnActions();
 
         }
 
-        private void btnActions()
+        public void btnActions()
         {
             atkButton.ButtonClicked += atkChoice;
             ltBtn.ButtonClicked += ltbtn;
@@ -86,11 +89,15 @@ namespace Project3_1
         private void ltbtn(GenericButton button)
         {
             newPanel.Detach();
+            AtkType = AtkTypes.lightAtk;
+            finished = true;
         }
 
         private void hvbtn(GenericButton button)
         {
             newPanel.Detach();
+            AtkType = AtkTypes.heavyAtk;
+            finished = true;
         }
     }
 }
