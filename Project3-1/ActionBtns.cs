@@ -76,14 +76,19 @@ namespace Project3_1
             hvBtn.ButtonClicked += hvbtn;
         }
 
+        public void DelbtnActions()
+        {
+            atkButton.ButtonClicked -= atkChoice;
+            ltBtn.ButtonClicked -= ltbtn;
+            hvBtn.ButtonClicked -= hvbtn;
+        }
+
         private void atkChoice(GenericButton button)
         {
-            //Debug.WriteLine(panel);
             panel.Detach();
             placeholder.Add(newPanel);
             newPanel.Add(ltBtn);
             newPanel.Add(hvBtn);
-            //placeholder.Add(new AttackPanel(new Vector2(30, 240), new DialogPanel(new Vector2(30, 240))));
         }
 
         private void ltbtn(GenericButton button)

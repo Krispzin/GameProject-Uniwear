@@ -11,6 +11,7 @@ namespace Project3_1
     public class CombatScreen : Actor
     {
         ExitNotifier exitNotifier;
+        PlayerStat playerStat;
         Game1 game1;
         ActionBtns actionbtns;
         DialogPanel dialogpanel;
@@ -27,6 +28,8 @@ namespace Project3_1
         {
             this.exitNotifier = exitNotifier;
 
+            playerStat = new PlayerStat("ยู", 20, 20, 5);
+
             dialogpanel = new DialogPanel(new Vector2(30, 240));
             dialogPanel = dialogpanel;
             //placeholder.Add(dialogPanel);
@@ -36,7 +39,7 @@ namespace Project3_1
             actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
             actionBtns = actionbtns;
 
-            attackpanel = new AttackPanel(new Vector2(0, 0));
+            attackpanel = new AttackPanel(new Vector2(30, 240));
             attackPanel = attackpanel;
 
             //placeholder.Add(actionbtns);
@@ -49,8 +52,16 @@ namespace Project3_1
         private void ChangeState(State newState)
         {
             state = newState;
+            if (state != State.PPreTurn)
+            {
+                actionbtns.DelbtnActions();
+            }
             if (state == State.StatusUpdate)
+            {
+                //Debug.WriteLine(attackpanel.hitMisses);
                 attackPanel.Detach();
+            }
+
         }
 
         public override void Act(float deltaTime)
@@ -59,6 +70,8 @@ namespace Project3_1
 
             if (state == State.Init && placeholder.ChildCount == 0)
             {
+                placeholder.Add(new BG(new Vector2(320, 120)));
+                placeholder.Add(new Enemy(new Vector2(320, 120)));
                 placeholder.Add(dialogPanel);
                 placeholder.Add(actionbtns);
                 Debug.WriteLine(state);
@@ -84,7 +97,7 @@ namespace Project3_1
             }
             else if (state == State.StatusUpdate)
             {
-
+                playerStat.Hp -= ;
             }
 
 
@@ -95,7 +108,7 @@ namespace Project3_1
                 ChangeState(State.PlayerAction);
 
             if (attackpanel.finished == true)
-                ChangeState (State.StatusUpdate);
+                ChangeState(State.StatusUpdate);
 
         }
     }

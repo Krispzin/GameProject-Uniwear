@@ -7,7 +7,7 @@ using ThanaNita.MonoGameTnt;
 
 namespace Project3_1
 {
-    public class PlayerStat
+    public class PlayerStat : Actor
     {
         public string Name { get; private set; }
         public int Hp { get; private set; }
@@ -21,6 +21,11 @@ namespace Project3_1
             Hp = hp;
             Strength = strength;
             Actions = new List<string>();
+        }
+
+        private void CalDmg()
+        {
+            this.Hp = 
         }
     }
 }

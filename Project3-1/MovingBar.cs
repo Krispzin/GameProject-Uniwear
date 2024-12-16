@@ -14,11 +14,11 @@ namespace Project3_1
         private float delay;
         private float delayFix;
         private bool isMoved = false;
-        public bool finished = false;
-
         public MovingBar(Vector2 position, float delayTime)
             : base(Color.Black, new Vector2(5, 120))
         {
+
+            mover = new Mover(this, new Vector2(400, 0));
             Position = position;
 
             delayFix = delayTime;
@@ -36,22 +36,21 @@ namespace Project3_1
             base.Act(deltaTime);
 
             if (Position.X > 570)
+            {
+                isMoved = false;
                 this.Detach();
+            }
+
 
             if (!isMoved)
             {
                 delay += deltaTime;
                 if (delay >= delayFix)
                 {
-                    AddAction(new Mover(this, new Vector2(375, 0)));
+                    AddAction(mover);
                     delay -= deltaTime;
                     isMoved = true;
                 }
-            }
-
-            if (isMoved && (mover == null || mover.IsFinished()))
-            {
-                finished = true;
             }
         }
     }
