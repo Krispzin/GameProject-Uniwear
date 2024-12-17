@@ -21,11 +21,17 @@ namespace Project2
                             "User Interface: test");
            Add(text);
 
-            btnb = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Back", new Vector2(100, 80));
-
-            btnb.Position = new Vector2(140, 220);
-
+            btnb = new Button("ChakraPetch-Regular.ttf", 20, Color.Black, "Back", new Vector2(100, 50));
+            btnb.Position = new Vector2(0, 0);
             Add(btnb);
+
+
+            //    var region = new TextureRegion(TextureCache.Get("ui.jpg"), new RectF(700, 700, 80, 45));
+            //    var imageButton = new ImageButton(region);
+            //    imageButton.Position = new Vector2(10, 10);
+            //    imageButton.SetButtonText("ChakraPetch-Regular.ttf", 15, Color.Green, "Back");
+            //    Add(imageButton);
+            //    //Add(btnb);
         }
         private void back (GenericButton button) 
         {

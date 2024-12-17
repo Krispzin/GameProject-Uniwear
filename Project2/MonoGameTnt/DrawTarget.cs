@@ -27,6 +27,7 @@ namespace ThanaNita.MonoGameTnt
         }
         void Draw(VertexPositionColorTexture[] vertices, int verticesCount,
                     short[] indices, int indicesCount, Texture2D texture, DrawState state);
+        
         void Flush();
     }
     public interface Drawable

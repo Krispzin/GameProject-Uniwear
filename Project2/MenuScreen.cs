@@ -19,22 +19,22 @@ namespace Game12
         {
             this.exitNotifier = exitNotifier;
 
-            btnstar = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Start", new Vector2(100, 80));
+            btnstar = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Start", new Vector2(150, 80));
 
-            btnstar.Position = new Vector2(140, 220);
+            btnstar.Position = new Vector2(250, 100);
 
             Add(btnstar);
 
 
-            btncd = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Credit", new Vector2(100, 80));
+            btncd = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Credit", new Vector2(150, 80));
 
-            btncd.Position = new Vector2(260, 220);
+            btncd.Position = new Vector2(250, 200);
 
             Add(btncd);
 
-            btnexit = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Exit", new Vector2(100, 80));
+            btnexit = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Exit", new Vector2(150, 80));
 
-            btnexit.Position = new Vector2(380, 220);
+            btnexit.Position = new Vector2(250, 300);
 
             Add(btnexit);
             btnAction();
