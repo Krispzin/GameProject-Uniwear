@@ -15,13 +15,16 @@ namespace Project3_1
         ActionBtns actionbtns;
         DialogPanel dialogpanel;
         AttackPanel attackpanel;
-        public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd }
+        ActPanel actpanel;
+        RunPanel runpanel;
+        ActScreen actScreen;
+        public enum State { Init, PPreTurn ,RunRunRun , PlayerAction, ActState, StatusUpdate, TurnEnd ,ExitBattle}
         public State state = State.Init;
-        public Actor dialogPanel, actionBtns, attackPanel;
+        public Actor dialogPanel, actionBtns, actPanel, attackPanel,actBtns , runPanel;
         Panel panel;
         Text text;
         public Placeholder placeholder = new Placeholder();
-        Button atkBtn, actBtn, runBtn, ltBtn, htBtn;
+        Button atkBtn, actBtn, runBtn, ltBtn, htBtn ;
         string[] str;
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
@@ -39,6 +42,13 @@ namespace Project3_1
             attackpanel = new AttackPanel(new Vector2(0, 0));
             attackPanel = attackpanel;
 
+            actpanel = new ActPanel(new Vector2(0, 0));
+            actPanel = actpanel; 
+
+            runpanel = new RunPanel(new Vector2(30, 240));
+            runPanel = runpanel;
+
+            actScreen = new ActScreen(new Vector2(0, 0));
             //placeholder.Add(actionbtns);
 
 
@@ -50,7 +60,10 @@ namespace Project3_1
         {
             state = newState;
             if (state == State.StatusUpdate)
-                attackPanel.Detach();
+                if(state == State.PlayerAction)
+                    attackPanel.Detach();
+                else if (state == State.RunRunRun)
+                    runPanel.Detach();
         }
 
         public override void Act(float deltaTime)
@@ -66,7 +79,7 @@ namespace Project3_1
             }
             else if (state == State.PPreTurn)
             {
-                actionbtns.btnActions();
+                actionbtns.btnActions();         
             }
             else if (state == State.PlayerAction)
             {
@@ -82,9 +95,45 @@ namespace Project3_1
                     actionbtns.AtkType = ActionBtns.AtkTypes.Non;
                 }
             }
+            else if(state == State.ActState)
+            {
+                placeholder.Add(actPanel);
+                if(actionbtns.actChoose == ActionBtns.ActChoose.act1)
+                {
+                    actpanel.TextAction1();
+                    actionbtns.actChoose = ActionBtns.ActChoose.Non;
+                }
+                if(actionbtns.actChoose == ActionBtns.ActChoose.act2)
+                {
+                    actpanel.TextAction2();
+                    actionbtns.actChoose = ActionBtns.ActChoose.Non;
+                }
+                if(actionbtns.actChoose == ActionBtns.ActChoose.act3)
+                {
+                    actpanel.TextAction3();
+                    actionbtns.actChoose = ActionBtns.ActChoose.Non;
+                }
+
+
+            }
+            else if(state == State.RunRunRun )
+            {
+                placeholder.Add(runPanel);
+                Debug.WriteLine(state);
+                Debug.WriteLine(runpanel.finished);
+            }
             else if (state == State.StatusUpdate)
             {
 
+            }
+            else if(state == State.PPreTurn)
+            {
+
+            }
+            else if(state == State.ExitBattle)
+            {
+                //back to game 
+                Debug.WriteLine(state);
             }
 
 
@@ -96,6 +145,11 @@ namespace Project3_1
 
             if (attackpanel.finished == true)
                 ChangeState (State.StatusUpdate);
+            if (actpanel.finished == true)
+                ChangeState(State.StatusUpdate);
+            if (runpanel.finished == true)
+                ChangeState (State.ExitBattle);
+
 
         }
     }

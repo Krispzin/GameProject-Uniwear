@@ -14,10 +14,18 @@ namespace Project3_1
         Placeholder placeholder = new Placeholder();
         Button atkButton, actButton, runButton;
         Button ltBtn, hvBtn;
+
+        Button actBtn1, actBtn2, actBtn3;
         Actor panel, newPanel, myParent;
         AttackPanel attackPanel;
+        ActScreen actScreen;
         CombatScreen combatScreen;
+        RunPanel runPanel;
+        ActPanel actPanel;
         public enum AtkTypes { Non, lightAtk, heavyAtk }
+
+        public enum ActChoose { Non, act1, act2, act3 }
+        public ActChoose actChoose = ActChoose.Non;
         public AtkTypes AtkType = AtkTypes.Non;
         public bool finished = false;
 
@@ -56,7 +64,37 @@ namespace Project3_1
             actButton = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "ACT", new Vector2(175, 40));
             actButton.Position = new Vector2(screensize.X / 2, 420);
             actButton.Origin = new Vector2(actButton.RawSize.X / 2, 0);
+
+            actBtn1 = new Button("ChakraPetch-Bold.ttf", 15, Color.Black, "*Act1", new Vector2(175, 60))
+            {
+                NormalColor = Color.Transparent,
+                NormalColorLine = Color.Transparent,
+                HighlightColor = Color.Transparent,
+                HighlightColorLine = Color.DarkGray,
+                PressedColor = Color.DarkGray,
+                PressedColorLine = Color.Gray
+            };
+            actBtn2 = new Button("ChakraPetch-Bold.ttf", 15, Color.Black, "*Act2", new Vector2(175, 60))
+            {
+                NormalColor = Color.Transparent,
+                NormalColorLine = Color.Transparent,
+                HighlightColor = Color.Transparent,
+                HighlightColorLine = Color.DarkGray,
+                PressedColor = Color.DarkGray,
+                PressedColorLine = Color.Gray
+            };
+            actBtn3 = new Button("ChakraPetch-Bold.ttf", 15, Color.Black, "*Act3", new Vector2(175, 60))
+            {
+                NormalColor = Color.Transparent,
+                NormalColorLine = Color.Transparent,
+                HighlightColor = Color.Transparent,
+                HighlightColorLine = Color.DarkGray,
+                PressedColor = Color.DarkGray,
+                PressedColorLine = Color.Gray
+            };
             
+
+
             runButton = new Button("ChakraPetch-Bold.ttf", 30, Color.Black, "RUN", new Vector2(175, 40)) { Position = new(610, 420) };
             runButton.Origin = new Vector2(runButton.RawSize.X, 0);
 
@@ -74,6 +112,31 @@ namespace Project3_1
             atkButton.ButtonClicked += atkChoice;
             ltBtn.ButtonClicked += ltbtn;
             hvBtn.ButtonClicked += hvbtn;
+            actButton.ButtonClicked += actChoice;
+            runButton.ButtonClicked += runChoice;
+            actBtn1.ButtonClicked += actbtn1;
+            actBtn2.ButtonClicked += actbtn2;
+            actBtn3.ButtonClicked += actbtn3;
+        }
+
+        private void runChoice(GenericButton button)
+        {
+            panel.Detach();
+            placeholder.Add(new RunPanel(new Vector2(30, 240)));
+            
+        }
+
+        private void actChoice(GenericButton button)
+        {
+            panel.Detach();
+
+            placeholder.Add(newPanel);
+            newPanel.Add(actBtn1);
+            newPanel.Add(actBtn2);
+            newPanel.Add(actBtn3);
+            Alignment.SetPosition(actBtn1, actBtn2, AlignDirection.Down);
+            Alignment.SetOrigin(actBtn3, Align.Right);
+
         }
 
         private void atkChoice(GenericButton button)
@@ -97,6 +160,29 @@ namespace Project3_1
         {
             newPanel.Detach();
             AtkType = AtkTypes.heavyAtk;
+            finished = true;
+        }
+
+        private void actbtn1(GenericButton button) 
+        {
+            panel.Detach();
+            placeholder.Add(newPanel);
+            actChoose = ActChoose.act1;
+            finished = true;
+        }
+
+        private void actbtn2(GenericButton button) 
+        {
+            panel.Detach();
+            placeholder.Add(newPanel);
+            actChoose = ActChoose.act2;
+            finished = true;
+        }
+        private void actbtn3(GenericButton button) 
+        {
+            panel.Detach();
+            placeholder.Add(newPanel);
+            actChoose = ActChoose.act3;
             finished = true;
         }
     }
