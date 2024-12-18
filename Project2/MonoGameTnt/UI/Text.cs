@@ -90,9 +90,9 @@ namespace ThanaNita.MonoGameTnt
         {
             get { Update(); return sizeInPixel; }
         }*/
-        public override RectF RawRect
+        public override Vector2 RawSize
         {
-            get { Update(); return new RectF(Vector2.Zero, new Vector2(Width, LineHeight)); }
+            get { Update(); return new Vector2(Width, LineHeight); }
         }
 
         public Text(string fontName, float fontSize, Color color, string str)
@@ -151,7 +151,7 @@ namespace ThanaNita.MonoGameTnt
 
             sizeInPixel = MeasureString(str);
         }
-        private Vector2 MeasureString(string s)
+        public Vector2 MeasureString(string s)
         {
             return font.MeasureString(s, effect: Effect, effectAmount: EffectAmount
                 , characterSpacing: characterSpacing);

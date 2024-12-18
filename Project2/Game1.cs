@@ -15,12 +15,28 @@ namespace Project2
         Actor credit;
         Actor menuScreen;
         Actor inputScreen;
+        DialogPanel dialogpanel;
+        Panel panel;
+        
+        public Actor dialogPanel, actionBtns, attackPanel;
         public Game1()
             : base(virtualScreenSize: new Vector2(640, 480),
                    preferredWindowSize: new Vector2(640, 480))
         {
             BackgroundColor = Color.DarkGray;
             IsFixedTimeStep = false;
+
+            //dialogpanel = new DialogPanel(new Vector2(30, 240));
+            //dialogPanel = dialogpanel;
+
+            //actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
+            //actionBtns = actionbtns;
+
+
+            //placeholder.Add(actionbtns);
+
+
+            //Add(placeholder);
         }
         protected override void LoadContent()
         {
@@ -52,8 +68,8 @@ namespace Project2
                 {
                     menuScreen.Detach();
                     menuScreen = null;
-                    inputScreen = new InputScreen(ScreenSize, ExitNotifier);
-                    All.Add(inputScreen);
+                    dialogpanel = new DialogPanel(ScreenSize, ExitNotifier);
+                    All.Add(dialogpanel);
                 }
                 //Credit button
                 else if (code == 1)
@@ -99,5 +115,6 @@ namespace Project2
         {
 
         }
+
     }
 }

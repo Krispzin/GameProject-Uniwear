@@ -30,6 +30,7 @@ namespace ThanaNita.MonoGameTnt
             Debug.Assert(indices.Length % 3 == 0, "indices length should be multiple of 3.");
 
             color = color ?? Color.White;
+            RawSize = CalcSize(positions);
             CopyPositionsAndColor(positions, color.Value);
             CopyIndices(indices);
             this.texture = texture;
@@ -52,6 +53,18 @@ namespace ThanaNita.MonoGameTnt
                 vertices[i].Position = new Vector3(positions[i], 0);
                 vertices[i].Color = color;
             }
+        }
+
+        private Vector2 CalcSize(Vector2[] positions)
+        {
+            float maxX = positions[0].X;
+            float maxY = positions[0].Y;
+            for (int i = 0; i < positions.Length; i++)
+            {
+                maxX = MathF.Max(maxX, positions[i].X);
+                maxY = MathF.Max(maxY, positions[i].Y);
+            }
+            return new Vector2(maxX, maxY);
         }
 
         private void CopyIndices(short[] indices)

@@ -4,10 +4,10 @@ namespace ThanaNita.MonoGameTnt
 {
     public class BatchSplitter : Actor
     {
-        private GraphicsDeviceMemento memento;
         private GraphicsDeviceConfig device;
-        public BatchSplitter(GraphicsDeviceConfig device)
+        public BatchSplitter(GraphicsDeviceConfig device = null)
         {
+            device = device ?? GlobalGraphicsDeviceConfig.Value;
             this.device = device;
         }
         public override void Draw(DrawTarget target, DrawState state)

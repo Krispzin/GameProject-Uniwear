@@ -10,6 +10,7 @@ namespace ThanaNita.MonoGameTnt
         }
         public static AlphaAction FadeIn(float duration, Actor actor, Interpolation interpolation = null)
         {
+            actor.Color = new Color(actor.Color, 0);
             return new AlphaAction(duration, 255, actor, interpolation);
         }
         public static ForeverAction Forever(params Action[] actions)

@@ -13,7 +13,7 @@ namespace ThanaNita.MonoGameTnt
 
         public string Text { get => text.Str; set => text.Str = value; }
         public float FontSize {get => text.FontSize; set => text.FontSize = value; }
-        public override RectF RawRect => text.RawRect;
+        public override Vector2 RawSize => text.RawSize;
 
         public Label(string fontName, float fontSize, Color color, string text)
         {

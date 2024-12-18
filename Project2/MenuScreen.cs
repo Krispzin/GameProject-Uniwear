@@ -13,6 +13,7 @@ namespace Game12
 
     public class MenuScreen : Actor
     {
+
         private Button btnstar, btncd, btnexit;
         ExitNotifier exitNotifier;
         public MenuScreen(Vector2 screenSize, ExitNotifier exitNotifier)

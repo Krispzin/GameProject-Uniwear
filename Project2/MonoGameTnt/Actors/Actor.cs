@@ -9,14 +9,12 @@ namespace ThanaNita.MonoGameTnt
         public object UserObject { get; set; }
         public Actor Parent { get; private set; }
         protected List<Actor> Children { get; private set; } // อาจต้องทำ List แบบที่ Delay การ delete หรือ add ได้
-        private List<EventListener> listeners;
-        private List<EventListener> captureListeners;
         private List<Action> Actions;
         public virtual Color Color { get; set; } = Color.White;
 
         // Size & Rect
-        public Vector2 RawSize => RawRect.Size;
-        public virtual RectF RawRect => RectF.Zero; // default เป็น 0,0,0,0 แต่ละ actor ควรตั้งค่าของตัวเอง หากต้องการใช้งาน
+        public virtual Vector2 RawSize { get; init; } = Vector2.Zero;
+        public RectF RawRect => new RectF(Vector2.Zero, RawSize); // default เป็น 0,0,0,0 แต่ละ actor ควรตั้งค่าของตัวเอง หากต้องการใช้งาน
         public RectF BoundingBox => GetMatrix().TransformRectAABB(RawRect);
         public RectF GlobalBoundingBox => GlobalTransform.TransformRectAABB(RawRect);
 
@@ -39,14 +37,6 @@ namespace ThanaNita.MonoGameTnt
             if (Children == null)
                 throw new System.Exception("Actor: No children.");
             return Children[index];
-        }
-
-        // การแยกว่าเป็น capture หรือไม่ capture phase ใน libgdx จะรับเป็น bool อีกตัวหนึ่ง
-        public virtual void Handle(Event eventObj)
-        {
-            // todo: ในนี้ ต้องวิ่งวนส่ง event ให้ listeners
-            // listener ทุกตัวได้ event หมด 
-            // หาก stopped เป็น true จะไม่ propagate ต่อไปยัง parent
         }
 
         public void Insert(int index, Actor actor)

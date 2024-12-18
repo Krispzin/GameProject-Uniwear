@@ -17,5 +17,13 @@ namespace ThanaNita.MonoGameTnt
             return direction;
         }
 
+        public static Vector2 UnitVector(this Vector2 v)
+        {
+            float length = v.Length();
+            if(length == 0)
+                return new Vector2(0, 0);
+
+            return v / length;
+        }
     }
 }

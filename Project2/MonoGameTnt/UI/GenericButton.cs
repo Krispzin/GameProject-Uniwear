@@ -5,8 +5,6 @@ namespace ThanaNita.MonoGameTnt
 {
     public abstract class GenericButton : Actor
     {
-        private RectF rawRect;
-        public override RectF RawRect => rawRect;
         //------------------- Public Interface -------------------------------
         public delegate void ButtonClickedDelegate(GenericButton button);
         public event ButtonClickedDelegate ButtonClicked = delegate { };
@@ -20,7 +18,7 @@ namespace ThanaNita.MonoGameTnt
         }
         protected GenericButton(Vector2 buttonSize)
         {
-            rawRect = new RectF(Vector2.Zero, buttonSize);
+            RawSize = buttonSize;
         }
 
         //------------------- Private Implementation Details -----------------

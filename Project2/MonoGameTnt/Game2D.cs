@@ -31,7 +31,7 @@ namespace ThanaNita.MonoGameTnt
             set { _backgroundColor = value; CreateBackgroundRect(); }
         }
         private Color? _backgroundColor = Color.CornflowerBlue;
-        private RectangleDrawable background;
+        private RectangleActor background;
 
         // Initialized by the constructor
         protected ViewportAdapterTypes ViewportAdapterType { get; }
@@ -74,7 +74,7 @@ namespace ThanaNita.MonoGameTnt
 
         protected override void Initialize()
         {
-            SetFullScreen(StartAsFullScreen);
+            SetFullScreen(StartAsFullScreen, true);
             SetDefaultGraphicsStates();
             InitStatic();
             CameraSetup();
@@ -83,16 +83,12 @@ namespace ThanaNita.MonoGameTnt
             MouseInfo = new MouseInfo(GraphicsDevice, Camera);
             KeyboardInfo = new KeyboardInfo();
             Window.KeyDown += Game2D_KeyDown;
-            //Window.KeyUp += Game2D_KeyUp;
-            //Window.TextInput += Game2D_TextInput;
             CreateGlobal();
 
             base.Initialize(); // This method will call LoadContent().
         }
         protected virtual void Game2D_KeyDown(object sender, InputKeyEventArgs e)
         {
-            //KeyboardInfo.OnKeyPressed(e.Key);
-
             if (ToggleFullScreenKey != null && e.Key == ToggleFullScreenKey.Value)
                 ToggleFullScreen();
 
@@ -106,22 +102,13 @@ namespace ThanaNita.MonoGameTnt
 
         }
 
-/*        private void Game2D_KeyUp(object sender, InputKeyEventArgs e)
-        {
-            KeyboardInfo.OnKeyReleased(e.Key);
-        }
-
-        private void Game2D_TextInput(object sender, TextInputEventArgs e)
-        {
-            KeyboardInfo.OnTextInput(e.Key, e.Character);
-        }*/
-
         private void CreateGlobal()
         {
             GlobalGraphicsDevice.Value = GraphicsDevice;
             GlobalMouseInfo.Value = MouseInfo;
             GlobalKeyboardInfo.Value = KeyboardInfo;
             GlobalGraphicsDeviceConfig.Value = Config;
+            GlobalEffectAdapter.Value = Adapter;
         }
 
         private void InitStatic()
@@ -131,20 +118,23 @@ namespace ThanaNita.MonoGameTnt
 
         protected virtual void SetDefaultGraphicsStates()
         {
-            GraphicsDevice.RasterizerState = new RasterizerState()
-            {
-                CullMode = CullMode.None,   // For flipping Y Axis
-                // ScissorTestEnable = true    // Currently Not Use. For Clipping Text in UI Using Scissor Rectangle
-            };
-
-            GraphicsDevice.DepthStencilState = DepthStencilState.Default; // Z-buffer may not be relevant
+            // for crisp pixel art and tiled texture
+            GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
             // for transpancy (e.g. in png)
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            //GraphicsDevice.BlendState = BlendStateCustom.Tinting;
 
-            // for crisp pixel art and tiled texture
-            GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
+            // Z-buffer may not be relevant
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+            GraphicsDevice.RasterizerState = new RasterizerState()
+            {
+                // For flipped Triangle (and when flipping Y Axis)
+                CullMode = CullMode.None,
+
+                // Currently Not Use. For Clip UI Using Scissor Rectangle
+                // ScissorTestEnable = true 
+            };
         }
 
         protected virtual void CameraSetup()
@@ -166,7 +156,7 @@ namespace ThanaNita.MonoGameTnt
         private void CreateBackgroundRect()
         {
             if (BackgroundColor != null)
-                background = new RectangleDrawable(BackgroundColor.Value,
+                background = new RectangleActor(BackgroundColor.Value,
                                                 new RectF(0, 0, ScreenSize.X, ScreenSize.Y));
             else
                 background = null;
@@ -266,28 +256,34 @@ namespace ThanaNita.MonoGameTnt
 
         //******************** Toggle Full Screen **********************************************
 
-        //https://community.monogame.net/t/get-the-actual-screen-width-and-height-on-windows-10-c-monogame/10006/2
+        // https://community.monogame.net/t/get-the-actual-screen-width-and-height-on-windows-10-c-monogame/10006/2
         protected void ToggleFullScreen()
         {
-            SetFullScreen(!GraphicsManager.IsFullScreen);
+            SetFullScreen(!GraphicsManager.IsFullScreen, false);
         }
-        protected void SetFullScreen(bool bFullScreen)
+
+        // https://community.monogame.net/t/how-to-implement-borderless-fullscreen-on-desktopgl-project/8359
+        protected void SetFullScreen(bool bFullScreen, bool forcePreferredSize)
         {
+            Vector2 display = new Vector2(
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+
             if (bFullScreen)
             {
-                int w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                int h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
                 GraphicsManager.IsFullScreen = true;
-                GraphicsManager.HardwareModeSwitch = false; // https://community.monogame.net/t/how-to-implement-borderless-fullscreen-on-desktopgl-project/8359
-                GraphicsManager.PreferredBackBufferWidth = w;
-                GraphicsManager.PreferredBackBufferHeight = h;
+                GraphicsManager.HardwareModeSwitch = false;
+                GraphicsManager.PreferredBackBufferWidth = (int)display.X;
+                GraphicsManager.PreferredBackBufferHeight = (int)display.Y;
                 GraphicsManager.ApplyChanges();
             }
             else
             {
+                Vector2 size = (forcePreferredSize || (display.X > PreferredWindowSize.X && display.Y > PreferredWindowSize.Y)
+                        ) ? PreferredWindowSize : display * 0.75f;
                 GraphicsManager.IsFullScreen = false;
-                GraphicsManager.PreferredBackBufferWidth = (int)PreferredWindowSize.X;
-                GraphicsManager.PreferredBackBufferHeight = (int)PreferredWindowSize.Y;
+                GraphicsManager.PreferredBackBufferWidth = (int)size.X;
+                GraphicsManager.PreferredBackBufferHeight = (int)size.Y;
                 GraphicsManager.ApplyChanges();
             }
             Window.AllowUserResizing = true;

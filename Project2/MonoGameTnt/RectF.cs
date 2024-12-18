@@ -34,6 +34,11 @@ namespace ThanaNita.MonoGameTnt
         {
         }
 
+        public RectF(Vector2 size)
+            : this(Vector2.Zero, size)
+        {
+        }
+
         public bool Contains(Vector2 point)
         {
             return this.X <= point.X && point.X < XMax 
@@ -80,6 +85,10 @@ namespace ThanaNita.MonoGameTnt
         public RectF CreateExpand(float delta)
         {
             return new RectF(X-delta, Y-delta, Width + 2*delta, Height + 2*delta);
+        }
+        public RectF CreateExpand(Vector2 delta)
+        {
+            return new RectF(X - delta.X, Y - delta.Y, Width + 2 * delta.X, Height + 2 * delta.Y);
         }
         public RectF CreateAdjusted(float widthRatio, float heightRatio)
         {
