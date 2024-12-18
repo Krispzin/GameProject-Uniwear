@@ -168,6 +168,7 @@ namespace Project3_1
             panel.Detach();
             placeholder.Add(newPanel);
             actChoose = ActChoose.act1;
+
             finished = true;
         }
 
@@ -176,6 +177,7 @@ namespace Project3_1
             panel.Detach();
             placeholder.Add(newPanel);
             actChoose = ActChoose.act2;
+
             finished = true;
         }
         private void actbtn3(GenericButton button) 
@@ -183,6 +185,7 @@ namespace Project3_1
             panel.Detach();
             placeholder.Add(newPanel);
             actChoose = ActChoose.act3;
+
             finished = true;
         }
     }
