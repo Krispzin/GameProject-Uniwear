@@ -50,7 +50,7 @@ namespace Project2
             //ปรับ Loop
             MediaPlayer.IsRepeating = true;
             //ปรับเสียง
-            MediaPlayer.Volume = 0.5f;
+            MediaPlayer.Volume = 0.1f;
             MediaPlayer.Play(song);
             Debug.WriteLine("menu");
         }
@@ -68,16 +68,18 @@ namespace Project2
                 {
                     menuScreen.Detach();
                     menuScreen = null;
-                    dialogpanel = new DialogPanel(ScreenSize, ExitNotifier);
-                    All.Add(dialogpanel);
+                    inputScreen = new InputScreen(ScreenSize, ExitNotifier);
+                    All.Add(inputScreen);
                 }
                 //Credit button
                 else if (code == 1)
                 {
+                   
                     menuScreen.Detach();
                     menuScreen = null;
                     credit = new Credit(ScreenSize, ExitNotifier);
                     All.Add(credit);
+                    Debug.WriteLine("get to cd menu");
                 }
                 //Exit button
                 else if (code == 2)
@@ -101,6 +103,7 @@ namespace Project2
             {
                 if (code == 1)
                 {
+                    Debug.WriteLine("check");
                     credit.Detach();
                     credit = null;
                     menuScreen = new MenuScreen(ScreenSize, ExitNotifier);

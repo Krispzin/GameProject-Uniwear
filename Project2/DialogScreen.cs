@@ -30,7 +30,7 @@ namespace Project2
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
 
             Add(panel);
-            
+
         }
 
         public override void Act(float deltaTime)
