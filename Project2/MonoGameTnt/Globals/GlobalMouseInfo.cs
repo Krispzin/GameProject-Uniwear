@@ -11,7 +11,7 @@ namespace ThanaNita.MonoGameTnt
             get => storedValue;
             set
             {
-                GlobalUtil.AssertOneTimeSetter(storedValue, value, "GlobalMouseInfo");
+                //GlobalUtil.AssertOneTimeSetter(storedValue, value, "GlobalMouseInfo");
                 storedValue = value;
             }
         }

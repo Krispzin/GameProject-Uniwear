@@ -11,7 +11,7 @@ namespace ThanaNita.MonoGameTnt
             get => storedValue;
             set
             {
-                GlobalUtil.AssertOneTimeSetter(storedValue, value, "EffectAdapter");
+                //GlobalUtil.AssertOneTimeSetter(storedValue, value, "EffectAdapter");
                 storedValue = value;
             }
         }

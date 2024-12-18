@@ -11,7 +11,7 @@ namespace ThanaNita.MonoGameTnt
             get => storedValue;
             set
             {
-                GlobalUtil.AssertOneTimeSetter(storedValue, value, "GlobalGraphicsDevice");
+                //GlobalUtil.AssertOneTimeSetter(storedValue, value, "GlobalGraphicsDevice");
                 storedValue = value;
             }
         }

@@ -15,9 +15,10 @@ namespace Project2
         Actor credit;
         Actor menuScreen;
         Actor inputScreen;
-        DialogPanel dialogpanel;
-        Panel panel;
-        
+        //DialogPanel dialogpanel;
+        //Panel panel;
+        Game13Tile game13;
+
         public Actor dialogPanel, actionBtns, attackPanel;
         public Game1()
             : base(virtualScreenSize: new Vector2(640, 480),
@@ -50,7 +51,7 @@ namespace Project2
             //ปรับ Loop
             MediaPlayer.IsRepeating = true;
             //ปรับเสียง
-            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Volume = 0.0f;
             MediaPlayer.Play(song);
             Debug.WriteLine("menu");
         }
@@ -68,13 +69,16 @@ namespace Project2
                 {
                     menuScreen.Detach();
                     menuScreen = null;
-                    inputScreen = new InputScreen(ScreenSize, ExitNotifier);
-                    All.Add(inputScreen);
+                    game13 = new Game13Tile();
+                    //All.Add(game13);
+                    //using var game1 = new Project2.Game13Tile();
+                    
+                    game13.Run();
+
                 }
                 //Credit button
                 else if (code == 1)
                 {
-                   
                     menuScreen.Detach();
                     menuScreen = null;
                     credit = new Credit(ScreenSize, ExitNotifier);
