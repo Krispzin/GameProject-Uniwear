@@ -51,7 +51,7 @@ namespace Project2
             //ปรับ Loop
             MediaPlayer.IsRepeating = true;
             //ปรับเสียง
-            MediaPlayer.Volume = 0.0f;
+            MediaPlayer.Volume = 0.1f;
             MediaPlayer.Play(song);
             Debug.WriteLine("menu");
         }

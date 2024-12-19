@@ -28,7 +28,7 @@ namespace Project2
             Add(text);
 
             btnb = new Button("ChakraPetch-Regular.ttf", 20, Color.Black, "Back", new Vector2(100, 50));
-            btnb.Position = new Vector2(0, 0);
+            btnb.Position = new Vector2(screenSize.X / 2 - btnb.OutlineWidth / 2, screenSize.Y - 100);
             Add(btnb);
 
 

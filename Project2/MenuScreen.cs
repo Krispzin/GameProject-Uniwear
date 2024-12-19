@@ -5,6 +5,8 @@ using ThanaNita.MonoGameTnt;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using System;
+using static System.Net.Mime.MediaTypeNames;
+using Text = ThanaNita.MonoGameTnt.Text;
 
 
 namespace Game12
@@ -13,12 +15,16 @@ namespace Game12
 
     public class MenuScreen : Actor
     {
-
+        Text text;
         private Button btnstar, btncd, btnexit;
         ExitNotifier exitNotifier;
         public MenuScreen(Vector2 screenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
+
+            text = new Text("ChakraPetch-Regular.ttf", 100, Color.White,
+                            "Game 101");
+            Add(text);
 
             btnstar = new Button("ChakraPetch-Regular.ttf", 50, Color.Black, "Start", new Vector2(150, 80));
 
