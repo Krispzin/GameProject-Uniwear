@@ -23,10 +23,10 @@ namespace Project3_1
             Hp = 200;
             Strength = 2;
 
-            var texture = TextureCache.Get("Spin_Fight.png");
-            SetTexture(texture);
-            Origin = RawSize / 2;
-            Position = position;
+            //var texture = TextureCache.Get("Spin_Fight.png");
+            //SetTexture(texture);
+            //Origin = RawSize / 2;
+            //Position = position;
 
             HpBar = new ProgressBar(size: new Vector2(200, 20), max: HpMax, Color.Black, Color.Green);
             HpBar.Value = Hp;

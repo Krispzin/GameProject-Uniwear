@@ -12,10 +12,10 @@ namespace Project3_1
     {
         public BG(Vector2 position)
         {
-            var texture = TextureCache.Get("Spinmap2.jpeg");
-            SetTexture(texture);
-            Origin = RawSize / 2;
-            Position = position;
+            //var texture = TextureCache.Get("Spinmap2.jpeg");
+            //SetTexture(texture);
+            //Origin = RawSize / 2;
+            //Position = position;
         }
     }
 }
