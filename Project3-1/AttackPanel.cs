@@ -17,7 +17,7 @@ namespace Project3_1
         MovingBar movingBar = new MovingBar(new Vector2(10, 10), 0f);
         HitBar hitBar = new HitBar(new Vector2(290, 5));
         private Vector2 position;
-        public int hitMisses;
+        public int hitMisses, hitTime;
         private int numBar = 0;
         public bool finished = false;
         Button ltBtn, hvBtn;
@@ -44,6 +44,7 @@ namespace Project3_1
             if (this.GetChild(0).ChildCount <= 2)
             {
                 hitMisses = numBar - hitBar.hitTimes;
+                hitTime = hitBar.hitTimes;
                 this.finished = true;
                 Debug.WriteLine(this.finished);
             }

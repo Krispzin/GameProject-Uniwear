@@ -16,9 +16,15 @@ namespace Project3_1
         ActionBtns actionbtns;
         DialogPanel dialogpanel;
         AttackPanel attackpanel;
+        Enemy enemy;
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd }
         public State state = State.Init;
         public Actor dialogPanel, actionBtns, attackPanel;
+        private int pHpNew;
+        private int eHpNew;
+        private int playerHits = 0;
+        private int enemyHits = 0;
+        private bool hpUpdated = false; 
         Panel panel;
         Text text;
         public Placeholder placeholder = new Placeholder();
@@ -28,14 +34,13 @@ namespace Project3_1
         {
             this.exitNotifier = exitNotifier;
 
-            playerStat = new PlayerStat("ยู", 20, 20, 5);
+            enemy = new Enemy(new Vector2(320, 120));
+
+            playerStat = new PlayerStat("ยู", 20, 20, 5, new Vector2(30, 390));
 
             dialogpanel = new DialogPanel(new Vector2(30, 240));
             dialogPanel = dialogpanel;
-            //placeholder.Add(dialogPanel);
 
-            //var playerHpBar = new PlayerHpBar(new Vector2(30, 390));
-            //placeholder.Add(playerHpBar);
             actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
             actionBtns = actionbtns;
 
@@ -44,46 +49,28 @@ namespace Project3_1
 
             //placeholder.Add(actionbtns);
 
-
+            ChangeState(State.Init);
             Add(placeholder);
-
         }
 
         private void ChangeState(State newState)
         {
             state = newState;
-            if (state != State.PPreTurn)
+            if (state == State.Init)
             {
-                actionbtns.DelbtnActions();
-            }
-            if (state == State.StatusUpdate)
-            {
-                //Debug.WriteLine(attackpanel.hitMisses);
-                attackPanel.Detach();
-            }
-
-        }
-
-        public override void Act(float deltaTime)
-        {
-            base.Act(deltaTime);
-
-            if (state == State.Init && placeholder.ChildCount == 0)
-            {
-                placeholder.Add(new BG(new Vector2(320, 120)));
-                placeholder.Add(new Enemy(new Vector2(320, 120)));
-                placeholder.Add(dialogPanel);
-                placeholder.Add(actionbtns);
+                InitSetup();
                 Debug.WriteLine(state);
-                Debug.WriteLine(dialogpanel.finished);
             }
             else if (state == State.PPreTurn)
             {
                 actionbtns.btnActions();
+                Debug.WriteLine(state);
             }
+
             else if (state == State.PlayerAction)
             {
                 placeholder.Add(attackPanel);
+                Debug.WriteLine(state);
                 if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
                 {
                     attackpanel.lightAtk();
@@ -97,19 +84,76 @@ namespace Project3_1
             }
             else if (state == State.StatusUpdate)
             {
-                playerStat.Hp -= ;
+                playerHits = attackpanel.hitTime;
+                enemyHits = attackpanel.hitMisses;
+                attackpanel.hitTime = 0;
+                attackpanel.hitMisses = 0;
+
+                attackPanel.Detach();
+                playerStat.Hp -= enemy.Strength * enemyHits;
+                enemyHits = 0;
+                pHpNew = playerStat.Hp;
+                enemy.Hp -= playerStat.Strength * playerHits;
+                playerStat.Hp = 0;
+                eHpNew = enemy.Hp;
+                playerStat.updateHp(pHpNew);
+                enemy.updateHp(eHpNew);
+                Debug.WriteLine(state);
+            }
+            else if (state == State.TurnEnd)
+            {
+                if (playerStat.Hp <= 0)
+                {
+
+                }
+                else if (enemy.Hp <= 0)
+                {
+
+                }
+                    
+            }
+        }
+
+        public override void Act(float deltaTime)
+        {
+            base.Act(deltaTime);
+
+            if (dialogpanel.finished == true)
+            {
+                ChangeState(State.PPreTurn);
+                dialogpanel.finished = false;
             }
 
 
-            if (dialogpanel.finished == true)
-                ChangeState(State.PPreTurn);
-
             if (actionbtns.finished == true)
+            {
                 ChangeState(State.PlayerAction);
+                actionbtns.finished = false;
+            }
 
             if (attackpanel.finished == true)
+            {
+                //playerHits = attackpanel.hitTime;
+                //enemyHits = attackpanel.hitMisses;
+                //attackpanel.hitTime = 0;
+                //attackpanel.hitMisses = 0;
                 ChangeState(State.StatusUpdate);
+                attackpanel.finished = false;
+            }
 
+            if (playerStat.Hp <= 0 || enemy.Hp <= 0)
+            {
+                ChangeState(State.TurnEnd);
+            }
+        }
+
+        private void InitSetup()
+        {
+            placeholder.Add(new BG(new Vector2(320, 120)));
+            placeholder.Add(enemy);
+            placeholder.Add(playerStat);
+            placeholder.Add(dialogPanel);
+            placeholder.Add(actionbtns);
         }
     }
 }

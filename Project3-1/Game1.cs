@@ -20,7 +20,7 @@ namespace Project3_1
 
         protected override void LoadContent()
         {
-            playerstat = new PlayerStat("playerName", 20, 20, 5);
+            //playerstat = new PlayerStat("playerName", 20, 20, 5);
             CollisionDetectionUnit.AddDetector(1, 2);
 
             combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
