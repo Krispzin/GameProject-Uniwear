@@ -17,10 +17,11 @@ namespace Project3_1
         DialogPanel dialogpanel;
         AttackPanel attackpanel;
         RunPanel runpanel;
+        ActScreen ActScreen;
         Enemy enemy;
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd , ExitBattle }
         public State state = State.Init;
-        public Actor dialogPanel, actionBtns, attackPanel , runPanel;
+        public Actor dialogPanel, actionBtns, attackPanel ,actScreen, runPanel;
         private int pHpNew;
         private int eHpNew;
         private int playerHits = 0;
@@ -44,6 +45,9 @@ namespace Project3_1
 
             actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
             actionBtns = actionbtns;
+
+            ActScreen = new ActScreen(new Vector2(0, 0));
+            actScreen = ActScreen;
 
             attackpanel = new AttackPanel(new Vector2(30, 240));
             attackPanel = attackpanel;
@@ -127,11 +131,7 @@ namespace Project3_1
                 ChangeState(State.PPreTurn);
                 dialogpanel.finished = false;
             }
-            if (runpanel.finished == true) 
-            {
-                ChangeState(State.ExitBattle);
-                //ออกเกม
-            }
+            
 
 
             if (actionbtns.finished == true)
@@ -153,6 +153,12 @@ namespace Project3_1
             if (playerStat.Hp <= 0 || enemy.Hp <= 0)
             {
                 ChangeState(State.TurnEnd);
+            }
+
+            if (runpanel.finished == true)
+            {
+                ChangeState(State.ExitBattle);
+                //ออกเกม
             }
         }
 

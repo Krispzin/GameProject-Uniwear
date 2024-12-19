@@ -17,6 +17,7 @@ namespace Project3_1
         Actor panel, newPanel, myParent;
         AttackPanel attackPanel;
         CombatScreen combatScreen;
+        ActScreen actScreen;
         RunPanel runPanel;
         public enum AtkTypes { Non, lightAtk, heavyAtk }
         public AtkTypes AtkType = AtkTypes.Non;
@@ -77,6 +78,7 @@ namespace Project3_1
             hvBtn.ButtonClicked += hvbtn;
 
             runButton.ButtonClicked += runChoice;
+            actButton.ButtonClicked += actChoice;
         }
 
         public void DelbtnActions()
@@ -90,6 +92,13 @@ namespace Project3_1
         {
             panel.Detach();
             placeholder.Add(new RunPanel(new Vector2(30, 240)));
+
+        }
+
+        private void actChoice(GenericButton button)
+        {
+            panel.Detach();
+            placeholder.Add(new ActScreen(new Vector2(30, 240)));
 
         }
 
