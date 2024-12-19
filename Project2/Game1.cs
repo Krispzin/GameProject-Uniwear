@@ -15,7 +15,7 @@ namespace Project2
         Actor credit;
         Actor menuScreen;
         Actor inputScreen;
-        //DialogPanel dialogpanel;
+        DialogPanel dialogpanel;
         //Panel panel;
         Game13Tile game13;
 
@@ -69,11 +69,13 @@ namespace Project2
                 {
                     menuScreen.Detach();
                     menuScreen = null;
-                    game13 = new Game13Tile();
+                    dialogpanel = new DialogPanel(ScreenSize,ExitNotifier);
+                    All.Add(dialogpanel);
+                    //use this >>> game13 = new Game13Tile();
                     //All.Add(game13);
                     //using var game1 = new Project2.Game13Tile();
-                    
-                    game13.Run();
+
+                    // and this >>> game13.Run();
 
                 }
                 //Credit button

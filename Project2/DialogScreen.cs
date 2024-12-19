@@ -18,9 +18,9 @@ namespace Project2
         Text text;
         string[] str;
         public bool finished = false;
-        public DialogPanel(Vector2 position, ExitNotifier exitNotifier)
+        public DialogPanel(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
-            Position = position;
+            //ScreenSizen = screenSize;
 
             this.exitNotifier = exitNotifier;
 
@@ -28,6 +28,7 @@ namespace Project2
             str = ["ทดสอบระบบ สระแม่งติดมั้ยวะ? คุ", "2 asdasdasdasdasd", "3 asdasdasdasdasd"];
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
+            panel.Position = new Vector2(30, 300);
 
             Add(panel);
 
