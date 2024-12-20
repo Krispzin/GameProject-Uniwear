@@ -24,10 +24,10 @@ namespace Project2
             //ScreenSizen = screenSize;
 
             this.exitNotifier = exitNotifier;
-            var bg = new BG(new Vector2(30, 50)); 
+            var bg = new BG(new Vector2(10, 60)); 
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
-            str = ["ทดสอบระบบ สระแม่งติดมั้ยวะ? คุ", "2 asdasdasdasdasd", "3 asdasdasdasdasd"];
+            str = ["Dialog lorem1", "Dialog lorem2", "Dialog lorem3"];
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
             panel.Position = new Vector2(30, 300);
