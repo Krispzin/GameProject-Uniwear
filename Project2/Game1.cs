@@ -27,17 +27,6 @@ namespace Project2
             BackgroundColor = Color.DarkGray;
             IsFixedTimeStep = false;
 
-            //dialogpanel = new DialogPanel(new Vector2(30, 240));
-            //dialogPanel = dialogpanel;
-
-            //actionbtns = new ActionBtns(new Vector2(0, 0), ScreenSize, dialogPanel);
-            //actionBtns = actionbtns;
-
-
-            //placeholder.Add(actionbtns);
-
-
-            //Add(placeholder);
         }
         protected override void LoadContent()
         {
@@ -69,13 +58,10 @@ namespace Project2
                 {
                     menuScreen.Detach();
                     menuScreen = null;
-                    dialogpanel = new DialogPanel(ScreenSize,ExitNotifier);
+                    dialogpanel = new DialogPanel(ScreenSize, ExitNotifier);
                     All.Add(dialogpanel);
-                    //use this >>> game13 = new Game13Tile();
-                    //All.Add(game13);
-                    //using var game1 = new Project2.Game13Tile();
-
-                    // and this >>> game13.Run();
+                    //game13 = new Game13Tile();// <<<< use this
+                    //game13.Run(); // and this
 
                 }
                 //Credit button
@@ -91,6 +77,18 @@ namespace Project2
                 else if (code == 2)
                 {
                     this.Exit();
+                }
+            }
+            else if (actor == dialogpanel)
+            {
+                // เมื่อ DialogPanel จบ
+                if (code == 1) // code ที่ใช้บอกว่า DialogPanel จบ
+                {
+                    dialogpanel.Detach();
+                    dialogpanel = null;
+                    game13 = new Game13Tile(); // สร้าง Game13Tile
+                    game13.Run(); // เพิ่ม Game13Tile เข้าในระบบ
+                    Debug.WriteLine("DialogPanel finished. Starting Game13Tile.");
                 }
             }
 

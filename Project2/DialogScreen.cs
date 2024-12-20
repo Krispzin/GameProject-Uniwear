@@ -24,7 +24,7 @@ namespace Project2
             //ScreenSizen = screenSize;
 
             this.exitNotifier = exitNotifier;
-            var bg = new BG(new Vector2(10, 60)); 
+            var bg = new BG(new Vector2(10, 60));
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
             str = ["Dialog lorem1", "Dialog lorem2", "Dialog lorem3"];
@@ -46,6 +46,7 @@ namespace Project2
         public void DialogRunner()
         {
             var keyInfo = GlobalKeyboardInfo.Value;
+
             if (panel.ChildCount == 0)
             {
                 panel.Add(text);
@@ -54,17 +55,21 @@ namespace Project2
 
             if (panel.ChildCount == 1)
             {
-                if (keyInfo.IsKeyPressed(Keys.Space) && (currentIndex) < str.Length)
+                if (keyInfo.IsKeyPressed(Keys.Space) && currentIndex < str.Length)
                 {
                     RunDialog();
                 }
-            }
+                else if (currentIndex >= str.Length && (textAnimation == null || textAnimation.IsFinished()))
+                {
+                    finished = true;
+                    Debug.WriteLine("Dialog finished");
 
-            if (currentIndex >= str.Length && (textAnimation == null || textAnimation.IsFinished()))
-            {
-                finished = true;
-                Debug.WriteLine(this.finished);
-                ;
+                    // กด Space หลังจากจบข้อความทั้งหมด
+                    if (keyInfo.IsKeyPressed(Keys.Space))
+                    {
+                        exitNotifier.Invoke(this, 1); // ใช้โค้ด 1 เพื่อระบุว่า DialogScreen จบ
+                    }
+                }
             }
         }
 
