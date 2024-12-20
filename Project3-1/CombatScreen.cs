@@ -18,10 +18,11 @@ namespace Project3_1
         AttackPanel attackpanel;
         RunPanel runpanel;
         ActScreen ActScreen;
+        ActPanel ActPanel;
         Enemy enemy;
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd , ExitBattle }
         public State state = State.Init;
-        public Actor dialogPanel, actionBtns, attackPanel ,actScreen, runPanel;
+        public Actor dialogPanel, actionBtns, attackPanel ,actScreen , actPanel, runPanel;
         private int pHpNew;
         private int eHpNew;
         private int playerHits = 0;
@@ -30,7 +31,7 @@ namespace Project3_1
         Panel panel;
         Text text;
         public Placeholder placeholder = new Placeholder();
-        Button atkBtn, actBtn, runBtn, ltBtn, htBtn;
+        Button atkBtn, actBtn, runBtn, ltBtn, htBtn, actBtn1 , actBtn2, actBtn3;
         string[] str;
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
@@ -48,6 +49,9 @@ namespace Project3_1
 
             ActScreen = new ActScreen(new Vector2(0, 0));
             actScreen = ActScreen;
+
+            ActPanel = new ActPanel(new Vector2(30, 240));
+            actPanel = ActPanel;
 
             attackpanel = new AttackPanel(new Vector2(30, 240));
             attackPanel = attackpanel;
@@ -73,22 +77,47 @@ namespace Project3_1
             {
                 actionbtns.btnActions();
                 Debug.WriteLine(state);
+
             }
 
             else if (state == State.PlayerAction)
             {
-                placeholder.Add(attackPanel);
-                Debug.WriteLine(state);
-                if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
-                {
-                    attackpanel.lightAtk();
-                    actionbtns.AtkType = ActionBtns.AtkTypes.Non;
-                }
-                else if (actionbtns.AtkType == ActionBtns.AtkTypes.heavyAtk)
-                {
-                    attackpanel.heavyAtk();
-                    actionbtns.AtkType = ActionBtns.AtkTypes.Non;
-                }
+                //if (actionbtns.btnActions() == ) {
+                    placeholder.Add(attackPanel);
+                    Debug.WriteLine(state);
+                    if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
+                    {
+                        attackpanel.lightAtk();
+                        actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                    }
+                    else if (actionbtns.AtkType == ActionBtns.AtkTypes.heavyAtk)
+                    {
+                        attackpanel.heavyAtk();
+                        actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                    }
+                //}
+
+                //else if (actionbtns.btnActions() == )
+                //{
+                //placeholder.Add(actPanel);
+                //Debug.WriteLine(state);
+                //if (actionbtns.ActType == ActionBtns.ActTypes.Act1)
+                //{
+                //    ActPanel.act1();
+                //    actionbtns.ActType = ActionBtns.ActTypes.Non;
+                //}
+                //else if (actionbtns.ActType == ActionBtns.ActTypes.Act2)
+                //{
+                //    ActPanel.act2();
+                //    actionbtns.ActType = ActionBtns.ActTypes.Non;
+                //}
+                //else if (actionbtns.ActType == ActionBtns.ActTypes.Act3)
+                //{
+                //    ActPanel.act3();
+                //    actionbtns.ActType = ActionBtns.ActTypes.Non;
+                //}
+                //}
+
             }
             else if (state == State.StatusUpdate)
             {
@@ -151,6 +180,10 @@ namespace Project3_1
             }
 
             if (playerStat.Hp <= 0 || enemy.Hp <= 0)
+            {
+                ChangeState(State.TurnEnd);
+            }
+            if (ActPanel.finished == true)
             {
                 ChangeState(State.TurnEnd);
             }

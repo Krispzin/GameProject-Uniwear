@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Project3_1
 {
@@ -14,12 +15,17 @@ namespace Project3_1
         Placeholder placeholder = new Placeholder();
         Button atkButton, actButton, runButton;
         Button ltBtn, hvBtn;
+        Button actBtn1, actBtn2, actBtn3;
         Actor panel, newPanel, myParent;
         AttackPanel attackPanel;
         CombatScreen combatScreen;
         ActScreen actScreen;
+        ActPanel actPanel;
+        private Panel textPanel;
         RunPanel runPanel;
         public enum AtkTypes { Non, lightAtk, heavyAtk }
+        public enum ActTypes { Non , Act1, Act2, Act3}
+        public ActTypes ActType = ActTypes.Non;
         public AtkTypes AtkType = AtkTypes.Non;
         public bool finished = false;
 
@@ -71,6 +77,40 @@ namespace Project3_1
 
         }
 
+        public void AddButtonsToPanel()
+        {
+            actBtn1 = new Button("ChakraPetch-Bold.ttf", 15, Color.Black, "*Act1", new Vector2(175, 60))
+            {
+                Position = new Vector2(10, 10)
+            };
+
+            actBtn2 = new Button("ChakraPetch-Bold.ttf", 15, Color.Black, "*Act2", new Vector2(175, 60))
+            {
+                Position = new Vector2(10, 25)
+            };
+
+            actBtn3 = new Button("ChakraPetch-Bold.ttf", 15, Color.Black, "*Act3", new Vector2(175, 60))
+            {
+                Position = new Vector2(370, 10)
+            };
+
+            actBtn1.ButtonClicked += actbtn1;
+            actBtn2.ButtonClicked += actbtn2;
+            actBtn3.ButtonClicked += actbtn3;
+
+            Alignment.SetPosition(actBtn1, actBtn2, AlignDirection.Down);
+            Alignment.SetOrigin(actBtn3, Align.Right);
+
+            placeholder.Add(actBtn1);
+            placeholder.Add(actBtn2);
+            placeholder.Add(actBtn3);
+            panel.Add(actBtn1);
+            panel.Add(actBtn2);
+            panel.Add(actBtn3);
+            
+            Add(panel);
+        }
+
         public void btnActions()
         {
             atkButton.ButtonClicked += atkChoice;
@@ -78,7 +118,9 @@ namespace Project3_1
             hvBtn.ButtonClicked += hvbtn;
 
             runButton.ButtonClicked += runChoice;
+
             actButton.ButtonClicked += actChoice;
+            
         }
 
         public void DelbtnActions()
@@ -98,8 +140,33 @@ namespace Project3_1
         private void actChoice(GenericButton button)
         {
             panel.Detach();
-            placeholder.Add(new ActScreen(new Vector2(30, 240)));
+            AddButtonsToPanel();
+            
+            
+            //ถ้าไม่ได้ให้ใช้ไอ้นี้
 
+            //placeholder.Add(new ActScreen(new Vector2(30, 240)));
+
+        }
+
+        private void actbtn1(GenericButton button)
+        {
+            newPanel.Detach();
+            ActType = ActTypes.Act1;
+
+        }
+
+        private void actbtn2(GenericButton button)
+        {
+            newPanel.Detach();
+            ActType = ActTypes.Act2;
+
+
+        }
+        private void actbtn3(GenericButton button)
+        {
+            newPanel.Detach();
+            ActType = ActTypes.Act3;
         }
 
         private void atkChoice(GenericButton button)

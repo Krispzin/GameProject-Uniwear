@@ -50,15 +50,15 @@ namespace Project3_1
             }
         }
 
-        private void ltbtn(GenericButton button)
-        {
-            lightAtk();
-        }
+        //private void ltbtn(GenericButton button)
+        //{
+        //    lightAtk();
+        //}
 
-        private void hvbtn(GenericButton button)
-        {
-            heavyAtk();
-        }
+        //private void hvbtn(GenericButton button)
+        //{
+        //    heavyAtk();
+        //}
 
         public void lightAtk()
         {
