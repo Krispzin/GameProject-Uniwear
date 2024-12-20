@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Project3_1;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,13 +24,14 @@ namespace Project2
             //ScreenSizen = screenSize;
 
             this.exitNotifier = exitNotifier;
+            var bg = new BG(new Vector2(30, 50)); 
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
             str = ["ทดสอบระบบ สระแม่งติดมั้ยวะ? คุ", "2 asdasdasdasdasd", "3 asdasdasdasdasd"];
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
             panel.Position = new Vector2(30, 300);
-
+            Add(bg);
             Add(panel);
 
         }
