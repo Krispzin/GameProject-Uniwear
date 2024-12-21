@@ -17,12 +17,57 @@ namespace Game13
             
         }
         CameraMan cameraMan;
-
+        //floor1
+        private TileMap floor1_floor;
+        private TileMap floor1_wall;
+        private TileMap floor1_clothing;
+        private TileMap floor1_gym;
+        private TileMap floor1_kitchen;
+        private TileMap floor1_museum;
+        private TileMap floor1_Hospital;
+        private TileMap floor1_generic;
+        private TileMap floor1_television;
+        private TileMap floor1_office;
+        private TileMap floor1_colision;
+        //floor 2
         private TileMap floor2_floor;
         private TileMap floor2_colision;
-        private TileMap floor1_floor;
-        private TileMap floor1_colision;
+        private TileMap floor2_wall;
+        private TileMap floor2_hospital;
+        private TileMap floor2_hospital2;
+        private TileMap floor2_generic;
+        private TileMap floor2_kitchen;
 
+        //f18 entrance
+        private TileMap f18_entrance_floor;
+        private TileMap f18_entrance_wall;
+        private TileMap f18_entrance_colision;
+        private TileMap f18_entrance_tuna;
+        private TileMap f18_entrance_kitchen;
+        private TileMap f18_entrance_hospital;
+        private TileMap f18_entrance_generic;
+        private TileMap f18_entrance_Classroom;
+        
+        //f18 lobby
+        private TileMap f18_lobby_floor;
+        private TileMap f18_lobby_wall;
+        private TileMap f18_lobby_colision;
+        private TileMap f18_lobby_chair;
+        private TileMap f18_lobby_table;
+        private TileMap f18_lobby_window;
+
+        //f18 thesis
+        private TileMap f18_thesis_floor;
+        private TileMap f18_thesis_wall;
+        private TileMap f18_thesis_colision;
+        private TileMap f18_thesis_BinNChair;
+        private TileMap f18_thesis_book;
+        private TileMap f18_thesis_noon;
+        private TileMap f18_thesis_table;
+        private TileMap f18_thesis_window;
+
+
+        //elevator
         private TileMap elevator_floor;
         private TileMap elevator_colision;
         private TileMap elevator_wall;
@@ -30,9 +75,13 @@ namespace Game13
         private TileMap elevator_generic;
         private TileMap elevator_jail;
 
-        //18
-        private TileMap f18_Floor;
-        private TileMap f18_Colision;
+        //elevator2
+        private TileMap elevator2_floor;
+        private TileMap elevator2_colision;
+        private TileMap elevator2_wall;
+        private TileMap elevator2_hospital;
+        private TileMap elevator2_generic;
+        private TileMap elevator2_jail;
 
 
         //thesis
@@ -54,20 +103,36 @@ namespace Game13
 
         protected override void LoadContent()
         {
-            BackgroundColor = Color.LightGray;
-
+            BackgroundColor = Color.Black;
+            
             var builder = new TileMapBuilder();
 
 
             interactImage = TextureCache.Get("Content/resource/img/noon_fight.png");
             //new
             // 1. Create tile maps and STORE REFERENCES
+
+            //floor 1
+            floor1_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/level_1_colision.csv");
+            floor1_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level_1_floor.csv");
+            floor1_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/level_1_wall.csv");
+            floor1_clothing = builder.CreateSimple("Content/resource/tileset/21_Clothing_Store_32x32.png",new Vector2(32, 32),16,67,"Content/resource/tilemap/level_1_clothing.csv");
+            floor1_gym = builder.CreateSimple("Content/resource/tileset/8_Gym_32x32.png",new Vector2(32, 32),16,33,"Content/resource/tilemap/level_1_gym.csv");
+            floor1_kitchen = builder.CreateSimple("Content/resource/tileset/12_Kitchen_32x32.png",new Vector2(32, 32),16,49,"Content/resource/tilemap/level_1_kitchen.csv");
+            floor1_museum = builder.CreateSimple("Content/resource/tileset/22_Museum_32x32.png",new Vector2(32, 32),16,122,"Content/resource/tilemap/level_1_museum.csv");
+            floor1_Hospital = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png",new Vector2(32, 32),16,110,"Content/resource/tilemap/level_1_Hospital.csv");
+            floor1_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png",new Vector2(32, 32),16,78,"Content/resource/tilemap/level_1_generic.csv");
+            floor1_television = builder.CreateSimple("Content/resource/tileset/23_Television_and_Film_Studio_32x32.png",new Vector2(32, 32),16,14,"Content/resource/tilemap/level_1_television.csv");
+            floor1_office = builder.CreateSimple("Content/resource/tileset/Modern_Office_Black_Shadow_32x32.png",new Vector2(32, 32),16,53,"Content/resource/tilemap/level_1_office.csv");
+
+            //floor 2
             floor2_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/level_2_floor.csv");
             floor2_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/level_2_colision.csv");
-
-            // Uncomment and add floor 1 maps
-            floor1_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/level_1_floor.csv");
-            floor1_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/level_1_colision.csv");
+            floor2_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/level_2_wall.csv");
+            floor2_hospital = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/level_2_hospital.csv");
+            floor2_hospital2 = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/level_2_hospital2.csv");
+            floor2_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/level_2_generic.csv");
+            floor2_kitchen = builder.CreateSimple("Content/resource/tileset/12_Kitchen_32x32.png", new Vector2(32, 32), 16, 49, "Content/resource/tilemap/level_2_kitchen.csv");
 
             //elevator
             elevator_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/elevator_floor.csv");
@@ -77,11 +142,41 @@ namespace Game13
             elevator_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png",new Vector2(32, 32),16,78,"Content/resource/tilemap/elevator_generic.csv");
             elevator_jail = builder.CreateSimple("Content/resource/tileset/18_Jail_32x32.png",new Vector2(32, 32),16,45,"Content/resource/tilemap/elevator_jail.csv");
 
-            //f18
-            f18_Floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/18/Level_18_Roombuilder.csv");
-            f18_Colision  = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/18/Level_18_Colision2.csv");
+            //elevator2
+            elevator2_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/elevator2_floor.csv");
+            elevator2_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/elevator2_colision.csv");
+            elevator2_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/elevator2_wall.csv");
+            elevator2_hospital = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/elevator2_hospital.csv");
+            elevator2_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/elevator2_generic.csv");
+            elevator2_jail = builder.CreateSimple("Content/resource/tileset/18_Jail_32x32.png", new Vector2(32, 32), 16, 45, "Content/resource/tilemap/elevator2_jail.csv");
 
+            //f18 entrance
+            f18_entrance_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/Level_18_entrance_floor.csv");
+            f18_entrance_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/Level_18_entrance_wall.csv");
+            f18_entrance_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/Level_18_entrance_colision.csv");
+            f18_entrance_tuna = builder.CreateSimple("Content/resource/tileset/tuna.png", new Vector2(32, 32), 56, 40, "Content/resource/tilemap/Level_18_entrance_tuna.csv");
+            f18_entrance_kitchen = builder.CreateSimple("Content/resource/tileset/12_Kitchen_32x32.png", new Vector2(32, 32), 16, 49, "Content/resource/tilemap/Level_18_entrance_kitchen.csv");
+            f18_entrance_hospital = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/Level_18_entrance_hospital.csv");
+            f18_entrance_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/Level_18_entrance_generic.csv");
+            f18_entrance_Classroom = builder.CreateSimple("Content/resource/tileset/5_Classroom_and_library_32x32.png", new Vector2(32, 32), 16, 34, "Content/resource/tilemap/Level_18_entrance_Classroom.csv");
 
+            //f18 lobby
+            f18_lobby_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/Level_18_lobby_floor.csv");
+            f18_lobby_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/Level_18_lobby_wall.csv");
+            f18_lobby_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/Level_18_lobby_colision.csv");
+            f18_lobby_chair = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/Level_18_lobby_chair.csv");
+            f18_lobby_table = builder.CreateSimple("Content/resource/tileset/Modern_Office_Black_Shadow_32x32.png", new Vector2(32, 32), 16,53, "Content/resource/tilemap/Level_18_lobby_table.csv");
+            f18_lobby_window = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/Level_18_lobby_window.csv");
+
+            //f18 thesis
+            f18_thesis_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/Level_18_Thesis_Floor.csv");
+            f18_thesis_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/Level_18_Thesis_Wall.csv");
+            f18_thesis_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/Level_18_Thesis_Colision.csv");
+            f18_thesis_BinNChair = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/Level_18_Thesis_BinNChair.csv");
+            f18_thesis_book = builder.CreateSimple("Content/resource/tileset/5_Classroom_and_library_32x32.png", new Vector2(32, 32), 16, 34, "Content/resource/tilemap/Level_18_Thesis_Book.csv");
+            f18_thesis_noon = builder.CreateSimple("Content/resource/tileset/noonspin.png", new Vector2(32, 32), 56, 40, "Content/resource/tilemap/Level_18_Thesis_Noon.csv");
+            f18_thesis_table = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/Level_18_Thesis_Table.csv");
+            f18_thesis_window = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/Level_18_Thesis_Window.csv");
 
             //thesis
             Thesis_Floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/thesis/Level_Thesis_Floor.csv");
@@ -97,7 +192,7 @@ namespace Game13
             guy = new Guy(floor1_colision);
             int[] prohibitTiles = [0, 48, 56]; // Prohibit tiles 0 and 2
             guy.ProhibitTiles = prohibitTiles;
-            guy.Position = floor1_floor.TileCenter(6, 6);
+            guy.Position = floor1_floor.TileCenter(1,18);
 
             // 3. Add map transition detection
             guy.OnTileCollision += CheckMapTransition;
@@ -106,12 +201,21 @@ namespace Game13
             visual = new Actor();
             visual.Add(floor1_floor);
             visual.Add(floor1_colision);
+            visual.Add(floor1_wall);
+            visual.Add(floor1_clothing);
+            visual.Add(floor1_gym);
+            visual.Add(floor1_kitchen);
+            visual.Add(floor1_museum);
+            visual.Add(floor1_Hospital);
+            visual.Add(floor1_generic);
+            visual.Add(floor1_television);
+            visual.Add(floor1_office);
             // Add other necessary layers...
 
             // 5. Add to All EXPLICITLY
             All.Add(visual);
             All.Add(guy);
-           
+        
 
             // 6. Camera setup (if needed)
             cameraMan = new CameraMan(Camera, ScreenSize);
@@ -173,56 +277,106 @@ namespace Game13
         {
             try
             {
-              
                 //System.Diagnostics.Debug.WriteLine($"Tile X: {tileX}, Tile Y: {tileY}");
-               
+            
 
                 int currentTileCode = currentCollisionMap.GetTileCode(new Vector2i(tileX, tileY));
-
-
                 // Check if the current tile is a transition tile (2)
-                if (currentTileCode == 17)
-                {
-                    System.Diagnostics.Debug.WriteLine(floor);
-                    //System.Diagnostics.Debug.WriteLine("Transition tile detected!");
 
-                    if (floor == 2)
-                    {
-                        ChangeMap(floor1_floor, floor1_colision);
-                        floor = 1;
-                        Debug.WriteLine(floor);
-                    }
-                    else if (floor == 1)
-                    {
-                        Debug.WriteLine(floor);
-                        ChangeMap(floor2_floor, floor2_colision);
-                        floor = 2;
-
-                    }
-                }
-                else if (currentTileCode == 32)
-                {
-                    floor = 88;
-                    Debug.WriteLine(floor);
-                    ChangeMapElev(elevator_floor, elevator_colision, elevator_wall, elevator_hospital, elevator_generic, elevator_jail);
-                    
-                }
-                else if (currentTileCode == 16)
+                //floor1
+                if (currentTileCode == 16) //goto floor 2 red stair
                 {
                     floor = 2;
                     Debug.WriteLine(floor);
                     ChangeMap(floor2_floor, floor2_colision);
-
                 }
-                else if (currentTileCode == 84)
+                else if (currentTileCode == 32) //goto elevator red door
+                {
+                    floor = 88; // floor 88 is elevator
+                    Debug.WriteLine(floor);
+                    ChangeMapElev(elevator_floor, elevator_colision, elevator_wall, elevator_hospital, elevator_generic, elevator_jail);
+                    
+                }
+                //floor2
+                else if (currentTileCode == 17)  //goto floor 1 yellow stair
+                {
+                    floor = 1;
+                    Debug.WriteLine(floor);
+                    ChangeMap(floor1_floor, floor1_colision);                  
+                    // System.Diagnostics.Debug.WriteLine(floor);
+                    // //System.Diagnostics.Debug.WriteLine("Transition tile detected!");
+                    // if (floor == 2)
+                    // {
+                    //     ChangeMap(floor1_floor, floor1_colision);
+                    //     floor = 1;
+                    //     Debug.WriteLine(floor);
+                    // }
+                    // else if (floor == 1)
+                    // {
+                    //     Debug.WriteLine(floor);
+                    //     ChangeMap(floor2_floor, floor2_colision);
+                    //     floor = 2;
+                    // }
+                }
+                //elevator
+                else if (currentTileCode == 33)
+                {
+                    floor = 1;
+                    Debug.WriteLine(floor);
+                    ChangeMap(floor1_floor, floor1_colision);
+                }
+                //elevator2
+                else if (currentTileCode == 35)
+                {
+                    floor = 18;
+                    Debug.WriteLine(floor);
+                    ChangeMap(f18_entrance_floor, f18_entrance_colision);
+                }
+                //f18 entrance
+                else  if (currentTileCode == 43 ) //goto elevator2 white door
+                {
+                    floor = 89;
+                    Debug.WriteLine(floor);
+                    ChangeMapElev(elevator2_floor, elevator2_colision, elevator2_wall, elevator2_hospital, elevator2_generic, elevator2_jail);
+                }
+                else if (currentTileCode == 71) //goto f18 lobby
+                {
+                    floor = 181;
+                    Debug.WriteLine(floor);
+                    ChangeMap(f18_lobby_floor, f18_lobby_colision);
+                }
+                //f18 lobby
+                else if (currentTileCode == 75) //goto f18 thesis
                 {
                     floor = 182;
                     Debug.WriteLine(floor);
-                    ChangeMapThesis(Thesis_Floor, Thesis_Colision, Thesis_1, Thesis_2, Thesis_3, Thesis_4, Thesis_5, Thesis_noon);
-
+                    ChangeMapThesis(f18_thesis_floor, f18_thesis_colision, f18_thesis_BinNChair, f18_thesis_book, f18_thesis_noon, f18_thesis_table, f18_thesis_wall, f18_thesis_window);
+                }
+                else if (currentTileCode == 87) //goto f18 entrance
+                {
+                    floor = 18;
+                    Debug.WriteLine(floor);
+                    ChangeMap(f18_entrance_floor, f18_entrance_colision);
+                }
+                //f18 thesis
+                else if (currentTileCode == 70)// goto f18 lobby
+                {
+                    floor = 181;
+                    Debug.WriteLine(floor);
+                    ChangeMap(f18_lobby_floor, f18_lobby_colision);
                 }
 
-                if (currentTileCode == 48 && IsEnterPressed())
+
+
+
+                // else if (currentTileCode == 84) 
+                // {
+                //     floor = 182;
+                //     Debug.WriteLine(floor);
+                //     ChangeMapThesis(Thesis_Floor, Thesis_Colision, Thesis_1, Thesis_2, Thesis_3, Thesis_4, Thesis_5, Thesis_noon);
+                // }
+
+                if (currentTileCode == 48 && IsEnterPressed()) // elevator to f18 entrance
                 {
                     System.Diagnostics.Debug.WriteLine("interact");
 
@@ -230,9 +384,17 @@ namespace Game13
                     //isImageDisplaying = true;
                     floor = 18;
                     Debug.WriteLine(floor);
-                    ChangeMap(f18_Floor, f18_Colision);
+                    ChangeMap(f18_entrance_floor, f18_entrance_colision);
                 }
-                else if (currentTileCode == 56 && IsEnterPressed())
+                else  if (currentTileCode == 55 && IsEnterPressed())// elevator to floor1
+                {
+                    System.Diagnostics.Debug.WriteLine("interact");
+                    floor = 1;
+                    Debug.WriteLine(floor);
+                    ChangeMap(floor1_floor, floor1_colision);
+                }
+
+                else if (currentTileCode == 56 && IsEnterPressed()) //fight noon
                 {
                     System.Diagnostics.Debug.WriteLine("interact");
 
@@ -240,7 +402,6 @@ namespace Game13
                     isImageDisplaying = true;
                     
                 }
-
 
 
                 else

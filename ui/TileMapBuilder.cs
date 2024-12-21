@@ -29,7 +29,7 @@ namespace ThanaNita.MonoGameTnt
 
         public void LoadTileArrayCSV(string filename)
         {
-            var lines = File.ReadAllLines(filename);
+                var lines = File.ReadAllLines(filename);
             Debug.Assert(lines.Length > 0);
             int row = lines.Length;
 

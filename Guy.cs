@@ -16,7 +16,7 @@ namespace Game13
         public Guy(TileMap tileMap)
         {
             //var texture = TextureCache.Get("Guy.png");
-            var texture = TextureCache.Get("char1.png");
+            var texture = TextureCache.Get("Content/resource/character/char1.png");
             SetTextureRegion(new TextureRegion(texture, new RectF(0, 0, 32, 32)));
 
             Origin = new Vector2(16, 50);
