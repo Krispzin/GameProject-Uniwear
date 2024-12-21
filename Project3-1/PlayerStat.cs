@@ -16,7 +16,7 @@ namespace Project3_1
         public int HpMax { get; private set; }
         public int Strength { get; private set; }
         Placeholder placeholder = new Placeholder();
-        ProgressBar HpBar;
+        public ProgressBar HpBar;
         Text nameLabel, hpLabel;
         public PlayerStat(string name, int hpMax, int hp, int strength, Vector2 position)
         {
@@ -48,7 +48,7 @@ namespace Project3_1
             //{
             //    HpBar.Value -= 1;
             //}
-            HpBar.Value = updatedHp;
+            this.HpBar.Value = updatedHp;
         } 
     }
 }

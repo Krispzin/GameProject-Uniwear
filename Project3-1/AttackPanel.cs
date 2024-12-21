@@ -26,6 +26,7 @@ namespace Project3_1
         public AttackPanel(Vector2 vector2)
         {
             hitMisses = 0;
+            hitTime = 0;
             position = vector2;
             Position = position;
 
@@ -45,8 +46,11 @@ namespace Project3_1
             {
                 hitMisses = numBar - hitBar.hitTimes;
                 hitTime = hitBar.hitTimes;
+                hitBar.hitTimes = 0;
                 this.finished = true;
                 Debug.WriteLine(this.finished);
+                //Debug.WriteLine(hitMisses);
+                //Debug.WriteLine(hitTime);
             }
         }
 

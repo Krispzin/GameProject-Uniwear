@@ -20,6 +20,8 @@ namespace Project3_1
         ActScreen ActScreen;
         ActPanel ActPanel;
         Enemy enemy;
+        GOverScreen gOverScreen;
+        WinScreen winScreen;
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd , ExitBattle }
         public State state = State.Init;
         public Actor dialogPanel, actionBtns, attackPanel ,actScreen , actPanel, runPanel;
@@ -59,6 +61,9 @@ namespace Project3_1
             runpanel = new RunPanel(new Vector2(30, 240));
             runPanel = runpanel;
 
+            gOverScreen = new GOverScreen(ScreenSize);
+            winScreen = new WinScreen(ScreenSize);
+
             //placeholder.Add(actionbtns);
 
             ChangeState(State.Init);
@@ -75,6 +80,8 @@ namespace Project3_1
             }
             else if (state == State.PPreTurn)
             {
+                attackpanel.hitTime = 0;
+                attackpanel.hitMisses = 0;
                 enemyHits = 0;
                 playerHits = 0;
                 actionbtns.btnActions();
@@ -104,43 +111,51 @@ namespace Project3_1
                 eHpNew = enemy.Hp;
                 playerHits = attackpanel.hitTime;
                 enemyHits = attackpanel.hitMisses;
-                attackpanel.hitTime = 0;
-                attackpanel.hitMisses = 0;
 
                 attackPanel.Detach();
 
                 if (!updated)
                 {
-                    pHpNew = enemy.Strength * enemyHits;
-                    playerStat.Hp -= pHpNew;
-                    eHpNew = playerStat.Strength * playerHits;
-                    enemy.Hp -= eHpNew;
-                    playerStat.updateHp(pHpNew);
-                    enemy.updateHp(eHpNew);
+                    pHpNew = playerStat.Hp - (enemy.Strength * enemyHits);
+                    playerStat.Hp = pHpNew;
+                    eHpNew = enemy.Hp - (playerStat.Strength * playerHits);
+                    enemy.Hp = eHpNew;
+                    playerStat.HpBar.Value = playerStat.Hp;
+                    enemy.HpBar.Value = enemy.Hp;
+                    playerStat.updateHp(playerStat.Hp);
+                    enemy.updateHp(enemy.Hp);
                     updated = true;
+                    Debug.WriteLine(enemyHits);
                 }
 
                 if (updated)
                 {
-                    enemyHits = 0;
-                    playerHits = 0;
-                    ChangeState(State.PPreTurn);
+                    if (playerStat.Hp <= 0 || enemy.Hp <= 0)
+                    {
+                        ChangeState(State.TurnEnd);
+                    } 
+                    else
+                    {
+                        enemyHits = 0;
+                        playerHits = 0;
+                        ChangeState(State.PPreTurn);
+                    }
+                    updated = false;
                 }
 
                 Debug.WriteLine(state);
-                Debug.WriteLine(enemy.Strength * enemyHits);
-                Debug.WriteLine(playerStat.Strength * playerHits);
+
             }
             else if (state == State.TurnEnd)
             {
                 if (playerStat.Hp <= 0)
                 {
-
+                    placeholder.Add(gOverScreen);
                 }
                 else if (enemy.Hp <= 0)
                 {
-
-                }  
+                    placeholder.Add(winScreen);
+                }
             }
         }
 

@@ -15,12 +15,12 @@ namespace Project3_1
         public int Hp { get; set; }
         public int HpMax { get; private set; }
         public int Strength { get; private set; }
-        ProgressBar HpBar;
+        public ProgressBar HpBar;
         public Enemy(Vector2 position)
         {
             Name = "Spin";
-            HpMax = 100;
-            Hp = 100;
+            HpMax = 50;
+            Hp = 50;
             Strength = 2;
 
             var texture = TextureCache.Get("Spin_Fight.png");
@@ -45,7 +45,7 @@ namespace Project3_1
             //    //if (HpBar.Value == updatedHp)
             //    //    HpBar.Detach();
             //}
-            HpBar.Value = updatedHp;
+            this.HpBar.Value = updatedHp;
         }
     }
 }
