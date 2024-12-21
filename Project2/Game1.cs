@@ -60,8 +60,8 @@ namespace Project2
                     menuScreen = null;
                     dialogpanel = new DialogPanel(ScreenSize, ExitNotifier);
                     All.Add(dialogpanel);
-                    //game13 = new Game13Tile();// <<<< use this
-                    //game13.Run(); // and this
+                    game13 = new Game13Tile();// <<<< use this
+                    game13.Run(); // and this
 
                 }
                 //Credit button
