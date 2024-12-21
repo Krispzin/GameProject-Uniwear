@@ -18,10 +18,11 @@ namespace Project3_1
         AttackPanel attackpanel;
         RunPanel runpanel;
         ActScreen ActScreen;
+        ActPanel ActPanel;
         Enemy enemy;
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd , ExitBattle }
         public State state = State.Init;
-        public Actor dialogPanel, actionBtns, attackPanel ,actScreen, runPanel;
+        public Actor dialogPanel, actionBtns, attackPanel ,actScreen , actPanel, runPanel;
         private int pHpNew;
         private int eHpNew;
         private int playerHits = 0;
@@ -30,7 +31,7 @@ namespace Project3_1
         Panel panel;
         Text text;
         public Placeholder placeholder = new Placeholder();
-        Button atkBtn, actBtn, runBtn, ltBtn, htBtn;
+        Button atkBtn, actBtn, runBtn, ltBtn, htBtn, actBtn1 , actBtn2, actBtn3;
         string[] str;
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
@@ -48,6 +49,9 @@ namespace Project3_1
 
             ActScreen = new ActScreen(new Vector2(0, 0));
             actScreen = ActScreen;
+
+            ActPanel = new ActPanel(new Vector2(30, 240));
+            actPanel = ActPanel;
 
             attackpanel = new AttackPanel(new Vector2(30, 240));
             attackPanel = attackpanel;
@@ -75,10 +79,10 @@ namespace Project3_1
                 playerHits = 0;
                 actionbtns.btnActions();
                 Debug.WriteLine(state);
+
             }
             else if (state == State.PlayerAction)
             {
-                actionbtns.DelbtnActions();
                 placeholder.Add(attackPanel);
                 Debug.WriteLine(state);
                 if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
@@ -155,6 +159,10 @@ namespace Project3_1
             }
 
             if (playerStat.Hp <= 0 || enemy.Hp <= 0)
+            {
+                ChangeState(State.TurnEnd);
+            }
+            if (ActPanel.finished == true)
             {
                 ChangeState(State.TurnEnd);
             }
