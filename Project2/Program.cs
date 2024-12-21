@@ -1,2 +1,3 @@
-﻿using var game = new Project2.Game1();
+﻿
+using var game = new Project3_1.Game1();
 game.Run();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,30 +10,31 @@ using ThanaNita.MonoGameTnt;
 
 namespace Project2
 {
-    public class DialogPanel : Actor
+    public class RunPanel : Actor
     {
-        ExitNotifier exitNotifier;
+        Placeholder placeholder = new Placeholder();
         TextAnimation textAnimation;
         Panel panel;
         Text text;
         string[] str;
         public bool finished = false;
-        public DialogPanel(Vector2 ScreenSize, ExitNotifier exitNotifier)
+
+        public RunPanel(Vector2 position)
         {
-            //ScreenSizen = screenSize;
-
-            this.exitNotifier = exitNotifier;
-            var bg = new BG(new Vector2(10, 60));
-
+            Position = position;
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
-            str = ["Dialog lorem1", "Dialog lorem2", "Dialog lorem3"];
+            str = ["เห้ย นิสิตจะไปไหน"];
+
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
-            panel.Position = new Vector2(30, 300);
-            Add(bg);
-            Add(panel);
+            //panel.Add(text);
 
+
+            placeholder.Add(panel);
+            Add(placeholder);
         }
+
+        private int currentIndex = 0;
 
         public override void Act(float deltaTime)
         {
@@ -40,11 +42,9 @@ namespace Project2
             DialogRunner();
         }
 
-        private int currentIndex = 0;
         public void DialogRunner()
         {
             var keyInfo = GlobalKeyboardInfo.Value;
-
             if (panel.ChildCount == 0)
             {
                 panel.Add(text);
@@ -53,29 +53,32 @@ namespace Project2
 
             if (panel.ChildCount == 1)
             {
-                if (keyInfo.IsKeyPressed(Keys.Space) && currentIndex < str.Length)
+                if (keyInfo.IsKeyPressed(Keys.Space) && (currentIndex) < str.Length)
                 {
                     RunDialog();
                 }
-                else if (currentIndex >= str.Length && (textAnimation == null || textAnimation.IsFinished()))
-                {
-                    finished = true;
-                    Debug.WriteLine("Dialog finished");
 
-                    // กด Space หลังจากจบข้อความทั้งหมด
-                    if (keyInfo.IsKeyPressed(Keys.Space))
-                    {
-                        exitNotifier.Invoke(this, 1); // ใช้โค้ด 1 เพื่อระบุว่า DialogScreen จบ
-                    }
-                }
+            }
+
+            if (currentIndex >= str.Length && (textAnimation == null || textAnimation.IsFinished()))
+            {
+                finished = true;
+                this.Detach();
+                Debug.WriteLine(this.finished);
             }
         }
 
         private void RunDialog()
         {
-            text.ClearAction();
+            text.ClearAction(); // Clear any previous animations
             text.AddAction(textAnimation = new TextAnimation(text, str[currentIndex], textSpeed: 45));
             currentIndex++;
         }
+        private void ExitApp()
+        {
+            Debug.WriteLine("Exit the Game");
+
+        }
+
     }
 }

@@ -30,14 +30,13 @@ namespace Project2
         }
         protected override void LoadContent()
         {
-            game13 = new Game13Tile(ScreenSize, Camera);// <<<< use this
             menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
             All.Add(menuScreen);
 
             //เปลี่ยนเพลงตรงนี้
             song = Song.FromUri(name: "Song01",
                 new Uri("mytime.ogg", UriKind.Relative));
-            
+
             //ปรับ Loop
             MediaPlayer.IsRepeating = true;
             //ปรับเสียง
@@ -53,17 +52,15 @@ namespace Project2
 
             if (actor == menuScreen)
             {
-                //playBgm();
+                playBgm();
                 //Start button
                 if (code == 0)
                 {
                     menuScreen.Detach();
                     menuScreen = null;
-                    //game13 = new Game13Tile(ScreenSize, Camera);// <<<< use this
+                    game13 = new Game13Tile(ScreenSize, Camera);// <<<< use this
                     dialogpanel = new DialogPanel(ScreenSize, ExitNotifier);
                     All.Add(game13);
-                    //All.Add(dialogpanel);
-                    
                     //game13.Run(); // and this
 
                 }
@@ -127,11 +124,10 @@ namespace Project2
 
         }
 
-        //protected override void AfterUpdateAndCollision()
-        //{
-        //    if (game13.cameraMan != null)
-        //        game13.cameraMan.AdjustCamera();
-        //}
+        private void playBgm()
+        {
+
+        }
 
     }
 }

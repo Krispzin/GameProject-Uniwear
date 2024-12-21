@@ -10,6 +10,8 @@ namespace Project2
 {
     public class Game13Tile : Actor
     {
+        ExitNotifier exitNotifier;
+
         public CameraMan cameraMan;
 
         private TileMap floor2_floor;
@@ -47,6 +49,7 @@ namespace Project2
         public Game13Tile(Vector2 ScreenSize, OrthographicCamera camera)
         {
             //BackgroundColor = Color.LightGray;
+            this.exitNotifier = exitNotifier;
 
             var builder = new TileMapBuilder();
 

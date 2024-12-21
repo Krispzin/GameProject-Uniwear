@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 
-namespace Project3_1
+namespace Project2
 {
     public class BG : SpriteActor
     {
         public BG(Vector2 position)
         {
-            var texture = TextureCache.Get("noonmap2.jpeg");
+            var texture = TextureCache.Get("Content/resource/img/Spinmap2.jpeg");
             SetTexture(texture);
-            //Origin = RawSize / 2;
+            Origin = RawSize / 2;
             Position = position;
         }
     }
