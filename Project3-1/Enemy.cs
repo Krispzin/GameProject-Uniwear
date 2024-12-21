@@ -39,12 +39,13 @@ namespace Project3_1
         public void updateHp(int updatedHp)
         {
             //Add(HpBar);
-            while (HpBar.Value != updatedHp)
-            {
-                HpBar.Value -= 1;
-                //if (HpBar.Value == updatedHp)
-                //    HpBar.Detach();
-            }
+            //while (HpBar.Value != updatedHp)
+            //{
+            //    HpBar.Value -= 1;
+            //    //if (HpBar.Value == updatedHp)
+            //    //    HpBar.Detach();
+            //}
+            HpBar.Value = updatedHp;
         }
     }
 }

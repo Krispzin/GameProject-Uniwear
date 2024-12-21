@@ -98,24 +98,38 @@ namespace Project3_1
             }
             else if (state == State.StatusUpdate)
             {
+                var updated = false;
+
+                pHpNew = playerStat.Hp;
+                eHpNew = enemy.Hp;
                 playerHits = attackpanel.hitTime;
                 enemyHits = attackpanel.hitMisses;
                 attackpanel.hitTime = 0;
                 attackpanel.hitMisses = 0;
 
                 attackPanel.Detach();
-                playerStat.Hp -= enemy.Strength * enemyHits;
-                //enemyHits = 0;
-                pHpNew = playerStat.Hp;
-                enemy.Hp -= playerStat.Strength * playerHits;
-                //playerStat.Hp = 0;
-                eHpNew = enemy.Hp;
-                playerStat.updateHp(pHpNew);
-                enemy.updateHp(eHpNew);
+
+                if (!updated)
+                {
+                    pHpNew = enemy.Strength * enemyHits;
+                    playerStat.Hp -= pHpNew;
+                    eHpNew = playerStat.Strength * playerHits;
+                    enemy.Hp -= eHpNew;
+                    playerStat.updateHp(pHpNew);
+                    enemy.updateHp(eHpNew);
+                    updated = true;
+                }
+
+                if (updated)
+                {
+                    enemyHits = 0;
+                    playerHits = 0;
+                    ChangeState(State.PPreTurn);
+                }
+
                 Debug.WriteLine(state);
                 Debug.WriteLine(enemy.Strength * enemyHits);
                 Debug.WriteLine(playerStat.Strength * playerHits);
-                ChangeState(State.PPreTurn);
             }
             else if (state == State.TurnEnd)
             {

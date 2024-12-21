@@ -44,10 +44,11 @@ namespace Project3_1
 
         public void updateHp(int updatedHp)
         {
-            while (HpBar.Value != updatedHp)
-            {
-                HpBar.Value -= 1;
-            }
+            //while (HpBar.Value != updatedHp)
+            //{
+            //    HpBar.Value -= 1;
+            //}
+            HpBar.Value = updatedHp;
         } 
     }
 }
