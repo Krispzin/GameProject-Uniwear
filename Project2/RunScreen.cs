@@ -10,6 +10,7 @@ namespace Project3_1
 {
     public class RunScreen : Actor
     {
+        ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
         Text text;
         public RunScreen(Vector2 screensize)

@@ -18,10 +18,8 @@ namespace Project2
         DialogPanel dialogpanel;
         DialogScreen dialogScreen;
         CombatScreen combatScreen;
-        //Panel panel;
         Game13Tile game13;
 
-        //public Actor dialogPanel, actionBtns, attackPanel, combatscreen;
         public Game1()
             : base(virtualScreenSize: new Vector2(640, 480),
                    preferredWindowSize: new Vector2(640, 480))
@@ -33,6 +31,8 @@ namespace Project2
         }
         protected override void LoadContent()
         {
+            CollisionDetectionUnit.AddDetector(1, 2);
+
             menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
             All.Add(menuScreen);
 
@@ -55,7 +55,10 @@ namespace Project2
 
             if (actor == menuScreen)
             {
-                playBgm();
+                if (MediaPlayer.State == MediaState.Stopped)
+                {
+                    MediaPlayer.Play(song);
+                }
                 //Start button
                 if (code == 0)
                 {
@@ -134,13 +137,21 @@ namespace Project2
                 }
 
             }
+            else if (actor == combatScreen)
+            {
+                if (code == 0)
+                {
+                    if (MediaPlayer.State == MediaState.Playing)
+                    {
+                        MediaPlayer.Stop();
+                    }
+                    combatScreen.Detach();
+                    combatScreen = null;
+                    credit = new Credit(ScreenSize, ExitNotifier);
+                    All.Add(credit);
+                }
+            }
 
         }
-
-        private void playBgm()
-        {
-
-        }
-
     }
 }

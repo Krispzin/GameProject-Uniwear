@@ -130,6 +130,7 @@ namespace Project3_1
                 else if (action == ActionBtns.Actions.Run)
                 {
                     placeholder.Add(runPanel);
+                    
                     Debug.WriteLine(state);
                 }
             }
@@ -181,15 +182,18 @@ namespace Project3_1
                 if (playerStat.Hp <= 0)
                 {
                     placeholder.Add(gOverScreen);
+                    PressAnywhere();
                 }
                 else if (enemy.Hp <= 0)
                 {
                     placeholder.Add(winScreen);
+                    PressAnywhere();
                 }
             }
             else if (state == State.ExitBattle)
             {
                 placeholder.Add(runScreen);
+                PressAnywhere();
             }
         }
 
@@ -242,6 +246,14 @@ namespace Project3_1
             placeholder.Add(playerStat);
             placeholder.Add(dialogPanel);
             placeholder.Add(actionbtns);
+        }
+
+        public void PressAnywhere()
+        {
+            var keyInfo = GlobalMouseInfo.Value;
+
+            if (keyInfo.IsLeftButtonPressed())
+                placeholder.AddAction(new SequenceAction(Actions.FadeOut(1f, this), new RunAction(() => exitNotifier(this, 0))));
         }
     }
 }
