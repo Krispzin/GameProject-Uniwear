@@ -25,6 +25,8 @@ namespace Project3_1
         RunPanel runPanel;
         public enum AtkTypes { Non, lightAtk, heavyAtk }
         public enum ActTypes { Non , Act1, Act2, Act3}
+        public enum Actions { None, Attack, Act, Run }
+        public Actions CurrentAction = Actions.None;
         public ActTypes ActType = ActTypes.Non;
         public AtkTypes AtkType = AtkTypes.Non;
         public bool finished = false;
@@ -111,7 +113,7 @@ namespace Project3_1
             Add(panel);
         }
 
-        public void btnActions()
+        public Actions btnActions()
         {
             atkButton.ButtonClicked += atkChoice;
             ltBtn.ButtonClicked += ltbtn;
@@ -120,7 +122,8 @@ namespace Project3_1
             runButton.ButtonClicked += runChoice;
 
             actButton.ButtonClicked += actChoice;
-            
+
+            return CurrentAction;
         }
 
         public void DelbtnActions()
@@ -134,15 +137,16 @@ namespace Project3_1
         {
             panel.Detach();
             placeholder.Add(new RunPanel(new Vector2(30, 240)));
-
+            CurrentAction = Actions.Run;
+            finished = true;
         }
 
         private void actChoice(GenericButton button)
         {
             panel.Detach();
             AddButtonsToPanel();
-            
-            
+            CurrentAction = Actions.Act;
+
             //ถ้าไม่ได้ให้ใช้ไอ้นี้
 
             //placeholder.Add(new ActScreen(new Vector2(30, 240)));
@@ -175,6 +179,7 @@ namespace Project3_1
             placeholder.Add(newPanel);
             newPanel.Add(ltBtn);
             newPanel.Add(hvBtn);
+            CurrentAction = Actions.Attack;
         }
 
         private void ltbtn(GenericButton button)

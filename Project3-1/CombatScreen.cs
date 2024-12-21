@@ -90,17 +90,41 @@ namespace Project3_1
             }
             else if (state == State.PlayerAction)
             {
-                placeholder.Add(attackPanel);
-                Debug.WriteLine(state);
-                if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
+                var action = actionbtns.btnActions();
+                if (action == ActionBtns.Actions.Attack)
                 {
-                    attackpanel.lightAtk();
-                    actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                    placeholder.Add(attackPanel);
+                    Debug.WriteLine(state);
+                    if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
+                    {
+                        attackpanel.lightAtk();
+                        actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                    }
+                    else if (actionbtns.AtkType == ActionBtns.AtkTypes.heavyAtk)
+                    {
+                        attackpanel.heavyAtk();
+                        actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                    }
                 }
-                else if (actionbtns.AtkType == ActionBtns.AtkTypes.heavyAtk)
+                else if (action == ActionBtns.Actions.Act)
                 {
-                    attackpanel.heavyAtk();
-                    actionbtns.AtkType = ActionBtns.AtkTypes.Non;
+                    placeholder.Add(actPanel);
+                    Debug.WriteLine(state);
+                    if (actionbtns.ActType == ActionBtns.ActTypes.Act1)
+                    {
+                        ActPanel.act1();
+                        actionbtns.ActType = ActionBtns.ActTypes.Non;
+                    }
+                    else if (actionbtns.ActType == ActionBtns.ActTypes.Act2)
+                    {
+                        ActPanel.act2();
+                        actionbtns.ActType = ActionBtns.ActTypes.Non;
+                    }
+                    else if (actionbtns.ActType == ActionBtns.ActTypes.Act3)
+                    {
+                        ActPanel.act3();
+                        actionbtns.ActType = ActionBtns.ActTypes.Non;
+                    }
                 }
             }
             else if (state == State.StatusUpdate)
