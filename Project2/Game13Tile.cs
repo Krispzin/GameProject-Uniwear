@@ -1,22 +1,16 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Diagnostics;
 using ThanaNita.MonoGameTnt;
 
 namespace Project2
 {
-    public class Game13Tile : Game2D
+    public class Game13Tile : Actor
     {
-        public Game13Tile()
-            : base(virtualScreenSize: new Vector2(960, 640),
-                    preferredWindowSize: new Vector2(960, 640))
-        {
-            BackgroundColor = Color.LightGray;
-            
-        }
-        CameraMan cameraMan;
+        public CameraMan cameraMan;
 
         private TileMap floor2_floor;
         private TileMap floor2_colision;
@@ -37,9 +31,9 @@ namespace Project2
         private Texture2D interactImage;
         private bool isImageDisplaying = false;
 
-        protected override void LoadContent()
+        public Game13Tile(Vector2 ScreenSize, OrthographicCamera camera)
         {
-            BackgroundColor = Color.LightGray;
+            //BackgroundColor = Color.LightGray;
 
             var builder = new TileMapBuilder();
 
@@ -57,10 +51,10 @@ namespace Project2
             //elevator
             elevator_floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/elevator_floor.csv");
             elevator_colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/elevator_colision.csv");
-            elevator_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png",new Vector2(32, 32),76,109,"Content/resource/tilemap/elevator_wall.csv");
-            elevator_hospital = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png",new Vector2(32, 32),16,110,"Content/resource/tilemap/elevator_hospital.csv");
-            elevator_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png",new Vector2(32, 32),16,78,"Content/resource/tilemap/elevator_generic.csv");
-            elevator_jail = builder.CreateSimple("Content/resource/tileset/18_Jail_32x32.png",new Vector2(32, 32),16,45,"Content/resource/tilemap/elevator_jail.csv");
+            elevator_wall = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/elevator_wall.csv");
+            elevator_hospital = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/elevator_hospital.csv");
+            elevator_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/elevator_generic.csv");
+            elevator_jail = builder.CreateSimple("Content/resource/tileset/18_Jail_32x32.png", new Vector2(32, 32), 16, 45, "Content/resource/tilemap/elevator_jail.csv");
 
 
             // 2. Create guy BEFORE adding to All
@@ -79,51 +73,24 @@ namespace Project2
             // Add other necessary layers...
 
             // 5. Add to All EXPLICITLY
-            All.Add(visual);
-            All.Add(guy);
-           
+            Add(visual);
+            Add(guy);
+
 
             // 6. Camera setup (if needed)
-            cameraMan = new CameraMan(Camera, ScreenSize);
-            cameraMan.FrameLimit = new RectF(ScreenSize).CreateExpand(new Vector2(-480, -320));
+            cameraMan = new CameraMan(camera, ScreenSize);
+            cameraMan.FrameLimit = new RectF(ScreenSize).CreateExpand(new Vector2(-320, -240));
             guy.Add(cameraMan);
-
-
-
         }
-        protected override void Update(GameTime gameTime)
+
+        public override void Act(float deltaTime)
         {
-            base.Update(gameTime);
+            base.Act(deltaTime);
 
             // Check if image is displaying and spacebar is pressed to close it
             if (isImageDisplaying && IsSpacebarPressed())
             {
                 isImageDisplaying = false;
-            }
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-
-            // Draw the image if it's supposed to be displayed
-            if (isImageDisplaying)
-            {
-                // Create a new SpriteBatch using GraphicsDevice
-                using (SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice))
-                {
-                    spriteBatch.Begin();
-
-                    // Calculate center position
-                    Vector2 imagePosition = new Vector2(
-                        (ScreenSize.X - interactImage.Width) / 2,
-                        (ScreenSize.Y - interactImage.Height) / 2
-                    );
-
-                    // Draw the image centrally
-                    spriteBatch.Draw(interactImage, imagePosition, Color.White);
-                    spriteBatch.End();
-                }
             }
         }
         private bool IsSpacebarPressed()
@@ -132,11 +99,11 @@ namespace Project2
             return keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space);
         }
 
-        protected override void AfterUpdateAndCollision()
-        {
-            if (cameraMan != null)
-                cameraMan.AdjustCamera();
-        }
+        //protected override void AfterUpdateAndCollision()
+        //{
+        //    if (cameraMan != null)
+        //        cameraMan.AdjustCamera();
+        //}
 
         int floor = 1;
         private void CheckMapTransition(int tileX, int tileY, TileMap currentCollisionMap)
@@ -257,11 +224,11 @@ namespace Project2
                 newVisual.Add(newFloor);
                 newVisual.Add(newCollision);
 
-                All.Remove(visual);
-                All.Add(newVisual);
+                Remove(visual);
+                Add(newVisual);
 
-                All.Remove(guy);
-                All.Add(guy);
+                Remove(guy);
+                Add(guy);
 
                 visual = newVisual;
 
@@ -301,11 +268,11 @@ namespace Project2
                 newVisual.Add(gen);
                 newVisual.Add(jail);
 
-                All.Remove(visual);
-                All.Add(newVisual);
+                Remove(visual);
+                Add(newVisual);
 
-                All.Remove(guy);
-                All.Add(guy);
+                Remove(guy);
+                Add(guy);
 
                 visual = newVisual;
 
@@ -330,8 +297,8 @@ namespace Project2
       
 
             // Remove the old visual from All and add the new one
-            All.Remove(visual);
-            All.Add(visual);
+            Remove(visual);
+            Add(visual);
 
             // You might need to re-add the sorter if you had one
             var sorter = new TileMapSorter();

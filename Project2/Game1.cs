@@ -30,6 +30,7 @@ namespace Project2
         }
         protected override void LoadContent()
         {
+            game13 = new Game13Tile(ScreenSize, Camera);// <<<< use this
             menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
             All.Add(menuScreen);
 
@@ -52,16 +53,18 @@ namespace Project2
 
             if (actor == menuScreen)
             {
-                playBgm();
+                //playBgm();
                 //Start button
                 if (code == 0)
                 {
                     menuScreen.Detach();
                     menuScreen = null;
+                    //game13 = new Game13Tile(ScreenSize, Camera);// <<<< use this
                     dialogpanel = new DialogPanel(ScreenSize, ExitNotifier);
-                    All.Add(dialogpanel);
-                    game13 = new Game13Tile();// <<<< use this
-                    game13.Run(); // and this
+                    All.Add(game13);
+                    //All.Add(dialogpanel);
+                    
+                    //game13.Run(); // and this
 
                 }
                 //Credit button
@@ -79,18 +82,24 @@ namespace Project2
                     this.Exit();
                 }
             }
-            else if (actor == dialogpanel)
+
+            else if (actor == game13)
             {
-                // เมื่อ DialogPanel จบ
-                if (code == 1) // code ที่ใช้บอกว่า DialogPanel จบ
-                {
-                    dialogpanel.Detach();
-                    dialogpanel = null;
-                    game13 = new Game13Tile(); // สร้าง Game13Tile
-                    game13.Run(); // เพิ่ม Game13Tile เข้าในระบบ
-                    Debug.WriteLine("DialogPanel finished. Starting Game13Tile.");
-                }
+                if (game13.cameraMan != null)
+                    game13.cameraMan.AdjustCamera();
             }
+            //else if (actor == dialogpanel)
+            //{
+            //    // เมื่อ DialogPanel จบ
+            //    if (code == 1) // code ที่ใช้บอกว่า DialogPanel จบ
+            //    {
+            //        dialogpanel.Detach();
+            //        dialogpanel = null;
+            //        game13 = new Game13Tile(); // สร้าง Game13Tile
+            //        game13.Run(); // เพิ่ม Game13Tile เข้าในระบบ
+            //        Debug.WriteLine("DialogPanel finished. Starting Game13Tile.");
+            //    }
+            //}
 
             else if (actor == inputScreen)
             {
@@ -118,10 +127,11 @@ namespace Project2
 
         }
 
-        private void playBgm()
-        {
-
-        }
+        //protected override void AfterUpdateAndCollision()
+        //{
+        //    if (game13.cameraMan != null)
+        //        game13.cameraMan.AdjustCamera();
+        //}
 
     }
 }
