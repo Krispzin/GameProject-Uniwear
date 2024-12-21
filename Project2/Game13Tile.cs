@@ -24,9 +24,22 @@ namespace Project2
         private TileMap elevator_generic;
         private TileMap elevator_jail;
 
+        //18
+        private TileMap f18_Floor;
+        private TileMap f18_Colision;
+
+        //thesis
+        private TileMap Thesis_Floor;
+        private TileMap Thesis_Colision;
+        private TileMap Thesis_1;
+        private TileMap Thesis_2;
+        private TileMap Thesis_3;
+        private TileMap Thesis_4;
+        private TileMap Thesis_5;
+        private TileMap Thesis_noon;
+
         private Guy guy;
         private Actor visual;
-
 
         private Texture2D interactImage;
         private bool isImageDisplaying = false;
@@ -56,6 +69,21 @@ namespace Project2
             elevator_generic = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/elevator_generic.csv");
             elevator_jail = builder.CreateSimple("Content/resource/tileset/18_Jail_32x32.png", new Vector2(32, 32), 16, 45, "Content/resource/tilemap/elevator_jail.csv");
 
+            //f18
+            f18_Floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/18/Level_18_Roombuilder.csv");
+            f18_Colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/18/Level_18_Colision2.csv");
+
+
+
+            //thesis
+            Thesis_Floor = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/thesis/Level_Thesis_Floor.csv");
+            Thesis_Colision = builder.CreateSimple("Content/resource/tileset/colision.png", new Vector2(32, 32), 16, 6, "Content/resource/tilemap/thesis/Level_Thesis_Colision.csv");
+            Thesis_1 = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/thesis/Level_Thesis_Bin N Chair.csv");
+            Thesis_2 = builder.CreateSimple("Content/resource/tileset/5_Classroom_and_library_32x32.png", new Vector2(32, 32), 16, 34, "Content/resource/tilemap/thesis/Level_Thesis_Book.csv");
+            Thesis_3 = builder.CreateSimple("Content/resource/tileset/19_Hospital_32x32.png", new Vector2(32, 32), 16, 110, "Content/resource/tilemap/thesis/Level_Thesis_Table.csv");
+            Thesis_4 = builder.CreateSimple("Content/resource/tileset/Room_Builder_32x32.png", new Vector2(32, 32), 76, 109, "Content/resource/tilemap/thesis/Level_Thesis_Wall.csv");
+            Thesis_5 = builder.CreateSimple("Content/resource/tileset/1_Generic_32x32.png", new Vector2(32, 32), 16, 78, "Content/resource/tilemap/thesis/Level_Thesis_Window.csv");
+            Thesis_noon = builder.CreateSimple("Content/resource/tileset/noonspin.png", new Vector2(32, 32), 56, 40, "Content/resource/tilemap/thesis/Level_Thesis_Noon.csv");
 
             // 2. Create guy BEFORE adding to All
             guy = new Guy(floor1_colision);
@@ -110,9 +138,9 @@ namespace Project2
         {
             try
             {
-              
+
                 //System.Diagnostics.Debug.WriteLine($"Tile X: {tileX}, Tile Y: {tileY}");
-               
+
 
                 int currentTileCode = currentCollisionMap.GetTileCode(new Vector2i(tileX, tileY));
 
@@ -142,7 +170,7 @@ namespace Project2
                     floor = 88;
                     Debug.WriteLine(floor);
                     ChangeMapElev(elevator_floor, elevator_colision, elevator_wall, elevator_hospital, elevator_generic, elevator_jail);
-                    
+
                 }
                 else if (currentTileCode == 16)
                 {
@@ -151,13 +179,31 @@ namespace Project2
                     ChangeMap(floor2_floor, floor2_colision);
 
                 }
+                else if (currentTileCode == 84)
+                {
+                    floor = 182;
+                    Debug.WriteLine(floor);
+                    ChangeMapThesis(Thesis_Floor, Thesis_Colision, Thesis_1, Thesis_2, Thesis_3, Thesis_4, Thesis_5, Thesis_noon);
+
+                }
 
                 if (currentTileCode == 48 && IsEnterPressed())
                 {
                     System.Diagnostics.Debug.WriteLine("interact");
 
                     // Start displaying the image
+                    //isImageDisplaying = true;
+                    floor = 18;
+                    Debug.WriteLine(floor);
+                    ChangeMap(f18_Floor, f18_Colision);
+                }
+                else if (currentTileCode == 56 && IsEnterPressed())
+                {
+                    System.Diagnostics.Debug.WriteLine("interact");
+
+                    // Start displaying the image
                     isImageDisplaying = true;
+
                 }
 
 
@@ -171,7 +217,6 @@ namespace Project2
             {
                 //System.Diagnostics.Debug.WriteLine($"Error in CheckMapTransition: {ex}");
             }
-
 
 
 
@@ -267,6 +312,52 @@ namespace Project2
                 newVisual.Add(hos);
                 newVisual.Add(gen);
                 newVisual.Add(jail);
+
+                Remove(visual);
+                Add(newVisual);
+
+                Remove(guy);
+                Add(guy);
+
+                visual = newVisual;
+
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ChangeMap: {ex}");
+            }
+        }
+
+        private void ChangeMapThesis(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4, TileMap t5, TileMap tnoon)
+        {
+            try
+            {
+                if (guy == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error: guy is null in ChangeMap");
+                    return;
+                }
+
+                // Temporarily bypass collision checks
+                Vector2 newPosition = newFloor.TileCenter(14, 10);
+
+                // Directly set position bypassing movement methods
+                guy.ForcePosition(newPosition);
+
+                // Update collision map
+                guy.SetCollisionMap(newCollision);
+
+                // Rest of your existing map change logic
+                var newVisual = new Actor();
+                newVisual.Add(newFloor);
+                newVisual.Add(newCollision);
+                newVisual.Add(t1);
+                newVisual.Add(t2);
+                newVisual.Add(t3);
+                newVisual.Add(t4);
+                newVisual.Add(t5);
+                newVisual.Add(tnoon);
 
                 Remove(visual);
                 Add(newVisual);
