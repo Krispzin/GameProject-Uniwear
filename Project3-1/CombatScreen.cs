@@ -71,12 +71,14 @@ namespace Project3_1
             }
             else if (state == State.PPreTurn)
             {
+                enemyHits = 0;
+                playerHits = 0;
                 actionbtns.btnActions();
                 Debug.WriteLine(state);
             }
-
             else if (state == State.PlayerAction)
             {
+                actionbtns.DelbtnActions();
                 placeholder.Add(attackPanel);
                 Debug.WriteLine(state);
                 if (actionbtns.AtkType == ActionBtns.AtkTypes.lightAtk)
@@ -99,14 +101,17 @@ namespace Project3_1
 
                 attackPanel.Detach();
                 playerStat.Hp -= enemy.Strength * enemyHits;
-                enemyHits = 0;
+                //enemyHits = 0;
                 pHpNew = playerStat.Hp;
                 enemy.Hp -= playerStat.Strength * playerHits;
-                playerStat.Hp = 0;
+                //playerStat.Hp = 0;
                 eHpNew = enemy.Hp;
                 playerStat.updateHp(pHpNew);
                 enemy.updateHp(eHpNew);
                 Debug.WriteLine(state);
+                Debug.WriteLine(enemy.Strength * enemyHits);
+                Debug.WriteLine(playerStat.Strength * playerHits);
+                ChangeState(State.PPreTurn);
             }
             else if (state == State.TurnEnd)
             {
@@ -117,8 +122,7 @@ namespace Project3_1
                 else if (enemy.Hp <= 0)
                 {
 
-                }
-                    
+                }  
             }
         }
 

@@ -27,7 +27,7 @@ namespace Project3_1
 
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
-            panel.Add(text);
+            //panel.Add(text);
 
 
             placeholder.Add(panel);
@@ -63,6 +63,7 @@ namespace Project3_1
             if (currentIndex >= str.Length && (textAnimation == null || textAnimation.IsFinished()))
             {
                 finished = true;
+                this.Detach();
                 Debug.WriteLine(this.finished);
             }
         }
