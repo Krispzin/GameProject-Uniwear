@@ -6,13 +6,12 @@ using ThanaNita.MonoGameTnt;
 using static System.Net.Mime.MediaTypeNames;
 using Text = ThanaNita.MonoGameTnt.Text;
 
-namespace Project2
+namespace Project3_1
 {
     public class CombatScreen : Actor
     {
         ExitNotifier exitNotifier;
         PlayerStat playerStat;
-        Game1 game1;
         ActionBtns actionbtns;
         DialogPanel dialogpanel;
         AttackPanel attackpanel;
@@ -22,6 +21,7 @@ namespace Project2
         Enemy enemy;
         GOverScreen gOverScreen;
         WinScreen winScreen;
+        RunScreen runScreen;
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd , ExitBattle }
         public State state = State.Init;
         public Actor dialogPanel, actionBtns, attackPanel ,actScreen , actPanel, runPanel;
@@ -63,6 +63,7 @@ namespace Project2
 
             gOverScreen = new GOverScreen(ScreenSize);
             winScreen = new WinScreen(ScreenSize);
+            runScreen = new RunScreen(ScreenSize);
 
             //placeholder.Add(actionbtns);
 
@@ -126,6 +127,11 @@ namespace Project2
                         actionbtns.ActType = ActionBtns.ActTypes.Non;
                     }
                 }
+                else if (action == ActionBtns.Actions.Run)
+                {
+                    placeholder.Add(runPanel);
+                    Debug.WriteLine(state);
+                }
             }
             else if (state == State.StatusUpdate)
             {
@@ -181,6 +187,10 @@ namespace Project2
                     placeholder.Add(winScreen);
                 }
             }
+            else if (state == State.ExitBattle)
+            {
+                placeholder.Add(runScreen);
+            }
         }
 
         public override void Act(float deltaTime)
@@ -192,8 +202,6 @@ namespace Project2
                 ChangeState(State.PPreTurn);
                 dialogpanel.finished = false;
             }
-            
-
 
             if (actionbtns.finished == true)
             {

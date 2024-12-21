@@ -7,7 +7,7 @@ using ThanaNita.MonoGameTnt;
 using Microsoft.Xna.Framework;
 using System.Reflection.Emit;
 
-namespace Project2
+namespace Project3_1
 {
     public class Enemy : SpriteActor
     {

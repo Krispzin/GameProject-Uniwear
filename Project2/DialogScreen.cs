@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Project3_1;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +12,7 @@ using ThanaNita.MonoGameTnt;
 
 namespace Project2
 {
-    public class DialogPanel : Actor
+    public class DialogScreen : Actor
     {
         ExitNotifier exitNotifier;
         TextAnimation textAnimation;
@@ -17,12 +20,12 @@ namespace Project2
         Text text;
         string[] str;
         public bool finished = false;
-        public DialogPanel(Vector2 ScreenSize, ExitNotifier exitNotifier)
+        public DialogScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
             //ScreenSizen = screenSize;
 
             this.exitNotifier = exitNotifier;
-            var bg = new BG(new Vector2(10, 60));
+            var bg = new BG(new Vector2(ScreenSize.X / 2, 120));
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
             str = ["Dialog lorem1", "Dialog lorem2", "Dialog lorem3"];
@@ -65,7 +68,8 @@ namespace Project2
                     // กด Space หลังจากจบข้อความทั้งหมด
                     if (keyInfo.IsKeyPressed(Keys.Space))
                     {
-                        exitNotifier.Invoke(this, 1); // ใช้โค้ด 1 เพื่อระบุว่า DialogScreen จบ
+                        exitNotifier(this, 1); // ใช้โค้ด 1 เพื่อระบุว่า DialogScreen จบ
+                        //Debug.WriteLine();
                     }
                 }
             }

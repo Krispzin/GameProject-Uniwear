@@ -4,7 +4,7 @@ using ThanaNita.MonoGameTnt;
 using static System.Net.Mime.MediaTypeNames;
 using Text = ThanaNita.MonoGameTnt.Text;
 
-namespace Project2
+namespace Project3_1
 {
     public class ActScreen : Actor
     {

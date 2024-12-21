@@ -40,13 +40,13 @@ namespace Project2
         private TileMap Thesis_5;
         private TileMap Thesis_noon;
 
-        private Guy guy;
+        public Guy guy;
         private Actor visual;
 
         private Texture2D interactImage;
         private bool isImageDisplaying = false;
 
-        public Game13Tile(Vector2 ScreenSize, OrthographicCamera camera)
+        public Game13Tile(Vector2 ScreenSize, OrthographicCamera camera, ExitNotifier exitNotifier)
         {
             //BackgroundColor = Color.LightGray;
             this.exitNotifier = exitNotifier;
@@ -203,6 +203,8 @@ namespace Project2
                 else if (currentTileCode == 56 && IsEnterPressed())
                 {
                     System.Diagnostics.Debug.WriteLine("interact");
+
+                    exitNotifier(this, 0);
 
                     // Start displaying the image
                     isImageDisplaying = true;

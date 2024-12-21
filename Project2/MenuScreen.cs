@@ -9,7 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Text = ThanaNita.MonoGameTnt.Text;
 
 
-namespace Game12
+namespace Project2
 {
    
 

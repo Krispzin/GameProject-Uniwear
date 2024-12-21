@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 
-namespace Project2
+namespace Project3_1
 {
     public class DialogPanel : Actor
     {
@@ -22,6 +22,8 @@ namespace Project2
         {
             Position = position;
             
+
+
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
             str = ["ทดสอบระบบ สระแม่งติดมั้ยวะ? คุ", "2 asdasdasdasdasd", "3 asdasdasdasdasd"];
 

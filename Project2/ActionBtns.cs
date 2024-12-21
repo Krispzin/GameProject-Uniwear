@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Project2
+namespace Project3_1
 {
     public class ActionBtns : Actor
     {
@@ -136,7 +136,7 @@ namespace Project2
         private void runChoice(GenericButton button)
         {
             panel.Detach();
-            placeholder.Add(new RunPanel(new Vector2(30, 240)));
+            //placeholder.Add(new RunPanel(new Vector2(30, 240)));
             CurrentAction = Actions.Run;
             finished = true;
         }

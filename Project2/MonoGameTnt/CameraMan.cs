@@ -6,7 +6,7 @@ namespace ThanaNita.MonoGameTnt
 {
     public class CameraMan : Actor
     {
-        OrthographicCamera camera;
+        public OrthographicCamera camera;
         Vector2 screenSize;
         Actor followed = null;
         public RectF FrameLimit { get; set; }
@@ -25,7 +25,6 @@ namespace ThanaNita.MonoGameTnt
         {
             var followedActor = GetFollowedActor();
             var playerGlobal = followedActor.GlobalTransform.Transform(followedActor.RawSize / 2);
-//            camera.Position = playerGlobal - screenSize / 2;
             float cameraX = camera.Position.X;
             float cameraY = camera.Position.Y;
 
@@ -50,6 +49,11 @@ namespace ThanaNita.MonoGameTnt
         public void SetFollowedActor(Actor actor)
         {
             followed = actor;
+        }
+
+        public void ResetCameraPosition()
+        {
+            camera.Position = new Vector2(0, 0);
         }
     }
 }

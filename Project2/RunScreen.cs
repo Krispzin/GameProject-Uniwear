@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework;
 
 namespace Project3_1
 {
-    public class WinScreen : Actor
+    public class RunScreen : Actor
     {
         Placeholder placeholder = new Placeholder();
         Text text;
-        public WinScreen(Vector2 screensize)
+        public RunScreen(Vector2 screensize)
         {
             placeholder.Color = new Color(Color, 0);
 
@@ -21,7 +21,7 @@ namespace Project3_1
             background.Origin = background.RawSize / 2;
             background.Position = screensize / 2;
 
-            text = new Text("OptimusPrinceps.ttf", 50, Color.Beige, "YOU WIN!!");
+            text = new Text("OptimusPrinceps.ttf", 45, Color.DarkRed, "WHY ARE YOU RUNNING!?");
             text.Origin = text.RawSize / 2;
             text.Position = screensize / 2;
 

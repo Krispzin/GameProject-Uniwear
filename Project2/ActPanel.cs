@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 using static System.Net.WebRequestMethods;
 
-namespace Project2
+namespace Project3_1
 {
     public class ActPanel : Actor
     {

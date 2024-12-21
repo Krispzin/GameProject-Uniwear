@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 using Microsoft.Xna.Framework;
 
-namespace Project2
+namespace Project3_1
 {
     public class GOverScreen : Actor
     {

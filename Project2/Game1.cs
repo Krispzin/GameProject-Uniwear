@@ -1,11 +1,11 @@
 ﻿using System;
-using Game12;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ThanaNita.MonoGameTnt;
 using System.Diagnostics;
+using Project3_1;
 
 namespace Project2
 {
@@ -16,14 +16,17 @@ namespace Project2
         Actor menuScreen;
         Actor inputScreen;
         DialogPanel dialogpanel;
+        DialogScreen dialogScreen;
+        CombatScreen combatScreen;
         //Panel panel;
         Game13Tile game13;
 
-        public Actor dialogPanel, actionBtns, attackPanel;
+        //public Actor dialogPanel, actionBtns, attackPanel, combatscreen;
         public Game1()
             : base(virtualScreenSize: new Vector2(640, 480),
                    preferredWindowSize: new Vector2(640, 480))
         {
+            ClearColor = Color.DarkGray;
             BackgroundColor = Color.DarkGray;
             IsFixedTimeStep = false;
 
@@ -58,9 +61,10 @@ namespace Project2
                 {
                     menuScreen.Detach();
                     menuScreen = null;
-                    game13 = new Game13Tile(ScreenSize, Camera);// <<<< use this
-                    dialogpanel = new DialogPanel(ScreenSize, ExitNotifier);
-                    All.Add(game13);
+                    //game13 = new Game13Tile(ScreenSize, Camera, ExitNotifier);// <<<< use this
+                    dialogScreen = new DialogScreen(ScreenSize, ExitNotifier);
+                    All.Add(dialogScreen);
+                    //All.Add(game13);
                     //game13.Run(); // and this
 
                 }
@@ -84,19 +88,28 @@ namespace Project2
             {
                 if (game13.cameraMan != null)
                     game13.cameraMan.AdjustCamera();
+
+                if (code == 0)
+                {
+                    game13.guy.Position = new Vector2((ScreenSize.X / 2), (ScreenSize.Y / 2) + 15);
+                    game13.Detach();
+                    game13 = null;
+                    combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
+                    All.Add(combatScreen);
+                }
             }
-            //else if (actor == dialogpanel)
-            //{
-            //    // เมื่อ DialogPanel จบ
-            //    if (code == 1) // code ที่ใช้บอกว่า DialogPanel จบ
-            //    {
-            //        dialogpanel.Detach();
-            //        dialogpanel = null;
-            //        game13 = new Game13Tile(); // สร้าง Game13Tile
-            //        game13.Run(); // เพิ่ม Game13Tile เข้าในระบบ
-            //        Debug.WriteLine("DialogPanel finished. Starting Game13Tile.");
-            //    }
-            //}
+            else if (actor == dialogScreen)
+            {
+                // เมื่อ DialogPanel จบ
+                if (code == 1) // code ที่ใช้บอกว่า DialogPanel จบ
+                {
+                    dialogScreen.Detach();
+                    dialogScreen = null;
+                    game13 = new Game13Tile(ScreenSize, Camera, ExitNotifier); // สร้าง Game13Tile
+                    All.Add(game13); // เพิ่ม Game13Tile เข้าในระบบ
+                    Debug.WriteLine("DialogPanel finished. Starting Game13Tile.");
+                }
+            }
 
             else if (actor == inputScreen)
             {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 
-namespace Project2
+namespace Project3_1
 {
     public class RunPanel : Actor
     {
@@ -63,7 +63,7 @@ namespace Project2
             if (currentIndex >= str.Length && (textAnimation == null || textAnimation.IsFinished()))
             {
                 finished = true;
-                this.Detach();
+                //this.Detach();
                 Debug.WriteLine(this.finished);
             }
         }

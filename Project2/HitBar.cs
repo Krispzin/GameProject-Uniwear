@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 
-namespace Project2
+namespace Project3_1
 {
     public class HitBar : RectangleActor
     { 
