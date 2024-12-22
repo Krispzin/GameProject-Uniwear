@@ -20,7 +20,7 @@ namespace Project3_1
         {
             Name = "Spin";
             HpMax = 100;
-            Hp = 100;
+            Hp = 1;
             Strength = 2;
 
             var texture = TextureCache.Get("Content/resource/img/Spin.png");

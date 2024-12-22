@@ -23,6 +23,7 @@ namespace Project2
         DialogScreen dialogScreen;
         CombatScreen combatScreen;
         Game13Tile game13;
+        WinDialog winDialog;
 
         public Game1()
             : base(virtualScreenSize: new Vector2(640, 480),
@@ -41,6 +42,8 @@ namespace Project2
 
             menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
             All.Add(menuScreen);
+            //combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
+            //All.Add(combatScreen);
 
             MenuSong = Song.FromUri(name: "MenuSong", new Uri("mytime.ogg", UriKind.Relative));
             DialogSong = Song.FromUri(name: "DialogSong", new Uri("Your Best Friend.ogg", UriKind.Relative));
@@ -105,7 +108,6 @@ namespace Project2
                 //Credit button
                 else if (code == 1)
                 {
-                    PlayNextSong();
                     menuScreen.Detach();
                     menuScreen = null;
                     credit = new Credit(ScreenSize, ExitNotifier);
@@ -165,11 +167,28 @@ namespace Project2
                 {
                     combatScreen.Detach();
                     combatScreen = null;
+                    winDialog = new WinDialog(ScreenSize, ExitNotifier);
+                    All.Add(winDialog);
+                }
+                else if (code == 1)
+                {
+                    MediaPlayer.Stop();
+                    combatScreen.Detach();
+                    combatScreen = null;
                     credit = new Credit(ScreenSize, ExitNotifier);
                     All.Add(credit);
                 }
             }
-
+            else if (actor == winDialog)
+            {
+                if (code == 1)
+                {
+                    winDialog.Detach();
+                    winDialog = null;
+                    credit = new Credit(ScreenSize, ExitNotifier);
+                    All.Add(credit);
+                }
+            }
         }
     }
 }

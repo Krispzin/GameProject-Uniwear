@@ -5,13 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Project3_1
 {
     public class WinScreen : Actor
     {
         Placeholder placeholder = new Placeholder();
+        SoundEffect victory = SoundEffect.FromFile("Victory.wav");
         Text text;
+        public bool played = false;
         public WinScreen(Vector2 screensize)
         {
             placeholder.Color = new Color(Color, 0);
@@ -29,6 +32,12 @@ namespace Project3_1
             placeholder.Add(text);
             Add(placeholder);
             placeholder.AddAction(Actions.FadeIn(1f, placeholder));
+        }
+
+        public void playSound()
+        {
+            victory.Play(0.5f, 0, 0);
+            played = true;
         }
     }
 }

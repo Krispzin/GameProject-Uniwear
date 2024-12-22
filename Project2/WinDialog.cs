@@ -1,8 +1,6 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Project3_1;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +11,7 @@ using ThanaNita.MonoGameTnt;
 
 namespace Project2
 {
-    public class DialogScreen : Actor
+    public class WinDialog : Actor
     {
         ExitNotifier exitNotifier;
         TextAnimation textAnimation;
@@ -24,9 +22,9 @@ namespace Project2
         string[] str;
         string[] scenes;
         public bool finished = false;
-        public DialogScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
+        public WinDialog(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
-            scenes = ["Content/resource/img/bgUni.png", "Content/resource/img/pantie.png", "Content/resource/img/elevator.png"];
+            scenes = ["Content/resource/img/Victory1.png", "Content/resource/img/Victory2.png"];
 
             this.exitNotifier = exitNotifier;
 
@@ -39,10 +37,12 @@ namespace Project2
             MediaPlayer.Play(song);
 
             cutScene = new SpriteActor();
+            cutScene.Origin = cutScene.RawSize / 2;
+            
             cutScene.SetTexture(TextureCache.Get(scenes[0]));
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
-            str = ["ณ มหาลัยแห่งหนึ่ง คุณกำลังจะกลับบ้านหลังจากที่คุณเรียนมาทั้งวัน", "แต่กลับลืมของสำคัญของคุณไว้บนตึก เลยต้องกลับขึ้นไปเอาของนั้นคืน", "ของสำคัญสิ่งนั้นคือ 'กางเกงใน' ของคุณ", "ถ้าคุณขาดมันไป ชีวิตของคุณคงจะไม่เป็นสุขอย่างแน่แท้", "คุณจึงเดินกลับไปหน้าลิฟต์เพื่อไปทวงของสำคัญของคุณคืน"];
+            str = ["'ในที่สุด กางเกงในของเราก็กลับคืนมาแล้ว!!!'", "จากนั้นคุณก็ใส่กางเกงในของคุณกลับคืนมา", "ชีวิตของคุณกลับมามีสีสันอีกครั้ง", "--จบ Demo--"];
 
             panel = new Panel(new Vector2(580, 100), Color.White, Color.Black, 2);
             panel.Position = new Vector2(30, 370);
@@ -75,12 +75,7 @@ namespace Project2
                 if (keyInfo.IsKeyPressed(Keys.Space) && currentIndex < str.Length)
                 {
                     RunDialog();
-                    if (currentIndex == 3)
-                    {
-                        SetNextScene();
-                        
-                    }
-                    else if (currentIndex == 5)
+                    if (currentIndex == 2)
                     {
                         SetNextScene();
                     }

@@ -21,10 +21,10 @@ namespace Project2
             this.exitNotifier = exitNotifier;
 
             var bg = new SpriteActor();
-            bg.SetTexture(TextureCache.Get("Content/resource/img/Menu.png"));
+            bg.SetTexture(TextureCache.Get("Content/resource/img/Credit.png"));
             Add(bg);
 
-            text = new Text("ChakraPetch-Regular.ttf", 35, Color.White,
+            text = new Text("ChakraPetch-Bold.ttf", 35, Color.White,
                             "นายจีรกิตติ์ สีทา 071 \nนายอธิกันต์ หมู่พยัค 087\n" +
                             "นายอาชวิน ฉัตรอนันทเวช 088 \nนายชญานิน บุตะเขียว 287 \n" +
                             "นายณพวุฒิ เยี่ยงชัยมงคล 290 \nนายแผ่นดิน กิตติธร 296");

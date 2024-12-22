@@ -14,6 +14,7 @@ namespace Project3_1
         SoundEffect youDied;
         Placeholder placeholder = new Placeholder();
         Text text;
+        public bool played = false;
         public GOverScreen(Vector2 screensize)
         {
             youDied = SoundEffect.FromFile("You Died.wav");
@@ -38,6 +39,7 @@ namespace Project3_1
         public void playSound()
         {
             youDied.Play(0.5f, 0, 0);
+            played = true;
         }
     }
 }

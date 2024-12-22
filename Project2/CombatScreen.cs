@@ -28,6 +28,7 @@ namespace Project3_1
         private int eHpNew;
         private int playerHits = 0;
         private int enemyHits = 0;
+        private bool played = false;
         public Placeholder placeholder = new Placeholder();
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
@@ -158,7 +159,7 @@ namespace Project3_1
                     if (playerStat.Hp <= 0 || enemy.Hp <= 0)
                     {
                         ChangeState(State.TurnEnd);
-                        gOverScreen.playSound();
+                        
                     } 
                     else
                     {
@@ -174,15 +175,31 @@ namespace Project3_1
             }
             else if (state == State.TurnEnd)
             {
-                if (playerStat.Hp <= 0)
+                if (!gOverScreen.played && !winScreen.played)
                 {
-                    placeholder.Add(gOverScreen);
-                    PressAnywhere();
+                    if (playerStat.Hp <= 0)
+                    {
+                        gOverScreen.playSound();
+                    }
+                    else if (enemy.Hp <= 0)
+                    {
+                        winScreen.playSound();
+                    }
+
                 }
-                else if (enemy.Hp <= 0)
+
+                if ((gOverScreen.played && !winScreen.played) || (winScreen.played && !gOverScreen.played))
                 {
-                    placeholder.Add(winScreen);
-                    PressAnywhere();
+                    if (playerStat.Hp <= 0)
+                    {
+                        placeholder.Add(gOverScreen);
+                        PressAnywhere();
+                    }
+                    else if (enemy.Hp <= 0)
+                    {
+                        placeholder.Add(winScreen);
+                        PressAnywhere();
+                    }
                 }
             }
             else if (state == State.ExitBattle)
@@ -247,8 +264,17 @@ namespace Project3_1
         {
             var keyInfo = GlobalMouseInfo.Value;
 
-            if (keyInfo.IsLeftButtonPressed())
-                placeholder.AddAction(new SequenceAction(Actions.FadeOut(1f, this), new RunAction(() => exitNotifier(this, 0))));
+            if (playerStat.Hp > 0) 
+            {
+                if (keyInfo.IsLeftButtonPressed())
+                    placeholder.AddAction(new SequenceAction(Actions.FadeOut(1f, this), new RunAction(() => exitNotifier(this, 0))));
+            }
+            else if (playerStat.Hp <= 0)
+            {
+                if (keyInfo.IsLeftButtonPressed())
+                    placeholder.AddAction(new SequenceAction(Actions.FadeOut(1f, this), new RunAction(() => exitNotifier(this, 1))));
+            }
+
         }
     }
 }
