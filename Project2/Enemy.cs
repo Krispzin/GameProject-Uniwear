@@ -23,7 +23,7 @@ namespace Project3_1
             Hp = 100;
             Strength = 2;
 
-            var texture = TextureCache.Get("Content/resource/img/noon_Fight.png");
+            var texture = TextureCache.Get("Content/resource/img/Spin.png");
             SetTexture(texture);
             Origin = RawSize / 2;
             Position = position;
