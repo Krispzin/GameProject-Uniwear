@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,13 @@ namespace Project3_1
     { 
         public CollisionObj hitCollisionObj;
         public int hitTimes;
+        SoundEffect hitSound;
 
         public HitBar(Vector2 ScreenSize)
             : base(Color.LightGray, new Vector2(3, 125))
         {
+            hitSound = SoundEffect.FromFile("Deflect.wav");
+
             Position = ScreenSize;
 
             hitTimes = 0;
@@ -48,6 +52,7 @@ namespace Project3_1
         {
             var movingBar = objB.Actor as MovingBar;
             movingBar?.Detach();
+            hitSound.Play();
             hitTimes++;
             Debug.WriteLine(hitTimes.ToString());
         }

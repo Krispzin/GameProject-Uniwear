@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Project3_1;
 using System;
 using System.Collections.Generic;
@@ -19,16 +20,23 @@ namespace Project2
         Panel panel;
         Text text;
         SpriteActor cutScene;
-
+        Song song;
         string[] str;
         string[] scenes;
         public bool finished = false;
         public DialogScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
-            //ScreenSizen = screenSize;
             scenes = ["Content/resource/img/bgUni.png", "Content/resource/img/pantie.png", "Content/resource/img/elevator.png"];
 
             this.exitNotifier = exitNotifier;
+
+            song = Song.FromUri(name: "Song01", new Uri("Your Best Friend.ogg", UriKind.Relative));
+
+            //ปรับ Loop
+            MediaPlayer.IsRepeating = true;
+            //ปรับเสียง
+            MediaPlayer.Volume = 0.2f;
+            MediaPlayer.Play(song);
 
             cutScene = new SpriteActor();
             cutScene.SetTexture(TextureCache.Get(scenes[0]));
@@ -84,6 +92,7 @@ namespace Project2
                     // กด Space หลังจากจบข้อความทั้งหมด
                     if (keyInfo.IsKeyPressed(Keys.Space))
                     {
+                        MediaPlayer.Stop();
                         exitNotifier(this, 1); // ใช้โค้ด 1 เพื่อระบุว่า DialogScreen จบ
                         //Debug.WriteLine();
                     }

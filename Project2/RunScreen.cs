@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ThanaNita.MonoGameTnt;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Project3_1
 {
@@ -13,8 +14,11 @@ namespace Project3_1
         ExitNotifier exitNotifier;
         Placeholder placeholder = new Placeholder();
         Text text;
+        SoundEffect wrur;
         public RunScreen(Vector2 screensize)
         {
+            wrur = SoundEffect.FromFile("wrur.wav");
+            
             placeholder.Color = new Color(Color, 0);
 
             var background = new SpriteActor();
@@ -30,6 +34,11 @@ namespace Project3_1
             placeholder.Add(text);
             Add(placeholder);
             placeholder.AddAction(Actions.FadeIn(1f, placeholder));
+        }
+
+        public void playSound()
+        {
+            wrur.Play(0.25f, 0, 0);
         }
     }
 }

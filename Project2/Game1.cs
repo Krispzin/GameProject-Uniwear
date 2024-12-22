@@ -6,12 +6,15 @@ using Microsoft.Xna.Framework.Media;
 using ThanaNita.MonoGameTnt;
 using System.Diagnostics;
 using Project3_1;
+using System.Collections.Generic;
 
 namespace Project2
 {
     public class Game1 : Game2D
     {
-        Song song;
+        Song MenuSong, DialogSong, TileSong, CombatSong;
+        List<Song> songs;
+        int currentSongIndex;
         Actor credit;
         Actor menuScreen;
         Actor inputScreen;
@@ -28,6 +31,8 @@ namespace Project2
             BackgroundColor = Color.DarkGray;
             IsFixedTimeStep = false;
 
+            songs = new List<Song>();
+            currentSongIndex = 0;
         }
         protected override void LoadContent()
         {
@@ -36,16 +41,45 @@ namespace Project2
             menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
             All.Add(menuScreen);
 
-            //เปลี่ยนเพลงตรงนี้
-            song = Song.FromUri(name: "Song01",
-                new Uri("mytime.ogg", UriKind.Relative));
+            MenuSong = Song.FromUri(name: "MenuSong", new Uri("mytime.ogg", UriKind.Relative));
+            DialogSong = Song.FromUri(name: "DialogSong", new Uri("Your Best Friend.ogg", UriKind.Relative));
+            TileSong = Song.FromUri(name: "TileSong", new Uri("Hotel.ogg", UriKind.Relative));
+            CombatSong = Song.FromUri(name: "CombatSong", new Uri("Vordt of the Boreal Valley.ogg", UriKind.Relative));
+
+            // Subscribe to MediaStateChanged event
+            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+
+            // Start playing the first song
+            PlayNextSong();
+
+            songs.Add(MenuSong);
+            songs.Add(DialogSong);
+            songs.Add(TileSong);
+            songs.Add(CombatSong);
 
             //ปรับ Loop
             MediaPlayer.IsRepeating = true;
             //ปรับเสียง
-            MediaPlayer.Volume = 0.1f;
-            MediaPlayer.Play(song);
+            MediaPlayer.Volume = 0.2f;
+            //MediaPlayer.Play(MenuSong);
             Debug.WriteLine("menu");
+        }
+
+        private void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
+        {
+            if (MediaPlayer.State == MediaState.Stopped)
+            {
+                PlayNextSong();
+            }
+        }
+
+        private void PlayNextSong()
+        {
+            if (songs.Count == 0)
+                return;
+
+            MediaPlayer.Play(songs[currentSongIndex]);
+            currentSongIndex = (currentSongIndex + 1) % songs.Count;
         }
 
         private void ExitNotifier(Actor actor, int code)
@@ -55,13 +89,10 @@ namespace Project2
 
             if (actor == menuScreen)
             {
-                if (MediaPlayer.State == MediaState.Stopped)
-                {
-                    MediaPlayer.Play(song);
-                }
                 //Start button
                 if (code == 0)
                 {
+                    PlayNextSong();
                     menuScreen.Detach();
                     menuScreen = null;
                     //game13 = new Game13Tile(ScreenSize, Camera, ExitNotifier);// <<<< use this
@@ -69,11 +100,11 @@ namespace Project2
                     All.Add(dialogScreen);
                     //All.Add(game13);
                     //game13.Run(); // and this
-
                 }
                 //Credit button
                 else if (code == 1)
                 {
+                    PlayNextSong();
                     menuScreen.Detach();
                     menuScreen = null;
                     credit = new Credit(ScreenSize, ExitNotifier);
@@ -99,6 +130,7 @@ namespace Project2
                     game13 = null;
                     combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
                     All.Add(combatScreen);
+                    PlayNextSong();
                 }
             }
             else if (actor == dialogScreen)
@@ -106,24 +138,13 @@ namespace Project2
                 // เมื่อ DialogPanel จบ
                 if (code == 1) // code ที่ใช้บอกว่า DialogPanel จบ
                 {
+                    PlayNextSong();
                     dialogScreen.Detach();
                     dialogScreen = null;
                     game13 = new Game13Tile(ScreenSize, Camera, ExitNotifier); // สร้าง Game13Tile
                     All.Add(game13); // เพิ่ม Game13Tile เข้าในระบบ
                     Debug.WriteLine("DialogPanel finished. Starting Game13Tile.");
                 }
-            }
-
-            else if (actor == inputScreen)
-            {
-                if (code == 1)
-                {
-                    inputScreen.Detach();
-                    inputScreen = null;
-                    menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
-                    All.Add(menuScreen);
-                }
-
             }
             else if (actor == credit)
             {
@@ -141,10 +162,6 @@ namespace Project2
             {
                 if (code == 0)
                 {
-                    if (MediaPlayer.State == MediaState.Playing)
-                    {
-                        MediaPlayer.Stop();
-                    }
                     combatScreen.Detach();
                     combatScreen = null;
                     credit = new Credit(ScreenSize, ExitNotifier);

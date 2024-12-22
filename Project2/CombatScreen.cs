@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Diagnostics;
 using ThanaNita.MonoGameTnt;
-using static System.Net.Mime.MediaTypeNames;
-using Text = ThanaNita.MonoGameTnt.Text;
 
 namespace Project3_1
 {
@@ -29,12 +28,7 @@ namespace Project3_1
         private int eHpNew;
         private int playerHits = 0;
         private int enemyHits = 0;
-        private bool hpUpdated = false; 
-        Panel panel;
-        Text text;
         public Placeholder placeholder = new Placeholder();
-        Button atkBtn, actBtn, runBtn, ltBtn, htBtn, actBtn1 , actBtn2, actBtn3;
-        string[] str;
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
@@ -130,7 +124,7 @@ namespace Project3_1
                 else if (action == ActionBtns.Actions.Run)
                 {
                     placeholder.Add(runPanel);
-                    
+                    runScreen.playSound();
                     Debug.WriteLine(state);
                 }
             }
@@ -164,6 +158,7 @@ namespace Project3_1
                     if (playerStat.Hp <= 0 || enemy.Hp <= 0)
                     {
                         ChangeState(State.TurnEnd);
+                        gOverScreen.playSound();
                     } 
                     else
                     {

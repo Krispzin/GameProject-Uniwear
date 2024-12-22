@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ThanaNita.MonoGameTnt
 {
@@ -8,13 +9,14 @@ namespace ThanaNita.MonoGameTnt
         //------------------- Public Interface -------------------------------
         public delegate void ButtonClickedDelegate(GenericButton button);
         public event ButtonClickedDelegate ButtonClicked = delegate { };
-
+        SoundEffect clickSound = SoundEffect.FromFile("click.wav");
         //------------------- Protected Interface ----------------------------
         protected enum ButtonState { Pressed, Highlight, Normal };
         protected abstract void UpdateVisual(ButtonState state);
         protected void InvokeClick()
         {
             ButtonClicked.Invoke(this); // ยิง event
+            clickSound.Play(0.25f, 0, 0);
         }
         protected GenericButton(Vector2 buttonSize)
         {

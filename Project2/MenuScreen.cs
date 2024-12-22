@@ -15,12 +15,23 @@ namespace Project2
 
     public class MenuScreen : Actor
     {
+        Song song;
         Text text;
         private Button btnstar, btncd, btnexit;
         ExitNotifier exitNotifier;
         public MenuScreen(Vector2 screenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
+
+            //เปลี่ยนเพลงตรงนี้
+            song = Song.FromUri(name: "Song01",
+                new Uri("mytime.ogg", UriKind.Relative));
+
+            //ปรับ Loop
+            MediaPlayer.IsRepeating = true;
+            //ปรับเสียง
+            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Play(song);
 
             text = new Text("ChakraPetch-Regular.ttf", 100, Color.White,
                             "Game 101");
@@ -51,16 +62,19 @@ namespace Project2
         private void next(GenericButton button)
         {
             exitNotifier(this, 0);
+            //MediaPlayer.Stop();
         }
 
         private void credit(GenericButton button)
         {
             exitNotifier(this, 1);
+            //MediaPlayer.Stop();
         }
 
         private void exit(GenericButton button)
         {
             exitNotifier(this, 2);
+            //MediaPlayer.Stop();
         }
 
         // function ให้ปุ่มทำงาน (ย้ายจาก Act เพราะมันทำงานซ้ำจน Lag)

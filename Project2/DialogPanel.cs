@@ -25,7 +25,7 @@ namespace Project3_1
 
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
-            str = ["ทดสอบระบบ สระแม่งติดมั้ยวะ? คุ", "2 asdasdasdasdasd", "3 asdasdasdasdasd"];
+            str = ["เห้ย คุณเข้ามาทำอะไรครับเนี่ย", "คุณจะเข้ามาบุกรุกแบบนี้ไม่ได้นะครับ", "ผมคงต้องกำจัดคุณแล้วล่ะครับ"];
 
             panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
 
