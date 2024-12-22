@@ -18,21 +18,27 @@ namespace Project2
         TextAnimation textAnimation;
         Panel panel;
         Text text;
+        SpriteActor cutScene;
+
         string[] str;
+        string[] scenes;
         public bool finished = false;
         public DialogScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
             //ScreenSizen = screenSize;
+            scenes = ["Content/resource/img/bgUni.png", "Content/resource/img/pantie.png", "Content/resource/img/elevator.png"];
 
             this.exitNotifier = exitNotifier;
-            var bg = new BG(new Vector2(ScreenSize.X / 2, 120));
+
+            cutScene = new SpriteActor();
+            cutScene.SetTexture(TextureCache.Get(scenes[0]));
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
-            str = ["Dialog lorem1", "Dialog lorem2", "Dialog lorem3"];
+            str = ["ณ มหาลัยแห่งหนึ่ง คุณกำลังจะกลับบ้านหลังจากที่คุณเรียนมาทั้งวัน", "แต่กลับลืมของสำคัญของคุณไว้บนตึก เลยต้องกลับขึ้นไปเอาของนั้นคืน", "ของสำคัญสิ่งนั้นคือ 'กางเกงใน' ของคุณ", "ถ้าคุณขาดมันไป ชีวิตของคุณคงจะไม่เป็นสุขอย่างแน่แท้", "คุณจึงเดินกลับไปหน้าลิฟต์เพื่อไปทวงของสำคัญของคุณคืน"];
 
-            panel = new Panel(new Vector2(580, 140), Color.White, Color.Black, 2);
-            panel.Position = new Vector2(30, 300);
-            Add(bg);
+            panel = new Panel(new Vector2(580, 100), Color.White, Color.Black, 2);
+            panel.Position = new Vector2(30, 370);
+            Add(cutScene);
             Add(panel);
 
         }
@@ -44,6 +50,8 @@ namespace Project2
         }
 
         private int currentIndex = 0;
+        private int index = 1;
+
         public void DialogRunner()
         {
             var keyInfo = GlobalKeyboardInfo.Value;
@@ -59,6 +67,14 @@ namespace Project2
                 if (keyInfo.IsKeyPressed(Keys.Space) && currentIndex < str.Length)
                 {
                     RunDialog();
+                    if (currentIndex == 3)
+                    {
+                        SetNextScene();
+                    }
+                    else if (currentIndex == 5)
+                    {
+                        SetNextScene();
+                    }
                 }
                 else if (currentIndex >= str.Length && (textAnimation == null || textAnimation.IsFinished()))
                 {
@@ -80,6 +96,12 @@ namespace Project2
             text.ClearAction();
             text.AddAction(textAnimation = new TextAnimation(text, str[currentIndex], textSpeed: 45));
             currentIndex++;
+        }
+
+        private void SetNextScene()
+        {
+            cutScene.SetTexture(TextureCache.Get(scenes[index]));
+            index++;
         }
     }
 }
