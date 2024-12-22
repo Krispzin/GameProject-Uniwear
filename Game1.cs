@@ -40,9 +40,9 @@ namespace Project2
         {
             CollisionDetectionUnit.AddDetector(1, 2);
 
-            //menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
+            menuScreen = new MenuScreen(ScreenSize, ExitNotifier);
             All.Add(menuScreen);
-            combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
+            //combatScreen = new CombatScreen(ScreenSize, ExitNotifier);
             //All.Add(combatScreen);
 
             MenuSong = Song.FromUri(name: "MenuSong", new Uri("Content/resource/song/mytime.ogg", UriKind.Relative));

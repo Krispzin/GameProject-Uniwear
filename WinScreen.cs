@@ -12,7 +12,7 @@ namespace Project3_1
     public class WinScreen : Actor
     {
         Placeholder placeholder = new Placeholder();
-        SoundEffect victory = SoundEffect.FromFile("Victory.wav");
+        SoundEffect victory = SoundEffect.FromFile("Content/resource/song/Victory.wav");
         Text text;
         public bool played = false;
         public WinScreen(Vector2 screensize)

@@ -22,7 +22,7 @@ namespace Project3_1
         {
             hitTreshhold = new SpriteActor();
             hitTreshhold.SetTexture(TextureCache.Get("Content/resource/img/barTreshold.png"));
-            hitSound = SoundEffect.FromFile("Deflect.wav");
+            hitSound = SoundEffect.FromFile("Content/resource/song/Deflect.wav");
 
             Position = ScreenSize;
 

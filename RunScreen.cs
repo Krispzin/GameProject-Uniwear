@@ -17,7 +17,7 @@ namespace Project3_1
         SoundEffect wrur;
         public RunScreen(Vector2 screensize)
         {
-            wrur = SoundEffect.FromFile("wrur.wav");
+            wrur = SoundEffect.FromFile("Content/resource/song/wrur.wav");
             
             placeholder.Color = new Color(Color, 0);
 

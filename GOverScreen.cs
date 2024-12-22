@@ -17,7 +17,7 @@ namespace Project3_1
         public bool played = false;
         public GOverScreen(Vector2 screensize)
         {
-            youDied = SoundEffect.FromFile("You Died.wav");
+            youDied = SoundEffect.FromFile("Content/resource/song/You Died.wav");
 
             placeholder.Color = new Color(Color, 0);
 
