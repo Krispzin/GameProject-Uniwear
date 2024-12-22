@@ -277,7 +277,7 @@ namespace Game13
         {
             try
             {
-                //System.Diagnostics.Debug.WriteLine($"Tile X: {tileX}, Tile Y: {tileY}");
+                System.Diagnostics.Debug.WriteLine($"Tile X: {tileX}, Tile Y: {tileY}");
             
 
                 int currentTileCode = currentCollisionMap.GetTileCode(new Vector2i(tileX, tileY));
@@ -287,13 +287,13 @@ namespace Game13
                 if (currentTileCode == 16) //goto floor 2 red stair
                 {
                     floor = 2;
-                    Debug.WriteLine(floor);
+                    Debug.WriteLine($"Transitioning to floor 2. Current floor: {floor}");
                     ChangeMapfloor2(floor2_floor, floor2_colision, floor2_wall, floor2_hospital, floor2_hospital2, floor2_generic, floor2_kitchen);
                 }
                 else if (currentTileCode == 32) //goto elevator red door
                 {
                     floor = 88; // floor 88 is elevator
-                    Debug.WriteLine(floor);
+                    Debug.WriteLine($"Transitioning to elevator. Current floor: {floor}");
                     ChangeMapElev(elevator_floor, elevator_colision, elevator_wall, elevator_hospital, elevator_generic, elevator_jail);
                     
                 }
@@ -301,17 +301,15 @@ namespace Game13
                 //floor2
                 else if (currentTileCode == 17)  //goto floor 1 yellow stair
                 {
-                    floor = 1;
-                    Debug.WriteLine(floor);
-                    ChangeMapfloor1(floor1_floor, floor1_colision, floor1_wall, floor1_clothing, floor1_gym, floor1_kitchen, floor1_museum, floor1_Hospital, floor1_generic, floor1_television, floor1_office);                
+                    Debug.WriteLine($"Transitioning to floor 1 from floor 2. Current floor: {floor}");
+                    ChangeMapFromFloor2ToFloor1(floor1_floor, floor1_colision, floor1_wall, floor1_clothing, floor1_gym, floor1_kitchen, floor1_museum, floor1_Hospital, floor1_generic, floor1_television, floor1_office);
                 }
 
                 //elevator
                 else if (currentTileCode == 33)
                 {
-                    floor = 1;
-                    Debug.WriteLine(floor);
-                    ChangeMapfloor1(floor1_floor, floor1_colision, floor1_wall, floor1_clothing, floor1_gym, floor1_kitchen, floor1_museum, floor1_Hospital, floor1_generic, floor1_television, floor1_office);
+                    Debug.WriteLine($"Transitioning to floor 1 from elevator. Current floor: {floor}");
+                    ChangeMapFromElevatorToFloor1(floor1_floor, floor1_colision, floor1_wall, floor1_clothing, floor1_gym, floor1_kitchen, floor1_museum, floor1_Hospital, floor1_generic, floor1_television, floor1_office);
                 }
 
                 //elevator2
@@ -319,7 +317,7 @@ namespace Game13
                 {
                     floor = 18;
                     Debug.WriteLine(floor);
-                    ChangeMapF18Entrance(f18_entrance_floor, f18_entrance_colision, f18_entrance_wall, f18_entrance_tuna, f18_entrance_kitchen, f18_entrance_hospital, f18_entrance_generic, f18_entrance_Classroom);
+                    ChangeFromLiftToMapF18Entrance(f18_entrance_floor, f18_entrance_colision, f18_entrance_wall, f18_entrance_tuna, f18_entrance_kitchen, f18_entrance_hospital, f18_entrance_generic, f18_entrance_Classroom);
                 }
 
                 //f18 entrance
@@ -333,7 +331,7 @@ namespace Game13
                 {
                     floor = 181;
                     Debug.WriteLine(floor);
-                    ChangeMapF18lobby(f18_lobby_floor, f18_lobby_colision, f18_lobby_wall, f18_lobby_chair, f18_lobby_table, f18_lobby_window);
+                    ChangeMapF18lobbyFromEntrance(f18_lobby_floor, f18_lobby_colision, f18_lobby_wall, f18_lobby_chair, f18_lobby_table, f18_lobby_window);
                 }
 
                 //f18 lobby
@@ -355,7 +353,7 @@ namespace Game13
                 {
                     floor = 181;
                     Debug.WriteLine(floor);
-                    ChangeMapF18lobby(f18_lobby_floor, f18_lobby_colision, f18_lobby_wall, f18_lobby_chair, f18_lobby_table, f18_lobby_window);
+                    ChangeMapF18lobbyFromThesis(f18_lobby_floor, f18_lobby_colision, f18_lobby_wall, f18_lobby_chair, f18_lobby_table, f18_lobby_window);
                 }
 
                 // interact section
@@ -368,14 +366,14 @@ namespace Game13
                     //isImageDisplaying = true;
                     floor = 18;
                     Debug.WriteLine(floor);
-                    ChangeMapF18Entrance(f18_entrance_floor, f18_entrance_colision, f18_entrance_wall, f18_entrance_tuna, f18_entrance_kitchen, f18_entrance_hospital, f18_entrance_generic, f18_entrance_Classroom);
+                    ChangeFromLiftToMapF18Entrance(f18_entrance_floor, f18_entrance_colision, f18_entrance_wall, f18_entrance_tuna, f18_entrance_kitchen, f18_entrance_hospital, f18_entrance_generic, f18_entrance_Classroom);
                 }
                 else  if (currentTileCode == 55 && IsEnterPressed())// elevator2 to floor1
                 {
                     System.Diagnostics.Debug.WriteLine("interact");
                     floor = 1;
-                    Debug.WriteLine(floor);
-                    ChangeMapfloor1(floor1_floor, floor1_colision, floor1_wall, floor1_clothing, floor1_gym, floor1_kitchen, floor1_museum, floor1_Hospital, floor1_generic, floor1_television, floor1_office);
+                    Debug.WriteLine($"Transitioning to floor 1 from elevator2. Current floor: {floor}");
+                    ChangeMapFromElevator2ToFloor1(floor1_floor, floor1_colision, floor1_wall, floor1_clothing, floor1_gym, floor1_kitchen, floor1_museum, floor1_Hospital, floor1_generic, floor1_television, floor1_office);
                 }
 
                 else if (currentTileCode == 56 && IsEnterPressed()) //fight noon
@@ -439,7 +437,8 @@ namespace Game13
                     // Update collision map
                     guy.SetCollisionMap(newCollision);
                 }
-                else {
+                else
+                {
                     Vector2 newPosition = newFloor.TileCenter(14, 10);
 
                     // Directly set position bypassing movement methods
@@ -482,7 +481,7 @@ namespace Game13
 
                 System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
 
-                if (floor == 2)
+                if (floor == 2 )
                 {
                     // Coming from floor 2 to floor 1
                     Vector2 newPosition = newFloor.TileCenter(4, 4);
@@ -493,8 +492,9 @@ namespace Game13
                     // Update collision map
                     guy.SetCollisionMap(newCollision);
                 }
-                else {
-                    Vector2 newPosition = newFloor.TileCenter(13, 2);
+                else
+                {
+                    Vector2 newPosition = newFloor.TileCenter(15, 5);
 
                     // Directly set position bypassing movement methods
                     guy.ForcePosition(newPosition);
@@ -530,6 +530,51 @@ namespace Game13
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error in ChangeMap: {ex}");
+            }
+        }
+
+        private void ChangeMapFromFloor2ToFloor1(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4, TileMap t5, TileMap t6, TileMap t7, TileMap t8, TileMap t9)
+        {
+            try
+            {
+                if (guy == null)
+                {
+                    Debug.WriteLine("Error: guy is null in ChangeMap");
+                    return;
+                }
+
+                Debug.WriteLine($"Transitioning from floor 2 to floor 1");
+
+                Vector2 newPosition = newFloor.TileCenter(4, 4);
+                guy.ForcePosition(newPosition);
+                guy.SetCollisionMap(newCollision);
+
+                var newVisual = new Actor();
+                newVisual.Add(newFloor);
+                newVisual.Add(newCollision);
+                newVisual.Add(t1);
+                newVisual.Add(t2);
+                newVisual.Add(t3);
+                newVisual.Add(t4);
+                newVisual.Add(t5);
+                newVisual.Add(t6);
+                newVisual.Add(t7);
+                newVisual.Add(t8);
+                newVisual.Add(t9);
+
+                All.Remove(visual);
+                All.Add(newVisual);
+
+                All.Remove(guy);
+                All.Add(guy);
+
+                visual = newVisual;
+                floor = 1;
+                Debug.WriteLine($"Current floor after transition: {floor}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in ChangeMap: {ex}");
             }
         }
 
@@ -594,7 +639,7 @@ namespace Game13
                 System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
 
                 // Temporarily bypass collision checks
-                Vector2 newPosition = newFloor.TileCenter(14, 10);
+                Vector2 newPosition = newFloor.TileCenter(15, 17);
 
                 // Directly set position bypassing movement methods
                 guy.ForcePosition(newPosition);
@@ -629,6 +674,55 @@ namespace Game13
             }
         }
 
+        private void ChangeFromLiftToMapF18Entrance(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4, TileMap t5, TileMap t6)
+        {
+            try
+            {
+                if (guy == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error: guy is null in ChangeMap");
+                    return;
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
+
+                // Temporarily bypass collision checks
+                Vector2 newPosition = newFloor.TileCenter(13, 3);
+
+                // Directly set position bypassing movement methods
+                guy.ForcePosition(newPosition);
+
+                // Update collision map
+                guy.SetCollisionMap(newCollision);
+
+                // Rest of your existing map change logic
+                var newVisual = new Actor();
+                newVisual.Add(newFloor);
+                newVisual.Add(newCollision);
+                newVisual.Add(t1);
+                newVisual.Add(t2);
+                newVisual.Add(t3);
+                newVisual.Add(t4);
+                newVisual.Add(t5);
+                newVisual.Add(t6);
+
+                All.Remove(visual);
+                All.Add(newVisual);
+
+                All.Remove(guy);
+                All.Add(guy);
+
+                visual = newVisual;
+
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ChangeMap: {ex}");
+            }
+        }
+
+
         //change map to floor 18 lobby with 6 layers
         private void ChangeMapF18lobby(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4)
         {
@@ -644,6 +738,98 @@ namespace Game13
 
                 // Temporarily bypass collision checks
                 Vector2 newPosition = newFloor.TileCenter(14, 10);
+
+                // Directly set position bypassing movement methods
+                guy.ForcePosition(newPosition);
+
+                // Update collision map
+                guy.SetCollisionMap(newCollision);
+
+                // Rest of your existing map change logic
+                var newVisual = new Actor();
+                newVisual.Add(newFloor);
+                newVisual.Add(newCollision);
+                newVisual.Add(t1);
+                newVisual.Add(t2);
+                newVisual.Add(t3);
+                newVisual.Add(t4);
+
+                All.Remove(visual);
+                All.Add(newVisual);
+
+                All.Remove(guy);
+                All.Add(guy);
+
+                visual = newVisual;
+
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ChangeMap: {ex}");
+            }
+        }
+
+        private void ChangeMapF18lobbyFromThesis(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4)
+        {
+            try
+            {
+                if (guy == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error: guy is null in ChangeMap");
+                    return;
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
+
+                // Temporarily bypass collision checks
+                Vector2 newPosition = newFloor.TileCenter(3, 9);
+
+                // Directly set position bypassing movement methods
+                guy.ForcePosition(newPosition);
+
+                // Update collision map
+                guy.SetCollisionMap(newCollision);
+
+                // Rest of your existing map change logic
+                var newVisual = new Actor();
+                newVisual.Add(newFloor);
+                newVisual.Add(newCollision);
+                newVisual.Add(t1);
+                newVisual.Add(t2);
+                newVisual.Add(t3);
+                newVisual.Add(t4);
+
+                All.Remove(visual);
+                All.Add(newVisual);
+
+                All.Remove(guy);
+                All.Add(guy);
+
+                visual = newVisual;
+
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ChangeMap: {ex}");
+            }
+        }
+
+        private void ChangeMapF18lobbyFromEntrance(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4)
+        {
+            try
+            {
+                if (guy == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error: guy is null in ChangeMap");
+                    return;
+                }
+
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
+
+                // Temporarily bypass collision checks
+                Vector2 newPosition = newFloor.TileCenter(11, 17);
 
                 // Directly set position bypassing movement methods
                 guy.ForcePosition(newPosition);
@@ -723,6 +909,96 @@ namespace Game13
             }
         }
         
+        private void ChangeMapFromElevatorToFloor1(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4, TileMap t5, TileMap t6, TileMap t7, TileMap t8, TileMap t9)
+        {
+            try
+            {
+                if (guy == null)
+                {
+                    Debug.WriteLine("Error: guy is null in ChangeMap");
+                    return;
+                }
+
+                Debug.WriteLine($"Transitioning from elevator to floor 1");
+
+                Vector2 newPosition = newFloor.TileCenter(13,2);
+                guy.ForcePosition(newPosition);
+                guy.SetCollisionMap(newCollision);
+
+                var newVisual = new Actor();
+                newVisual.Add(newFloor);
+                newVisual.Add(newCollision);
+                newVisual.Add(t1);
+                newVisual.Add(t2);
+                newVisual.Add(t3);
+                newVisual.Add(t4);
+                newVisual.Add(t5);
+                newVisual.Add(t6);
+                newVisual.Add(t7);
+                newVisual.Add(t8);
+                newVisual.Add(t9);
+
+                All.Remove(visual);
+                All.Add(newVisual);
+
+                All.Remove(guy);
+                All.Add(guy);
+
+                visual = newVisual;
+                floor = 1;
+                Debug.WriteLine($"Current floor after transition: {floor}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in ChangeMap: {ex}");
+            }
+        }
+        //change map to elevator2 to Floor1
+        private void ChangeMapFromElevator2ToFloor1(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4, TileMap t5, TileMap t6, TileMap t7, TileMap t8, TileMap t9)
+        {
+            try
+            {
+                if (guy == null)
+                {
+                    Debug.WriteLine("Error: guy is null in ChangeMap");
+                    return;
+                }
+
+                Debug.WriteLine($"Transitioning from elevator2 to floor 1");
+
+                Vector2 newPosition = newFloor.TileCenter(22, 7);
+                guy.ForcePosition(newPosition);
+                guy.SetCollisionMap(newCollision);
+
+                var newVisual = new Actor();
+                newVisual.Add(newFloor);
+                newVisual.Add(newCollision);
+                newVisual.Add(t1);
+                newVisual.Add(t2);
+                newVisual.Add(t3);
+                newVisual.Add(t4);
+                newVisual.Add(t5);
+                newVisual.Add(t6);
+                newVisual.Add(t7);
+                newVisual.Add(t8);
+                newVisual.Add(t9);
+
+                All.Remove(visual);
+                All.Add(newVisual);
+
+                All.Remove(guy);
+                All.Add(guy);
+
+                visual = newVisual;
+                floor = 1;
+                Debug.WriteLine($"Current floor after transition: {floor}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in ChangeMap: {ex}");
+            }
+        }
+
         //change map to thesis with 8 layers
         private void ChangeMapThesis(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4, TileMap t5, TileMap tnoon)
         {
