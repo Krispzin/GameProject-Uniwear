@@ -418,7 +418,7 @@ namespace Game13
             
         }
 
-        private void ChangeMap(TileMap newFloor, TileMap newCollision)
+        private void ChangeMap(TileMap newFloor, TileMap newCollision, TileMap t1, TileMap t2, TileMap t3, TileMap t4, TileMap t5, TileMap t6, TileMap t7, TileMap t8, TileMap t9)
         {
             try
             {
@@ -480,6 +480,8 @@ namespace Game13
                     return;
                 }
 
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
+
                 if (floor == 2)
                 {
                     // Coming from floor 2 to floor 1
@@ -491,19 +493,8 @@ namespace Game13
                     // Update collision map
                     guy.SetCollisionMap(newCollision);
                 }
-                else if (floor == 89)
-                {
-                    // Coming from elevator to floor 1
-                    Vector2 newPosition = newFloor.TileCenter(15, 15);
-
-                    // Directly set position bypassing movement methods
-                    guy.ForcePosition(newPosition);
-
-                    // Update collision map
-                    guy.SetCollisionMap(newCollision);
-                }
                 else {
-                    Vector2 newPosition = newFloor.TileCenter(14, 10);
+                    Vector2 newPosition = newFloor.TileCenter(13, 2);
 
                     // Directly set position bypassing movement methods
                     guy.ForcePosition(newPosition);
@@ -552,26 +543,16 @@ namespace Game13
                     return;
                 }
 
-                if (floor == 1)
-                {
-                    // Temporarily bypass collision checks
-                    Vector2 newPosition = newFloor.TileCenter(4, 4);
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
 
-                    // Directly set position bypassing movement methods
-                    guy.ForcePosition(newPosition);
+                Vector2 newPosition = newFloor.TileCenter(4, 5);
 
-                    // Update collision map
-                    guy.SetCollisionMap(newCollision);
-                }
-                else {
-                    Vector2 newPosition = newFloor.TileCenter(14, 10);
+                // Directly set position bypassing movement methods
+                guy.ForcePosition(newPosition);
 
-                    // Directly set position bypassing movement methods
-                    guy.ForcePosition(newPosition);
+                // Update collision map
+                guy.SetCollisionMap(newCollision);
 
-                    // Update collision map
-                    guy.SetCollisionMap(newCollision);
-                }
 
                 // Rest of your existing map change logic
                 var newVisual = new Actor();
@@ -609,6 +590,8 @@ namespace Game13
                     System.Diagnostics.Debug.WriteLine("Error: guy is null in ChangeMap");
                     return;
                 }
+
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
 
                 // Temporarily bypass collision checks
                 Vector2 newPosition = newFloor.TileCenter(14, 10);
@@ -657,6 +640,8 @@ namespace Game13
                     return;
                 }
 
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
+
                 // Temporarily bypass collision checks
                 Vector2 newPosition = newFloor.TileCenter(14, 10);
 
@@ -702,6 +687,8 @@ namespace Game13
                     return;
                 }
 
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
+
                 // Temporarily bypass collision checks
                 Vector2 newPosition = newFloor.TileCenter(14, 10);
 
@@ -746,6 +733,8 @@ namespace Game13
                     System.Diagnostics.Debug.WriteLine("Error: guy is null in ChangeMap");
                     return;
                 }
+
+                System.Diagnostics.Debug.WriteLine($"Current floor: {floor}");
 
                 // Temporarily bypass collision checks
                 Vector2 newPosition = newFloor.TileCenter(23, 18);
@@ -793,7 +782,7 @@ namespace Game13
             visual.Add(newFloor);
             visual.Add(newCollision);
 
-      
+
 
             // Remove the old visual from All and add the new one
             All.Remove(visual);
