@@ -37,8 +37,6 @@ namespace Project2
             MediaPlayer.Play(song);
 
             cutScene = new SpriteActor();
-            cutScene.Origin = cutScene.RawSize / 2;
-            
             cutScene.SetTexture(TextureCache.Get(scenes[0]));
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };

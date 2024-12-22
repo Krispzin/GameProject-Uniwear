@@ -54,7 +54,7 @@ namespace Project2
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
 
             // Start playing the first song
-            PlayNextSong();
+            //PlayNextSong();
 
             songs.Add(MenuSong);
             songs.Add(DialogSong);
