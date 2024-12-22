@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Project3_1;
 using System.Collections.Generic;
 
+
 namespace Project2
 {
     public class Game1 : Game2D
@@ -98,7 +99,7 @@ namespace Project2
                     //game13 = new Game13Tile(ScreenSize, Camera, ExitNotifier);// <<<< use this
                     dialogScreen = new DialogScreen(ScreenSize, ExitNotifier);
                     All.Add(dialogScreen);
-                    //All.Add(game13);
+                    //Add(game13);
                     //game13.Run(); // and this
                 }
                 //Credit button
