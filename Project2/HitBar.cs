@@ -16,17 +16,19 @@ namespace Project3_1
         public CollisionObj hitCollisionObj;
         public int hitTimes;
         SoundEffect hitSound;
-
+        SpriteActor hitTreshhold;
         public HitBar(Vector2 ScreenSize)
             : base(Color.LightGray, new Vector2(3, 125))
         {
+            hitTreshhold = new SpriteActor();
+            hitTreshhold.SetTexture(TextureCache.Get("Content/resource/img/barTreshold.png"));
             hitSound = SoundEffect.FromFile("Deflect.wav");
 
             Position = ScreenSize;
 
             hitTimes = 0;
 
-            hitCollisionObj = CollisionObj.CreateWithRect(this, RawRect.CreateAdjusted(6.33f, 1f),1);
+            hitCollisionObj = CollisionObj.CreateWithRect(this, RawRect.CreateAdjusted(6.66f, 1f),1);
             hitCollisionObj.OnCollide = OnCollide;
             hitCollisionObj.DebugDraw = true;
             //Add(collisionObj);
@@ -41,10 +43,12 @@ namespace Project3_1
             if (keyInfo.IsRightButtonPressed())
             {
                 Add(hitCollisionObj);
+                Add(hitTreshhold);
             }
             else
             {
                 Remove(hitCollisionObj);
+                Remove(hitTreshhold);
             }
         }
 
