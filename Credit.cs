@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using ThanaNita.MonoGameTnt;
 
 namespace Project2
@@ -19,6 +20,11 @@ namespace Project2
         public Credit(Vector2 screenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
+
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Stop();
+            }
 
             var bg = new SpriteActor();
             bg.SetTexture(TextureCache.Get("Content/resource/img/Credit.png"));

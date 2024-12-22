@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Diagnostics;
 using ThanaNita.MonoGameTnt;
@@ -21,6 +22,8 @@ namespace Project3_1
         GOverScreen gOverScreen;
         WinScreen winScreen;
         RunScreen runScreen;
+        Song song;
+
         public enum State { Init, PPreTurn, PlayerAction, StatusUpdate, TurnEnd , ExitBattle }
         public State state = State.Init;
         public Actor dialogPanel, actionBtns, attackPanel ,actScreen , actPanel, runPanel;
@@ -33,6 +36,15 @@ namespace Project3_1
         public CombatScreen(Vector2 ScreenSize, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
+
+            song = Song.FromUri(name: "Song01",
+                    new Uri("Content/resource/song/Vordt of the Boreal Valley.ogg", UriKind.Relative));
+
+            //ปรับ Loop
+            MediaPlayer.IsRepeating = true;
+            //ปรับเสียง
+            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Play(song);
 
             enemy = new Enemy(new Vector2(320, 120));
 
@@ -264,17 +276,21 @@ namespace Project3_1
         {
             var keyInfo = GlobalMouseInfo.Value;
 
-            if (playerStat.Hp > 0) 
+            if (playerStat.Hp > 0 && state == State.TurnEnd) 
             {
                 if (keyInfo.IsLeftButtonPressed())
                     placeholder.AddAction(new SequenceAction(Actions.FadeOut(1f, this), new RunAction(() => exitNotifier(this, 0))));
             }
-            else if (playerStat.Hp <= 0)
+            //else if (state == State.ExitBattle)
+            //{
+            //    if (keyInfo.IsLeftButtonPressed())
+            //        placeholder.AddAction(new SequenceAction(Actions.FadeOut(1f, this), new RunAction(() => exitNotifier(this, 2))));
+            //}
+            else if (playerStat.Hp <= 0 || state == State.ExitBattle)
             {
                 if (keyInfo.IsLeftButtonPressed())
                     placeholder.AddAction(new SequenceAction(Actions.FadeOut(1f, this), new RunAction(() => exitNotifier(this, 1))));
             }
-
         }
     }
 }

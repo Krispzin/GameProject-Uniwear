@@ -28,7 +28,7 @@ namespace Project2
 
             this.exitNotifier = exitNotifier;
 
-            song = Song.FromUri(name: "Song01", new Uri("Your Best Friend.ogg", UriKind.Relative));
+            song = Song.FromUri(name: "Song01", new Uri("Content/resource/song/Your Best Friend.ogg", UriKind.Relative));
 
             //ปรับ Loop
             MediaPlayer.IsRepeating = true;
@@ -40,7 +40,7 @@ namespace Project2
             cutScene.SetTexture(TextureCache.Get(scenes[0]));
 
             text = new Text("ChakraPetch-Regular.ttf", 25, Color.Black, "") { Position = new(5, 5) };
-            str = ["'ในที่สุด กางเกงในของเราก็กลับคืนมาแล้ว!!!'", "จากนั้นคุณก็ใส่กางเกงในของคุณกลับคืนมา", "ชีวิตของคุณกลับมามีสีสันอีกครั้ง", "--จบ Demo--"];
+            str = ["'ในที่สุด กางเกงในของเราก็กลับคืนมาแล้ว!!!'", "จากนั้นคุณก็ใส่กางเกงในของคุณ ความรู้สึกสบายใจมันถาโถม\nเข้าไปที่ก้นของคุณ", "ชีวิตของคุณกลับมามีสีสันอีกครั้ง", "--จบ Demo--"];
 
             panel = new Panel(new Vector2(580, 100), Color.White, Color.Black, 2);
             panel.Position = new Vector2(30, 370);

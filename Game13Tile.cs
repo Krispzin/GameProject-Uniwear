@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended;
 using System;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ namespace Project2
     public class Game13Tile : Actor
     {
         ExitNotifier exitNotifier;
+        Song song;
         public CameraMan cameraMan;
         //floor1
         private TileMap floor1_floor;
@@ -99,6 +101,15 @@ namespace Project2
         public Game13Tile(Vector2 ScreenSize, OrthographicCamera camera, ExitNotifier exitNotifier)
         {
             this.exitNotifier = exitNotifier;
+
+            song = Song.FromUri(name: "Song01",
+                    new Uri("Content/resource/song/Hotel.ogg", UriKind.Relative));
+
+            //ปรับ Loop
+            MediaPlayer.IsRepeating = true;
+            //ปรับเสียง
+            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Play(song);
 
             var builder = new TileMapBuilder();
 
